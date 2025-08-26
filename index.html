@@ -1,0 +1,413 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Word Whiz: A Vocabulary Game Test Version</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            transition: background-color 0.5s, color 0.5s; /* Smooth transition */
+            background-color: #1a1a1a; /* Dark background */
+            background-image: radial-gradient(#333 1px, transparent 1px);
+            background-size: 20px 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            color: #e0e0e0; /* Light text for readability */
+        }
+
+        /* Light mode styles */
+        .light-mode {
+            background-color: #f0f0f5; /* Light background */
+            background-image: radial-gradient(#ccc 1px, transparent 1px);
+            color: #1a1a1a; /* Dark text */
+        }
+        
+        .light-mode #game-container {
+            background-color: #fff;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        .light-mode .text-cyan-400 {
+            color: #0d9488; /* Tailwind's teal-600 */
+        }
+        
+        .light-mode .bg-gray-900 {
+            background-color: #fff;
+        }
+
+        .light-mode .bg-gray-800 {
+            background-color: #f9fafb; /* Light gray background for instruction box */
+            border-color: #e5e7eb; /* Light gray border */
+        }
+
+        .light-mode .text-gray-400 {
+            color: #4b5563;
+        }
+
+        .light-mode .text-white {
+            color: #1f2937;
+        }
+
+        .light-mode .bg-gray-700 {
+            background-color: #e5e7eb;
+        }
+
+        .light-mode .hover\:bg-gray-600:hover {
+            background-color: #d1d5db;
+        }
+
+        .light-mode .bg-gray-800:hover {
+            background-color: #e5e7eb;
+        }
+        
+        /* A custom class for the animated button hover effect */
+        .animated-button-hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Styles for the falling emojis */
+        .emoji-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            pointer-events: none; /* Allows clicks to pass through */
+        }
+
+        .emoji {
+            position: absolute;
+            font-size: 2rem;
+            animation: fall linear forwards;
+            opacity: 0;
+        }
+
+        /* Keyframes for the falling animation */
+        @keyframes fall {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Styles for the toggle button */
+        #theme-toggle {
+            position: fixed;
+            top: 1.5rem;
+            right: 1.5rem;
+            background: none;
+            border: none;
+            font-size: 2rem;
+            cursor: pointer;
+            z-index: 50;
+            transition: transform 0.2s;
+        }
+
+        #theme-toggle:hover {
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center min-h-screen">
+    <button id="theme-toggle" class="text-white">
+        <span id="sun-icon">☀️</span>
+        <span id="moon-icon" class="hidden">🌙</span>
+    </button>
+    
+
+    <div id="game-container" class="bg-gray-900 p-8 rounded-3xl shadow-2xl max-w-lg w-full text-center space-y-6 transform transition-all duration-300 scale-95 opacity-0">
+        <h1 class="text-4xl font-bold text-cyan-400">Word Whiz! 🧠</h1>
+
+        <p id="score-display" class="text-lg font-bold text-gray-400">Score: 0</p>
+
+        <div id="start-screen" class="space-y-4">
+            <p class="text-lg text-gray-400">Test your English vocabulary skills!</p>
+            
+            <div id="instructions-section" class="text-left bg-gray-800 p-4 rounded-xl border-2 border-gray-700">
+                <h2 class="text-lg font-bold text-cyan-400 mb-2">How to Play:</h2>
+                <ul class="list-disc list-inside text-gray-400 space-y-1">
+                    <li>Click "Start Game" to begin.</li>
+                    <li>Read the **word** and its **definition**.</li>
+                    <li>Choose the correct word from the four options provided.</li>
+                    <li>The game will automatically move to the next question.</li>
+                    <li>Your final score will be displayed at the end.</li>
+                </ul>
+            </div>
+            
+            <button id="start-button" class="bg-cyan-500 text-gray-900 font-bold py-3 px-8 rounded-full shadow-lg hover:bg-cyan-600 transition duration-300 transform hover:scale-105">
+                Start Game
+            </button>
+        </div>
+
+        <div id="quiz-screen" class="hidden space-y-6">
+            <div class="bg-gray-800 p-6 rounded-xl border-2 border-gray-700">
+                <h2 id="word-display" class="text-2xl font-bold text-white mb-2"></h2>
+                <p id="definition-display" class="text-lg text-gray-400 italic"></p>
+            </div>
+            
+            <div id="options-container" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                </div>
+
+            <p id="feedback-message" class="text-xl font-bold mt-4"></p>
+            <button id="next-button" class="hidden bg-gray-700 text-white font-bold py-3 px-6 rounded-full hover:bg-gray-600 transition duration-300 transform hover:scale-105">
+                Next Question
+            </button>
+        </div>
+
+        <div id="score-screen" class="hidden space-y-4">
+            <h2 id="final-score" class="text-3xl font-bold text-white"></h2>
+            <button id="restart-button" class="bg-green-500 text-white font-bold py-3 px-8 rounded-full shadow-lg hover:bg-green-600 transition duration-300 transform hover:scale-105">
+                Play Again
+            </button>
+        </div>
+    </div>
+
+    <div id="emoji-container" class="emoji-container"></div>
+
+    <script>
+        // Data for the game: an array of objects. Each object is a question.
+        // It's a great teaching point to show how to structure data for a game.
+        const questions = [
+            {
+                word: "Ubiquitous",
+                definition: "Present, appearing, or found everywhere.",
+                options: ["Very large", "Present everywhere", "Highly intelligent", "Hard to find"],
+                correctAnswer: "Present everywhere" // Corrected data structure
+            },
+            {
+                word: "Pernicious",
+                definition: "Having a harmful effect, especially in a gradual or subtle way.",
+                options: ["Very loud", "Extremely beneficial", "Harmful and subtle", "Easy to understand"],
+                correctAnswer: "Harmful and subtle"
+            },
+            {
+                word: "Ephemeral",
+                definition: "Lasting for a very short time.",
+                options: ["Very old", "Lasting a short time", "Always present", "Full of energy"],
+                correctAnswer: "Lasting a short time"
+            },
+            {
+                word: "Salient",
+                definition: "Most noticeable or important.",
+                options: ["Very quiet", "Not important", "Most noticeable", "Hidden from view"],
+                correctAnswer: "Most noticeable" // The fix for your specific bug
+            },
+            {
+                word: "Capricious",
+                definition: "Given to sudden and unaccountable changes of mood or behavior.",
+                options: ["Full of joy", "Steady and predictable", "Changing suddenly", "Very sad"],
+                correctAnswer: "Changing suddenly"
+            },
+            {
+                word: "Zephyr",
+                definition: "A soft gentle breeze.",
+                options: ["A cold wind", "A gentle breeze", "A loud noise", "A bright light"],
+                correctAnswer: "A gentle breeze"
+            },
+            {
+                word: "Mellifluous",
+                definition: "Sweet or musical; pleasant to hear.",
+                options: ["Having a bad smell", "Full of color", "Pleasant to hear", "Hard to pronounce"],
+                correctAnswer: "Pleasant to hear"
+            }
+        ];
+
+        // Let's get references to our HTML elements so we can manipulate them.
+        const startScreen = document.getElementById('start-screen');
+        const quizScreen = document.getElementById('quiz-screen');
+        const scoreScreen = document.getElementById('score-screen');
+        const startButton = document.getElementById('start-button');
+        const restartButton = document.getElementById('restart-button');
+        const wordDisplay = document.getElementById('word-display');
+        const definitionDisplay = document.getElementById('definition-display');
+        const optionsContainer = document.getElementById('options-container');
+        const feedbackMessage = document.getElementById('feedback-message');
+        const nextButton = document.getElementById('next-button');
+        const gameContainer = document.getElementById('game-container');
+        const finalScore = document.getElementById('final-score');
+        const scoreDisplay = document.getElementById('score-display');
+        const emojiContainer = document.getElementById('emoji-container');
+        
+        // References for theme toggle
+        const body = document.body;
+        const themeToggle = document.getElementById('theme-toggle');
+        const sunIcon = document.getElementById('sun-icon');
+        const moonIcon = document.getElementById('moon-icon');
+
+        // These variables will keep track of the game's state.
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let shuffledQuestions = [];
+
+        // This function shuffles the questions array so the game is different each time.
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
+
+        // This function starts the game by showing the quiz screen and loading the first question.
+        function startGame() {
+            score = 0;
+            currentQuestionIndex = 0;
+            scoreDisplay.textContent = `Score: ${score}`;
+            shuffleArray(questions);
+            shuffledQuestions = questions.slice(); // Create a copy of the shuffled array
+            startScreen.classList.add('hidden');
+            quizScreen.classList.remove('hidden');
+            scoreScreen.classList.add('hidden');
+            nextButton.classList.add('hidden');
+            gameContainer.style.transform = 'scale(1)';
+            gameContainer.style.opacity = '1';
+            loadQuestion();
+        }
+
+        // This function loads a new question from our array and displays it.
+        function loadQuestion() {
+            // If there are no more questions, end the game.
+            if (currentQuestionIndex >= shuffledQuestions.length) {
+                endGame();
+                return;
+            }
+
+            const currentQuestion = shuffledQuestions[currentQuestionIndex];
+            wordDisplay.textContent = currentQuestion.word;
+            definitionDisplay.textContent = currentQuestion.definition;
+            optionsContainer.innerHTML = ''; // Clear previous options
+            feedbackMessage.textContent = ''; // Clear feedback message
+            nextButton.classList.add('hidden'); // Hide the next button
+
+            // Re-enable all buttons
+            optionsContainer.querySelectorAll('button').forEach(btn => btn.disabled = false);
+
+            // We create a button for each option in the question.
+            currentQuestion.options.forEach(option => {
+                const button = document.createElement('button');
+                button.textContent = option;
+                button.classList.add('bg-gray-800', 'text-gray-200', 'font-semibold', 'py-3', 'px-4', 'rounded-full', 'shadow', 'hover:bg-gray-700', 'transition', 'duration-200', 'text-sm', 'sm:text-base');
+                button.addEventListener('click', () => checkAnswer(option, currentQuestion.correctAnswer, button)); // Now uses correctAnswer
+                optionsContainer.appendChild(button);
+            });
+        }
+        
+        // Function to create a confetti-like emoji effect
+        function createEmojiRain() {
+            const emojis = ['🎉', '✨', '🌟', '🥳', '🤩'];
+            const numEmojis = 20;
+
+            for (let i = 0; i < numEmojis; i++) {
+                const emoji = document.createElement('div');
+                emoji.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+                emoji.classList.add('emoji');
+
+                const startX = Math.random() * window.innerWidth;
+                const duration = Math.random() * 2 + 3; // 3 to 5 seconds
+                const delay = Math.random() * 0.5; // 0 to 0.5 seconds
+
+                emoji.style.left = `${startX}px`;
+                emoji.style.animationDuration = `${duration}s`;
+                emoji.style.animationDelay = `${delay}s`;
+
+                emojiContainer.appendChild(emoji);
+
+                // Remove emoji after animation to prevent clutter
+                emoji.addEventListener('animationend', () => {
+                    emoji.remove();
+                });
+            }
+        }
+
+        // This function is called when the user clicks an answer button.
+        // It now takes the correct answer directly as a parameter.
+        function checkAnswer(selectedOption, correctAnswer, buttonElement) {
+            // First, disable all the buttons to prevent multiple clicks.
+            optionsContainer.querySelectorAll('button').forEach(btn => btn.disabled = true);
+
+            // Check if the selected option is correct.
+            if (selectedOption === correctAnswer) {
+                score++; // Add to the score
+                scoreDisplay.textContent = `Score: ${score}`;
+                feedbackMessage.textContent = "Correct! Great job! ✨";
+                feedbackMessage.classList.remove('text-red-400');
+                feedbackMessage.classList.add('text-green-400');
+                buttonElement.classList.remove('bg-gray-800', 'hover:bg-gray-700');
+                buttonElement.classList.add('bg-green-500', 'text-white', 'animated-button-hover');
+                createEmojiRain(); // Call the new emoji function
+            } else {
+                feedbackMessage.textContent = `Incorrect. The correct answer is ${correctAnswer}. 😔`;
+                feedbackMessage.classList.remove('text-green-400');
+                feedbackMessage.classList.add('text-red-400');
+                buttonElement.classList.remove('bg-gray-800', 'hover:bg-gray-700');
+                buttonElement.classList.add('bg-red-500', 'text-white', 'animated-button-hover');
+                // Highlight the correct answer
+                optionsContainer.querySelectorAll('button').forEach(btn => {
+                    if (btn.textContent === correctAnswer) {
+                        btn.classList.add('bg-green-500', 'text-white', 'border-2', 'border-green-700');
+                    }
+                });
+            }
+
+            // Show the next button after a short delay
+            setTimeout(() => {
+                nextButton.classList.remove('hidden');
+            }, 3000); // Wait 3 seconds before showing the button
+        }
+
+        // This function is called when the game is over.
+        function endGame() {
+            quizScreen.classList.add('hidden');
+            scoreScreen.classList.remove('hidden');
+            finalScore.textContent = `You got ${score} out of ${shuffledQuestions.length} correct! 🥳`;
+        }
+
+        // Add event listeners to the start and restart buttons.
+        startButton.addEventListener('click', startGame);
+        restartButton.addEventListener('click', startGame);
+        nextButton.addEventListener('click', () => {
+            currentQuestionIndex++;
+            loadQuestion();
+        });
+
+        // Function to toggle between light and dark mode
+        function toggleTheme() {
+            body.classList.toggle('light-mode');
+            sunIcon.classList.toggle('hidden');
+            moonIcon.classList.toggle('hidden');
+            // Change button color based on theme
+            if (body.classList.contains('light-mode')) {
+                themeToggle.classList.remove('text-white');
+                themeToggle.classList.add('text-gray-800');
+            } else {
+                themeToggle.classList.remove('text-gray-800');
+                themeToggle.classList.add('text-white');
+            }
+        }
+        
+        // Add event listener to the theme toggle button
+        themeToggle.addEventListener('click', toggleTheme);
+
+        // Initial state: Make the game container visible on page load with a nice animation.
+        window.onload = function() {
+            gameContainer.style.transform = 'scale(1)';
+            gameContainer.style.opacity = '1';
+        };
+    </script>
+
+</body>
+</html>
