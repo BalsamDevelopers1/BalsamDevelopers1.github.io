@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -121,6 +120,21 @@
         #theme-toggle:hover {
             transform: scale(1.1);
         }
+        
+        #timer-bar-container {
+            width: 100%;
+            background-color: #4b5563;
+            border-radius: 9999px;
+            height: 8px;
+            overflow: hidden;
+            margin-top: 1rem;
+        }
+        
+        #timer-bar {
+            height: 100%;
+            background-color: #34d399; /* Green-500 */
+            transition: width 1s linear;
+        }
     </style>
 </head>
 <body class="flex items-center justify-center min-h-screen">
@@ -142,10 +156,10 @@
                 <h2 class="text-lg font-bold text-cyan-400 mb-2">How to Play:</h2>
                 <ul class="list-disc list-inside text-gray-400 space-y-1">
                     <li>Click "Start Game" to begin.</li>
-                    <li>Read the **word** and its **definition**.</li>
+                    <li>Read the word, its definition, and an example sentence.</li>
                     <li>Choose the correct word from the four options provided.</li>
-                    <li>The game will automatically move to the next question.</li>
-                    <li>Your final score will be displayed at the end.</li>
+                    <li>The game will move to the next question automatically after a short delay.</li>
+                    <li>The final score and a full summary of your performance will be displayed at the end.</li>
                 </ul>
             </div>
             
@@ -157,20 +171,26 @@
         <div id="quiz-screen" class="hidden space-y-6">
             <div class="bg-gray-800 p-6 rounded-xl border-2 border-gray-700">
                 <h2 id="word-display" class="text-2xl font-bold text-white mb-2"></h2>
-                <p id="definition-display" class="text-lg text-gray-400 italic"></p>
+                <p id="definition-display" class="text-lg text-gray-400 italic mb-2"></p>
+                <p id="example-sentence-display" class="text-md text-gray-500 italic"></p>
             </div>
             
             <div id="options-container" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                </div>
+            </div>
+            
+            <div id="timer-bar-container" class="mt-4">
+                <div id="timer-bar" class="w-full"></div>
+            </div>
 
             <p id="feedback-message" class="text-xl font-bold mt-4"></p>
-            <button id="next-button" class="hidden bg-gray-700 text-white font-bold py-3 px-6 rounded-full hover:bg-gray-600 transition duration-300 transform hover:scale-105">
-                Next Question
-            </button>
         </div>
 
         <div id="score-screen" class="hidden space-y-4">
             <h2 id="final-score" class="text-3xl font-bold text-white"></h2>
+            <div id="review-container" class="space-y-2 text-left bg-gray-800 p-4 rounded-xl max-h-64 overflow-y-auto">
+                <h3 class="text-xl font-bold text-cyan-400">Review your answers:</h3>
+                <ul id="review-list" class="text-gray-400"></ul>
+            </div>
             <button id="restart-button" class="bg-green-500 text-white font-bold py-3 px-8 rounded-full shadow-lg hover:bg-green-600 transition duration-300 transform hover:scale-105">
                 Play Again
             </button>
@@ -181,49 +201,83 @@
 
     <script>
         // Data for the game: an array of objects. Each object is a question.
-        // It's a great teaching point to show how to structure data for a game.
         const questions = [
             {
                 word: "Ubiquitous",
                 definition: "Present, appearing, or found everywhere.",
+                exampleSentence: "In the modern world, smartphones have become **ubiquitous**.",
                 options: ["Very large", "Present everywhere", "Highly intelligent", "Hard to find"],
-                correctAnswer: "Present everywhere" // Corrected data structure
+                correctAnswer: "Present everywhere"
             },
             {
                 word: "Pernicious",
                 definition: "Having a harmful effect, especially in a gradual or subtle way.",
+                exampleSentence: "The **pernicious** rumor slowly eroded her reputation.",
                 options: ["Very loud", "Extremely beneficial", "Harmful and subtle", "Easy to understand"],
                 correctAnswer: "Harmful and subtle"
             },
             {
                 word: "Ephemeral",
                 definition: "Lasting for a very short time.",
+                exampleSentence: "The beauty of a sunset is **ephemeral**.",
                 options: ["Very old", "Lasting a short time", "Always present", "Full of energy"],
                 correctAnswer: "Lasting a short time"
             },
             {
                 word: "Salient",
                 definition: "Most noticeable or important.",
+                exampleSentence: "The **salient** points of the lecture were highlighted in the summary.",
                 options: ["Very quiet", "Not important", "Most noticeable", "Hidden from view"],
-                correctAnswer: "Most noticeable" // The fix for your specific bug
+                correctAnswer: "Most noticeable"
             },
             {
                 word: "Capricious",
                 definition: "Given to sudden and unaccountable changes of mood or behavior.",
+                exampleSentence: "Her **capricious** decisions made it difficult to plan anything.",
                 options: ["Full of joy", "Steady and predictable", "Changing suddenly", "Very sad"],
                 correctAnswer: "Changing suddenly"
             },
             {
                 word: "Zephyr",
                 definition: "A soft gentle breeze.",
+                exampleSentence: "A light **zephyr** rustled the leaves on the trees.",
                 options: ["A cold wind", "A gentle breeze", "A loud noise", "A bright light"],
                 correctAnswer: "A gentle breeze"
             },
             {
                 word: "Mellifluous",
                 definition: "Sweet or musical; pleasant to hear.",
+                exampleSentence: "The singer's **mellifluous** voice charmed the audience.",
                 options: ["Having a bad smell", "Full of color", "Pleasant to hear", "Hard to pronounce"],
                 correctAnswer: "Pleasant to hear"
+            },
+            {
+                word: "Cacophony",
+                definition: "A harsh, discordant mixture of sounds.",
+                exampleSentence: "The band's first rehearsal was a **cacophony** of off-key notes.",
+                options: ["A pleasant melody", "A beautiful painting", "A mixture of sounds", "A harsh, discordant sound"],
+                correctAnswer: "A harsh, discordant sound"
+            },
+            {
+                word: "Insidious",
+                definition: "Proceeding in a gradual, subtle way, but with harmful effects.",
+                exampleSentence: "The **insidious** disease spread without any noticeable symptoms at first.",
+                options: ["Very friendly", "Healing quickly", "Spreading openly", "Gradually harmful"],
+                correctAnswer: "Gradually harmful"
+            },
+            {
+                word: "Lugubrious",
+                definition: "Looking or sounding sad and dismal.",
+                exampleSentence: "He wore a **lugubrious** expression after losing the game.",
+                options: ["Joyful and lively", "Sad and dismal", "Very loud", "Extremely tired"],
+                correctAnswer: "Sad and dismal"
+            },
+            {
+                word: "Pulchritude",
+                definition: "Beauty.",
+                exampleSentence: "The ancient sculpture was a marvel of **pulchritude**.",
+                options: ["Extreme ugliness", "Beauty", "Great strength", "Loudness"],
+                correctAnswer: "Beauty"
             }
         ];
 
@@ -235,13 +289,15 @@
         const restartButton = document.getElementById('restart-button');
         const wordDisplay = document.getElementById('word-display');
         const definitionDisplay = document.getElementById('definition-display');
+        const exampleSentenceDisplay = document.getElementById('example-sentence-display');
         const optionsContainer = document.getElementById('options-container');
         const feedbackMessage = document.getElementById('feedback-message');
-        const nextButton = document.getElementById('next-button');
         const gameContainer = document.getElementById('game-container');
         const finalScore = document.getElementById('final-score');
         const scoreDisplay = document.getElementById('score-display');
         const emojiContainer = document.getElementById('emoji-container');
+        const reviewList = document.getElementById('review-list');
+        const timerBar = document.getElementById('timer-bar');
         
         // References for theme toggle
         const body = document.body;
@@ -253,6 +309,9 @@
         let currentQuestionIndex = 0;
         let score = 0;
         let shuffledQuestions = [];
+        let timer;
+        let timeLeft = 15;
+        let userAnswers = [];
 
         // This function shuffles the questions array so the game is different each time.
         function shuffleArray(array) {
@@ -266,13 +325,13 @@
         function startGame() {
             score = 0;
             currentQuestionIndex = 0;
+            userAnswers = [];
             scoreDisplay.textContent = `Score: ${score}`;
             shuffleArray(questions);
             shuffledQuestions = questions.slice(); // Create a copy of the shuffled array
             startScreen.classList.add('hidden');
             quizScreen.classList.remove('hidden');
             scoreScreen.classList.add('hidden');
-            nextButton.classList.add('hidden');
             gameContainer.style.transform = 'scale(1)';
             gameContainer.style.opacity = '1';
             loadQuestion();
@@ -289,21 +348,43 @@
             const currentQuestion = shuffledQuestions[currentQuestionIndex];
             wordDisplay.textContent = currentQuestion.word;
             definitionDisplay.textContent = currentQuestion.definition;
+            exampleSentenceDisplay.textContent = currentQuestion.exampleSentence;
             optionsContainer.innerHTML = ''; // Clear previous options
             feedbackMessage.textContent = ''; // Clear feedback message
-            nextButton.classList.add('hidden'); // Hide the next button
-
-            // Re-enable all buttons
-            optionsContainer.querySelectorAll('button').forEach(btn => btn.disabled = false);
+            
+            // Reset and start timer
+            clearInterval(timer);
+            timeLeft = 15;
+            updateTimerBar();
+            timer = setInterval(() => {
+                timeLeft--;
+                updateTimerBar();
+                if (timeLeft <= 0) {
+                    clearInterval(timer);
+                    checkAnswer(null, currentQuestion.correctAnswer, null, true); // Time's up
+                }
+            }, 1000);
 
             // We create a button for each option in the question.
             currentQuestion.options.forEach(option => {
                 const button = document.createElement('button');
                 button.textContent = option;
                 button.classList.add('bg-gray-800', 'text-gray-200', 'font-semibold', 'py-3', 'px-4', 'rounded-full', 'shadow', 'hover:bg-gray-700', 'transition', 'duration-200', 'text-sm', 'sm:text-base');
-                button.addEventListener('click', () => checkAnswer(option, currentQuestion.correctAnswer, button)); // Now uses correctAnswer
+                button.addEventListener('click', () => checkAnswer(option, currentQuestion.correctAnswer, button, false));
                 optionsContainer.appendChild(button);
             });
+        }
+        
+        function updateTimerBar() {
+            const percentage = (timeLeft / 15) * 100;
+            timerBar.style.width = percentage + '%';
+            if (percentage < 30) {
+                timerBar.style.backgroundColor = '#ef4444'; // Red
+            } else if (percentage < 60) {
+                timerBar.style.backgroundColor = '#f59e0b'; // Yellow
+            } else {
+                timerBar.style.backgroundColor = '#34d399'; // Green
+            }
         }
         
         // Function to create a confetti-like emoji effect
@@ -333,28 +414,47 @@
             }
         }
 
-        // This function is called when the user clicks an answer button.
-        // It now takes the correct answer directly as a parameter.
-        function checkAnswer(selectedOption, correctAnswer, buttonElement) {
-            // First, disable all the buttons to prevent multiple clicks.
+        // This function is called when the user clicks an answer button or the timer runs out.
+        function checkAnswer(selectedOption, correctAnswer, buttonElement, isTimeout) {
+            clearInterval(timer);
+            const currentQuestion = shuffledQuestions[currentQuestionIndex];
+            const isCorrect = selectedOption === correctAnswer;
+            
+            // Record the user's answer for the review screen
+            userAnswers.push({
+                question: currentQuestion.word,
+                correct: isCorrect,
+                correctAnswer: correctAnswer,
+                userAnswer: selectedOption || 'Time Out'
+            });
+
             optionsContainer.querySelectorAll('button').forEach(btn => btn.disabled = true);
 
-            // Check if the selected option is correct.
-            if (selectedOption === correctAnswer) {
-                score++; // Add to the score
+            if (isCorrect) {
+                score++;
                 scoreDisplay.textContent = `Score: ${score}`;
                 feedbackMessage.textContent = "Correct! Great job! ✨";
                 feedbackMessage.classList.remove('text-red-400');
                 feedbackMessage.classList.add('text-green-400');
-                buttonElement.classList.remove('bg-gray-800', 'hover:bg-gray-700');
-                buttonElement.classList.add('bg-green-500', 'text-white', 'animated-button-hover');
-                createEmojiRain(); // Call the new emoji function
+                if (buttonElement) {
+                    buttonElement.classList.remove('bg-gray-800', 'hover:bg-gray-700');
+                    buttonElement.classList.add('bg-green-500', 'text-white', 'animated-button-hover');
+                }
+                createEmojiRain();
             } else {
-                feedbackMessage.textContent = `Incorrect. The correct answer is ${correctAnswer}. 😔`;
+                if (isTimeout) {
+                    feedbackMessage.textContent = `Time's up! The correct answer is ${correctAnswer}. 😔`;
+                } else {
+                    feedbackMessage.textContent = `Incorrect. The correct answer is ${correctAnswer}. 😔`;
+                }
+                
                 feedbackMessage.classList.remove('text-green-400');
                 feedbackMessage.classList.add('text-red-400');
-                buttonElement.classList.remove('bg-gray-800', 'hover:bg-gray-700');
-                buttonElement.classList.add('bg-red-500', 'text-white', 'animated-button-hover');
+
+                if (buttonElement) {
+                    buttonElement.classList.remove('bg-gray-800', 'hover:bg-gray-700');
+                    buttonElement.classList.add('bg-red-500', 'text-white', 'animated-button-hover');
+                }
                 // Highlight the correct answer
                 optionsContainer.querySelectorAll('button').forEach(btn => {
                     if (btn.textContent === correctAnswer) {
@@ -363,10 +463,11 @@
                 });
             }
 
-            // Show the next button after a short delay
+            // Move to the next question after a delay
             setTimeout(() => {
-                nextButton.classList.remove('hidden');
-            }, 3000); // Wait 3 seconds before showing the button
+                currentQuestionIndex++;
+                loadQuestion();
+            }, 3000);
         }
 
         // This function is called when the game is over.
@@ -374,15 +475,25 @@
             quizScreen.classList.add('hidden');
             scoreScreen.classList.remove('hidden');
             finalScore.textContent = `You got ${score} out of ${shuffledQuestions.length} correct! 🥳`;
+            
+            // Populate the review list
+            reviewList.innerHTML = '';
+            userAnswers.forEach(answer => {
+                const li = document.createElement('li');
+                if (answer.correct) {
+                    li.innerHTML = `✅ **${answer.question}**: Correct!`;
+                    li.classList.add('text-green-400');
+                } else {
+                    li.innerHTML = `❌ **${answer.question}**: Your answer: "${answer.userAnswer}", Correct answer: "${answer.correctAnswer}"`;
+                    li.classList.add('text-red-400');
+                }
+                reviewList.appendChild(li);
+            });
         }
 
         // Add event listeners to the start and restart buttons.
         startButton.addEventListener('click', startGame);
         restartButton.addEventListener('click', startGame);
-        nextButton.addEventListener('click', () => {
-            currentQuestionIndex++;
-            loadQuestion();
-        });
 
         // Function to toggle between light and dark mode
         function toggleTheme() {
