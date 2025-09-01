@@ -11,8 +11,8 @@
     <style>
         body {
             font-family: 'Inter', sans-serif;
-            transition: background-color 0.5s, color 0.5s; /* Smooth transition */
-            background-color: #1a1a1a; /* Dark background */
+            transition: background-color 0.5s, color 0.5s;
+            background-color: #1a1a1a;
             background-image: radial-gradient(#333 1px, transparent 1px);
             background-size: 20px 20px;
             display: flex;
@@ -20,14 +20,14 @@
             align-items: center;
             min-height: 100vh;
             margin: 0;
-            color: #e0e0e0; /* Light text for readability */
+            color: #e0e0e0;
         }
 
         /* Light mode styles */
         .light-mode {
-            background-color: #f0f0f5; /* Light background */
+            background-color: #f0f0f5;
             background-image: radial-gradient(#ccc 1px, transparent 1px);
-            color: #1a1a1a; /* Dark text */
+            color: #1a1a1a;
         }
         
         .light-mode #game-container {
@@ -36,7 +36,7 @@
         }
         
         .light-mode .text-cyan-400 {
-            color: #0d9488; /* Tailwind's teal-600 */
+            color: #0d9488;
         }
         
         .light-mode .bg-gray-900 {
@@ -44,8 +44,8 @@
         }
 
         .light-mode .bg-gray-800 {
-            background-color: #f9fafb; /* Light gray background for instruction box */
-            border-color: #e5e7eb; /* Light gray border */
+            background-color: #f9fafb;
+            border-color: #e5e7eb;
         }
 
         .light-mode .text-gray-400 {
@@ -68,13 +68,11 @@
             background-color: #e5e7eb;
         }
         
-        /* A custom class for the animated button hover effect */
         .animated-button-hover {
             transform: scale(1.05);
             box-shadow: 0 8px 15px rgba(0, 0, 0, 0.5);
         }
 
-        /* Styles for the falling emojis */
         .emoji-container {
             position: absolute;
             top: 0;
@@ -82,7 +80,7 @@
             width: 100%;
             height: 100%;
             overflow: hidden;
-            pointer-events: none; /* Allows clicks to pass through */
+            pointer-events: none;
         }
 
         .emoji {
@@ -92,7 +90,6 @@
             opacity: 0;
         }
 
-        /* Keyframes for the falling animation */
         @keyframes fall {
             0% {
                 transform: translateY(0) rotate(0deg);
@@ -104,7 +101,6 @@
             }
         }
 
-        /* Styles for the toggle button */
         #theme-toggle {
             position: fixed;
             top: 1.5rem;
@@ -132,15 +128,14 @@
         
         #timer-bar {
             height: 100%;
-            background-color: #34d399; /* Green-500 */
+            background-color: #34d399;
             transition: width 1s linear;
         }
 
-        /* Style for the active difficulty button */
         .difficulty-button.active {
-            background-color: #22c55e; /* green-500 */
+            background-color: #22c55e;
             color: #fff;
-            border: 2px solid #16a34a; /* green-600 */
+            border: 2px solid #16a34a;
         }
     </style>
 </head>
@@ -150,7 +145,6 @@
         <span id="moon-icon" class="hidden">🌙</span>
     </button>
     
-
     <div id="game-container" class="bg-gray-900 p-8 rounded-3xl shadow-2xl max-w-lg w-full text-center space-y-6 transform transition-all duration-300 scale-95 opacity-0">
         <h1 class="text-4xl font-bold text-cyan-400">Word Whiz! 🧠</h1>
 
@@ -179,8 +173,8 @@
                 </ul>
             </div>
             
-            <button id="start-button" class="bg-cyan-500 text-gray-900 font-bold py-3 px-8 rounded-full shadow-lg hover:bg-cyan-600 transition duration-300 transform hover:scale-105">
-                Start Game
+            <button id="start-button" class="bg-cyan-500 text-gray-900 font-bold py-3 px-8 rounded-full shadow-lg hover:bg-cyan-600 transition duration-300 transform hover:scale-105" disabled>
+                Loading Questions...
             </button>
         </div>
 
@@ -216,121 +210,6 @@
     <div id="emoji-container" class="emoji-container"></div>
 
     <script>
-        // Data for the game, now separated by difficulty
-        const allQuestions = {
-            easy: [
-                {
-                    word: "Meticulous",
-                    definition: "Showing great attention to detail; very careful and precise.",
-                    exampleSentence: "A **meticulous** artist, she spent hours on every brushstroke.",
-                    options: ["Lazy and careless", "Loud and boisterous", "Extremely neat and careful", "Very tired"],
-                    correctAnswer: "Extremely neat and careful"
-                },
-                {
-                    word: "Ebullient",
-                    definition: "Cheerful and full of energy.",
-                    exampleSentence: "Her **ebullient** personality made her the life of every party.",
-                    options: ["Quiet and shy", "Full of energy", "Quick to anger", "Very sad"],
-                    correctAnswer: "Full of energy"
-                },
-                {
-                    word: "Serendipity",
-                    definition: "The occurrence and development of events by chance in a happy or beneficial way.",
-                    exampleSentence: "It was pure **serendipity** that she found her lost wallet on the street.",
-                    options: ["Bad luck", "Sudden anger", "A happy discovery by chance", "A planned event"],
-                    correctAnswer: "A happy discovery by chance"
-                },
-                {
-                    word: "Quintessential",
-                    definition: "Representing the most perfect or typical example of a quality or class.",
-                    exampleSentence: "He was the **quintessential** rock star, with long hair and a leather jacket.",
-                    options: ["Very rare", "Most perfect example", "Hard to find", "Quite old"],
-                    correctAnswer: "Most perfect example"
-                }
-            ],
-            intermediate: [
-                {
-                    word: "Ubiquitous",
-                    definition: "Present, appearing, or found everywhere.",
-                    exampleSentence: "In the modern world, smartphones have become **ubiquitous**.",
-                    options: ["Very large", "Present everywhere", "Highly intelligent", "Hard to find"],
-                    correctAnswer: "Present everywhere"
-                },
-                {
-                    word: "Pernicious",
-                    definition: "Having a harmful effect, especially in a gradual or subtle way.",
-                    exampleSentence: "The **pernicious** rumor slowly eroded her reputation.",
-                    options: ["Very loud", "Extremely beneficial", "Harmful and subtle", "Easy to understand"],
-                    correctAnswer: "Harmful and subtle"
-                },
-                {
-                    word: "Ephemeral",
-                    definition: "Lasting for a very short time.",
-                    exampleSentence: "The beauty of a sunset is **ephemeral**.",
-                    options: ["Very old", "Lasting a short time", "Always present", "Full of energy"],
-                    correctAnswer: "Lasting a short time"
-                },
-                {
-                    word: "Salient",
-                    definition: "Most noticeable or important.",
-                    exampleSentence: "The **salient** points of the lecture were highlighted in the summary.",
-                    options: ["Very quiet", "Not important", "Most noticeable", "Hidden from view"],
-                    correctAnswer: "Most noticeable"
-                },
-                {
-                    word: "Capricious",
-                    definition: "Given to sudden and unaccountable changes of mood or behavior.",
-                    exampleSentence: "Her **capricious** decisions made it difficult to plan anything.",
-                    options: ["Full of joy", "Steady and predictable", "Changing suddenly", "Very sad"],
-                    correctAnswer: "Changing suddenly"
-                }
-            ],
-            hard: [
-                {
-                    word: "Zephyr",
-                    definition: "A soft gentle breeze.",
-                    exampleSentence: "A light **zephyr** rustled the leaves on the trees.",
-                    options: ["A cold wind", "A gentle breeze", "A loud noise", "A bright light"],
-                    correctAnswer: "A gentle breeze"
-                },
-                {
-                    word: "Mellifluous",
-                    definition: "Sweet or musical; pleasant to hear.",
-                    exampleSentence: "The singer's **mellifluous** voice charmed the audience.",
-                    options: ["Having a bad smell", "Full of color", "Pleasant to hear", "Hard to pronounce"],
-                    correctAnswer: "Pleasant to hear"
-                },
-                {
-                    word: "Cacophony",
-                    definition: "A harsh, discordant mixture of sounds.",
-                    exampleSentence: "The band's first rehearsal was a **cacophony** of off-key notes.",
-                    options: ["A pleasant melody", "A beautiful painting", "A mixture of sounds", "A harsh, discordant sound"],
-                    correctAnswer: "A harsh, discordant sound"
-                },
-                {
-                    word: "Insidious",
-                    definition: "Proceeding in a gradual, subtle way, but with harmful effects.",
-                    exampleSentence: "The **insidious** disease spread without any noticeable symptoms at first.",
-                    options: ["Very friendly", "Healing quickly", "Spreading openly", "Gradually harmful"],
-                    correctAnswer: "Gradually harmful"
-                },
-                {
-                    word: "Lugubrious",
-                    definition: "Looking or sounding sad and dismal.",
-                    exampleSentence: "He wore a **lugubrious** expression after losing the game.",
-                    options: ["Joyful and lively", "Sad and dismal", "Very loud", "Extremely tired"],
-                    correctAnswer: "Sad and dismal"
-                },
-                {
-                    word: "Pulchritude",
-                    definition: "Beauty.",
-                    exampleSentence: "The ancient sculpture was a marvel of **pulchritude**.",
-                    options: ["Extreme ugliness", "Beauty", "Great strength", "Loudness"],
-                    correctAnswer: "Beauty"
-                }
-            ]
-        };
-
         // Let's get references to our HTML elements so we can manipulate them.
         const startScreen = document.getElementById('start-screen');
         const quizScreen = document.getElementById('quiz-screen');
@@ -356,9 +235,10 @@
         const sunIcon = document.getElementById('sun-icon');
         const moonIcon = document.getElementById('moon-icon');
 
-        // These variables will keep track of the game's state.
+        // Game state variables
         let currentQuestionIndex = 0;
         let score = 0;
+        let loadedQuestions = {}; // This will hold the questions loaded from the JSON file
         let selectedQuestions = [];
         let timer;
         let timeLeft = 15;
@@ -377,11 +257,11 @@
             // Get the selected difficulty from the active button
             const selectedDifficultyButton = document.querySelector('.difficulty-button.active');
             if (!selectedDifficultyButton) {
-                alert("Please select a difficulty level to start the game.");
+                // In a real application, you might show a user-friendly message instead of an alert
                 return;
             }
             const difficulty = selectedDifficultyButton.dataset.difficulty;
-            selectedQuestions = allQuestions[difficulty].slice(); // Use a slice to create a new array
+            selectedQuestions = loadedQuestions[difficulty].slice(); // Use a slice to create a new array
             shuffleArray(selectedQuestions);
 
             score = 0;
@@ -407,7 +287,7 @@
             const currentQuestion = selectedQuestions[currentQuestionIndex];
             wordDisplay.textContent = currentQuestion.word;
             definitionDisplay.textContent = currentQuestion.definition;
-            exampleSentenceDisplay.innerHTML = currentQuestion.exampleSentence; // Use innerHTML to render the bold tag
+            exampleSentenceDisplay.innerHTML = currentQuestion.exampleSentence;
             optionsContainer.innerHTML = ''; // Clear previous options
             feedbackMessage.textContent = ''; // Clear feedback message
             
@@ -420,7 +300,7 @@
                 updateTimerBar();
                 if (timeLeft <= 0) {
                     clearInterval(timer);
-                    checkAnswer(null, currentQuestion.correctAnswer, null, true); // Time's up
+                    checkAnswer(null, currentQuestion.correctAnswer, null, true);
                 }
             }, 1000);
 
@@ -438,11 +318,11 @@
             const percentage = (timeLeft / 15) * 100;
             timerBar.style.width = percentage + '%';
             if (percentage < 30) {
-                timerBar.style.backgroundColor = '#ef4444'; // Red
+                timerBar.style.backgroundColor = '#ef4444';
             } else if (percentage < 60) {
-                timerBar.style.backgroundColor = '#f59e0b'; // Yellow
+                timer.style.backgroundColor = '#f59e0b';
             } else {
-                timerBar.style.backgroundColor = '#34d399'; // Green
+                timerBar.style.backgroundColor = '#34d399';
             }
         }
         
@@ -457,8 +337,8 @@
                 emoji.classList.add('emoji');
 
                 const startX = Math.random() * window.innerWidth;
-                const duration = Math.random() * 2 + 3; // 3 to 5 seconds
-                const delay = Math.random() * 0.5; // 0 to 0.5 seconds
+                const duration = Math.random() * 2 + 3;
+                const delay = Math.random() * 0.5;
 
                 emoji.style.left = `${startX}px`;
                 emoji.style.animationDuration = `${duration}s`;
@@ -556,6 +436,7 @@
             quizScreen.classList.add('hidden');
             scoreScreen.classList.add('hidden');
             startScreen.classList.remove('hidden');
+            startButton.textContent = "Start Game";
         });
 
         // Add event listeners for difficulty buttons
@@ -583,12 +464,31 @@
         // Add event listener to the theme toggle button
         themeToggle.addEventListener('click', toggleTheme);
 
-        // Initial state: Make the game container visible on page load with a nice animation.
+        // Fetch the questions from the JSON file on page load
         window.onload = function() {
             gameContainer.style.transform = 'scale(1)';
             gameContainer.style.opacity = '1';
+
+            fetch('questions.json')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    loadedQuestions = data;
+                    // Enable the start button and change its text after data is loaded
+                    startButton.disabled = false;
+                    startButton.textContent = "Start Game";
+                })
+                .catch(error => {
+                    console.error('Could not load the questions:', error);
+                    // Inform the user that the data failed to load
+                    startButton.textContent = "Error Loading Questions";
+                    startButton.classList.add('bg-red-500', 'hover:bg-red-600', 'text-white');
+                });
         };
     </script>
-
 </body>
 </html>
