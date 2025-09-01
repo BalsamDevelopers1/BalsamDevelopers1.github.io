@@ -135,6 +135,13 @@
             background-color: #34d399; /* Green-500 */
             transition: width 1s linear;
         }
+
+        /* Style for the active difficulty button */
+        .difficulty-button.active {
+            background-color: #22c55e; /* green-500 */
+            color: #fff;
+            border: 2px solid #16a34a; /* green-600 */
+        }
     </style>
 </head>
 <body class="flex items-center justify-center min-h-screen">
@@ -151,6 +158,15 @@
 
         <div id="start-screen" class="space-y-4">
             <p class="text-lg text-gray-400">Test your English vocabulary skills!</p>
+            
+            <div class="space-y-2">
+                <p class="text-md text-gray-400">Select a difficulty level:</p>
+                <div id="difficulty-buttons" class="flex justify-center space-x-4">
+                    <button class="difficulty-button bg-gray-700 text-white font-bold py-2 px-6 rounded-full hover:bg-gray-600 transition duration-300" data-difficulty="easy">Easy</button>
+                    <button class="difficulty-button bg-gray-700 text-white font-bold py-2 px-6 rounded-full hover:bg-gray-600 transition duration-300" data-difficulty="intermediate">Intermediate</button>
+                    <button class="difficulty-button bg-gray-700 text-white font-bold py-2 px-6 rounded-full hover:bg-gray-600 transition duration-300" data-difficulty="hard">Hard</button>
+                </div>
+            </div>
             
             <div id="instructions-section" class="text-left bg-gray-800 p-4 rounded-xl border-2 border-gray-700">
                 <h2 class="text-lg font-bold text-cyan-400 mb-2">How to Play:</h2>
@@ -200,86 +216,120 @@
     <div id="emoji-container" class="emoji-container"></div>
 
     <script>
-        // Data for the game: an array of objects. Each object is a question.
-        const questions = [
-            {
-                word: "Ubiquitous",
-                definition: "Present, appearing, or found everywhere.",
-                exampleSentence: "In the modern world, smartphones have become **ubiquitous**.",
-                options: ["Very large", "Present everywhere", "Highly intelligent", "Hard to find"],
-                correctAnswer: "Present everywhere"
-            },
-            {
-                word: "Pernicious",
-                definition: "Having a harmful effect, especially in a gradual or subtle way.",
-                exampleSentence: "The **pernicious** rumor slowly eroded her reputation.",
-                options: ["Very loud", "Extremely beneficial", "Harmful and subtle", "Easy to understand"],
-                correctAnswer: "Harmful and subtle"
-            },
-            {
-                word: "Ephemeral",
-                definition: "Lasting for a very short time.",
-                exampleSentence: "The beauty of a sunset is **ephemeral**.",
-                options: ["Very old", "Lasting a short time", "Always present", "Full of energy"],
-                correctAnswer: "Lasting a short time"
-            },
-            {
-                word: "Salient",
-                definition: "Most noticeable or important.",
-                exampleSentence: "The **salient** points of the lecture were highlighted in the summary.",
-                options: ["Very quiet", "Not important", "Most noticeable", "Hidden from view"],
-                correctAnswer: "Most noticeable"
-            },
-            {
-                word: "Capricious",
-                definition: "Given to sudden and unaccountable changes of mood or behavior.",
-                exampleSentence: "Her **capricious** decisions made it difficult to plan anything.",
-                options: ["Full of joy", "Steady and predictable", "Changing suddenly", "Very sad"],
-                correctAnswer: "Changing suddenly"
-            },
-            {
-                word: "Zephyr",
-                definition: "A soft gentle breeze.",
-                exampleSentence: "A light **zephyr** rustled the leaves on the trees.",
-                options: ["A cold wind", "A gentle breeze", "A loud noise", "A bright light"],
-                correctAnswer: "A gentle breeze"
-            },
-            {
-                word: "Mellifluous",
-                definition: "Sweet or musical; pleasant to hear.",
-                exampleSentence: "The singer's **mellifluous** voice charmed the audience.",
-                options: ["Having a bad smell", "Full of color", "Pleasant to hear", "Hard to pronounce"],
-                correctAnswer: "Pleasant to hear"
-            },
-            {
-                word: "Cacophony",
-                definition: "A harsh, discordant mixture of sounds.",
-                exampleSentence: "The band's first rehearsal was a **cacophony** of off-key notes.",
-                options: ["A pleasant melody", "A beautiful painting", "A mixture of sounds", "A harsh, discordant sound"],
-                correctAnswer: "A harsh, discordant sound"
-            },
-            {
-                word: "Insidious",
-                definition: "Proceeding in a gradual, subtle way, but with harmful effects.",
-                exampleSentence: "The **insidious** disease spread without any noticeable symptoms at first.",
-                options: ["Very friendly", "Healing quickly", "Spreading openly", "Gradually harmful"],
-                correctAnswer: "Gradually harmful"
-            },
-            {
-                word: "Lugubrious",
-                definition: "Looking or sounding sad and dismal.",
-                exampleSentence: "He wore a **lugubrious** expression after losing the game.",
-                options: ["Joyful and lively", "Sad and dismal", "Very loud", "Extremely tired"],
-                correctAnswer: "Sad and dismal"
-            },
-            {
-                word: "Pulchritude",
-                definition: "Beauty.",
-                exampleSentence: "The ancient sculpture was a marvel of **pulchritude**.",
-                options: ["Extreme ugliness", "Beauty", "Great strength", "Loudness"],
-                correctAnswer: "Beauty"
-            }
-        ];
+        // Data for the game, now separated by difficulty
+        const allQuestions = {
+            easy: [
+                {
+                    word: "Meticulous",
+                    definition: "Showing great attention to detail; very careful and precise.",
+                    exampleSentence: "A **meticulous** artist, she spent hours on every brushstroke.",
+                    options: ["Lazy and careless", "Loud and boisterous", "Extremely neat and careful", "Very tired"],
+                    correctAnswer: "Extremely neat and careful"
+                },
+                {
+                    word: "Ebullient",
+                    definition: "Cheerful and full of energy.",
+                    exampleSentence: "Her **ebullient** personality made her the life of every party.",
+                    options: ["Quiet and shy", "Full of energy", "Quick to anger", "Very sad"],
+                    correctAnswer: "Full of energy"
+                },
+                {
+                    word: "Serendipity",
+                    definition: "The occurrence and development of events by chance in a happy or beneficial way.",
+                    exampleSentence: "It was pure **serendipity** that she found her lost wallet on the street.",
+                    options: ["Bad luck", "Sudden anger", "A happy discovery by chance", "A planned event"],
+                    correctAnswer: "A happy discovery by chance"
+                },
+                {
+                    word: "Quintessential",
+                    definition: "Representing the most perfect or typical example of a quality or class.",
+                    exampleSentence: "He was the **quintessential** rock star, with long hair and a leather jacket.",
+                    options: ["Very rare", "Most perfect example", "Hard to find", "Quite old"],
+                    correctAnswer: "Most perfect example"
+                }
+            ],
+            intermediate: [
+                {
+                    word: "Ubiquitous",
+                    definition: "Present, appearing, or found everywhere.",
+                    exampleSentence: "In the modern world, smartphones have become **ubiquitous**.",
+                    options: ["Very large", "Present everywhere", "Highly intelligent", "Hard to find"],
+                    correctAnswer: "Present everywhere"
+                },
+                {
+                    word: "Pernicious",
+                    definition: "Having a harmful effect, especially in a gradual or subtle way.",
+                    exampleSentence: "The **pernicious** rumor slowly eroded her reputation.",
+                    options: ["Very loud", "Extremely beneficial", "Harmful and subtle", "Easy to understand"],
+                    correctAnswer: "Harmful and subtle"
+                },
+                {
+                    word: "Ephemeral",
+                    definition: "Lasting for a very short time.",
+                    exampleSentence: "The beauty of a sunset is **ephemeral**.",
+                    options: ["Very old", "Lasting a short time", "Always present", "Full of energy"],
+                    correctAnswer: "Lasting a short time"
+                },
+                {
+                    word: "Salient",
+                    definition: "Most noticeable or important.",
+                    exampleSentence: "The **salient** points of the lecture were highlighted in the summary.",
+                    options: ["Very quiet", "Not important", "Most noticeable", "Hidden from view"],
+                    correctAnswer: "Most noticeable"
+                },
+                {
+                    word: "Capricious",
+                    definition: "Given to sudden and unaccountable changes of mood or behavior.",
+                    exampleSentence: "Her **capricious** decisions made it difficult to plan anything.",
+                    options: ["Full of joy", "Steady and predictable", "Changing suddenly", "Very sad"],
+                    correctAnswer: "Changing suddenly"
+                }
+            ],
+            hard: [
+                {
+                    word: "Zephyr",
+                    definition: "A soft gentle breeze.",
+                    exampleSentence: "A light **zephyr** rustled the leaves on the trees.",
+                    options: ["A cold wind", "A gentle breeze", "A loud noise", "A bright light"],
+                    correctAnswer: "A gentle breeze"
+                },
+                {
+                    word: "Mellifluous",
+                    definition: "Sweet or musical; pleasant to hear.",
+                    exampleSentence: "The singer's **mellifluous** voice charmed the audience.",
+                    options: ["Having a bad smell", "Full of color", "Pleasant to hear", "Hard to pronounce"],
+                    correctAnswer: "Pleasant to hear"
+                },
+                {
+                    word: "Cacophony",
+                    definition: "A harsh, discordant mixture of sounds.",
+                    exampleSentence: "The band's first rehearsal was a **cacophony** of off-key notes.",
+                    options: ["A pleasant melody", "A beautiful painting", "A mixture of sounds", "A harsh, discordant sound"],
+                    correctAnswer: "A harsh, discordant sound"
+                },
+                {
+                    word: "Insidious",
+                    definition: "Proceeding in a gradual, subtle way, but with harmful effects.",
+                    exampleSentence: "The **insidious** disease spread without any noticeable symptoms at first.",
+                    options: ["Very friendly", "Healing quickly", "Spreading openly", "Gradually harmful"],
+                    correctAnswer: "Gradually harmful"
+                },
+                {
+                    word: "Lugubrious",
+                    definition: "Looking or sounding sad and dismal.",
+                    exampleSentence: "He wore a **lugubrious** expression after losing the game.",
+                    options: ["Joyful and lively", "Sad and dismal", "Very loud", "Extremely tired"],
+                    correctAnswer: "Sad and dismal"
+                },
+                {
+                    word: "Pulchritude",
+                    definition: "Beauty.",
+                    exampleSentence: "The ancient sculpture was a marvel of **pulchritude**.",
+                    options: ["Extreme ugliness", "Beauty", "Great strength", "Loudness"],
+                    correctAnswer: "Beauty"
+                }
+            ]
+        };
 
         // Let's get references to our HTML elements so we can manipulate them.
         const startScreen = document.getElementById('start-screen');
@@ -298,7 +348,8 @@
         const emojiContainer = document.getElementById('emoji-container');
         const reviewList = document.getElementById('review-list');
         const timerBar = document.getElementById('timer-bar');
-        
+        const difficultyButtons = document.querySelectorAll('.difficulty-button');
+
         // References for theme toggle
         const body = document.body;
         const themeToggle = document.getElementById('theme-toggle');
@@ -308,7 +359,7 @@
         // These variables will keep track of the game's state.
         let currentQuestionIndex = 0;
         let score = 0;
-        let shuffledQuestions = [];
+        let selectedQuestions = [];
         let timer;
         let timeLeft = 15;
         let userAnswers = [];
@@ -323,12 +374,20 @@
 
         // This function starts the game by showing the quiz screen and loading the first question.
         function startGame() {
+            // Get the selected difficulty from the active button
+            const selectedDifficultyButton = document.querySelector('.difficulty-button.active');
+            if (!selectedDifficultyButton) {
+                alert("Please select a difficulty level to start the game.");
+                return;
+            }
+            const difficulty = selectedDifficultyButton.dataset.difficulty;
+            selectedQuestions = allQuestions[difficulty].slice(); // Use a slice to create a new array
+            shuffleArray(selectedQuestions);
+
             score = 0;
             currentQuestionIndex = 0;
             userAnswers = [];
             scoreDisplay.textContent = `Score: ${score}`;
-            shuffleArray(questions);
-            shuffledQuestions = questions.slice(); // Create a copy of the shuffled array
             startScreen.classList.add('hidden');
             quizScreen.classList.remove('hidden');
             scoreScreen.classList.add('hidden');
@@ -340,15 +399,15 @@
         // This function loads a new question from our array and displays it.
         function loadQuestion() {
             // If there are no more questions, end the game.
-            if (currentQuestionIndex >= shuffledQuestions.length) {
+            if (currentQuestionIndex >= selectedQuestions.length) {
                 endGame();
                 return;
             }
 
-            const currentQuestion = shuffledQuestions[currentQuestionIndex];
+            const currentQuestion = selectedQuestions[currentQuestionIndex];
             wordDisplay.textContent = currentQuestion.word;
             definitionDisplay.textContent = currentQuestion.definition;
-            exampleSentenceDisplay.textContent = currentQuestion.exampleSentence;
+            exampleSentenceDisplay.innerHTML = currentQuestion.exampleSentence; // Use innerHTML to render the bold tag
             optionsContainer.innerHTML = ''; // Clear previous options
             feedbackMessage.textContent = ''; // Clear feedback message
             
@@ -417,7 +476,7 @@
         // This function is called when the user clicks an answer button or the timer runs out.
         function checkAnswer(selectedOption, correctAnswer, buttonElement, isTimeout) {
             clearInterval(timer);
-            const currentQuestion = shuffledQuestions[currentQuestionIndex];
+            const currentQuestion = selectedQuestions[currentQuestionIndex];
             const isCorrect = selectedOption === correctAnswer;
             
             // Record the user's answer for the review screen
@@ -474,7 +533,7 @@
         function endGame() {
             quizScreen.classList.add('hidden');
             scoreScreen.classList.remove('hidden');
-            finalScore.textContent = `You got ${score} out of ${shuffledQuestions.length} correct! 🥳`;
+            finalScore.textContent = `You got ${score} out of ${selectedQuestions.length} correct! 🥳`;
             
             // Populate the review list
             reviewList.innerHTML = '';
@@ -493,14 +552,25 @@
 
         // Add event listeners to the start and restart buttons.
         startButton.addEventListener('click', startGame);
-        restartButton.addEventListener('click', startGame);
+        restartButton.addEventListener('click', () => {
+            quizScreen.classList.add('hidden');
+            scoreScreen.classList.add('hidden');
+            startScreen.classList.remove('hidden');
+        });
+
+        // Add event listeners for difficulty buttons
+        difficultyButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                difficultyButtons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+            });
+        });
 
         // Function to toggle between light and dark mode
         function toggleTheme() {
             body.classList.toggle('light-mode');
             sunIcon.classList.toggle('hidden');
             moonIcon.classList.toggle('hidden');
-            // Change button color based on theme
             if (body.classList.contains('light-mode')) {
                 themeToggle.classList.remove('text-white');
                 themeToggle.classList.add('text-gray-800');
