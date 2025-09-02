@@ -74,35 +74,8 @@
 },
 {
 "question": "What is the chemical symbol for water?",
-"options": ["
-
-H 
-2
-​
- O
-", "
-
-CO 
-2
-​
- 
-", "
-
-NaCl
-", "
-
-O 
-2
-​
- 
-"],
-"answer": "
-
-H 
-2
-​
- O
-"
+"options": ["H₂O", "CO₂", "NaCl", "O₂"],
+"answer": "H₂O"
 },
 {
 "question": "Which ocean is the Bermuda Triangle located in?",
@@ -122,7 +95,7 @@ H
 {
 "question": "What is the primary function of a red blood cell?",
 "options": ["Fighting infections", "Carrying oxygen", "Clotting blood", "Producing antibodies"],
-"answer": "To carry oxygen"
+"answer": "Carrying oxygen"
 },
 {
 "question": "Which country is the Statue of Liberty a gift from?",
