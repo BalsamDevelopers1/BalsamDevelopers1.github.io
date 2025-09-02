@@ -3,492 +3,223 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Word Whiz: A Vocabulary Game Test Version</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <title>General Knowledge Quiz</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
         body {
             font-family: 'Inter', sans-serif;
-            transition: background-color 0.5s, color 0.5s;
-            background-color: #1a1a1a;
-            background-image: radial-gradient(#333 1px, transparent 1px);
-            background-size: 20px 20px;
+            background-color: #f3f4f6;
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
+            height: 100vh;
             margin: 0;
-            color: #e0e0e0;
+            padding: 1rem;
         }
-
-        /* Light mode styles */
-        .light-mode {
-            background-color: #f0f0f5;
-            background-image: radial-gradient(#ccc 1px, transparent 1px);
-            color: #1a1a1a;
+        .game-card {
+            background-color: #ffffff;
+            border-radius: 1.5rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            padding: 2.5rem;
+            width: 100%;
+            max-width: 32rem;
+            text-align: center;
+            transition: all 0.3s ease-in-out;
         }
-        
-        .light-mode #game-container {
-            background-color: #fff;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
-        }
-        
-        .light-mode .text-cyan-400 {
-            color: #0d9488;
-        }
-        
-        .light-mode .bg-gray-900 {
-            background-color: #fff;
-        }
-
-        .light-mode .bg-gray-800 {
-            background-color: #f9fafb;
-            border-color: #e5e7eb;
-        }
-
-        .light-mode .text-gray-400 {
-            color: #4b5563;
-        }
-
-        .light-mode .text-white {
+        .question-text {
+            font-size: 1.5rem;
+            font-weight: 700;
             color: #1f2937;
+            margin-bottom: 2rem;
         }
-
-        .light-mode .bg-gray-700 {
+        .answer-btn {
             background-color: #e5e7eb;
+            color: #1f2937;
+            padding: 1rem 1.5rem;
+            margin: 0.5rem;
+            border-radius: 9999px;
+            font-weight: 600;
+            width: 100%;
+            cursor: pointer;
+            transition: background-color 0.2s ease-in-out, transform 0.1s ease-in-out;
         }
-
-        .light-mode .hover\:bg-gray-600:hover {
+        .answer-btn:hover {
             background-color: #d1d5db;
         }
-
-        .light-mode .bg-gray-800:hover {
-            background-color: #e5e7eb;
-        }
-        
-        .animated-button-hover {
-            transform: scale(1.05);
-            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.5);
-        }
-
-        .emoji-container {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            pointer-events: none;
-        }
-
-        .emoji {
-            position: absolute;
-            font-size: 2rem;
-            animation: fall linear forwards;
-            opacity: 0;
-        }
-
-        @keyframes fall {
-            0% {
-                transform: translateY(0) rotate(0deg);
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(100vh) rotate(360deg);
-                opacity: 0;
-            }
-        }
-
-        #theme-toggle {
-            position: fixed;
-            top: 1.5rem;
-            right: 1.5rem;
-            background: none;
-            border: none;
-            font-size: 2rem;
-            cursor: pointer;
-            z-index: 50;
-            transition: transform 0.2s;
-        }
-
-        #theme-toggle:hover {
-            transform: scale(1.1);
-        }
-        
-        #timer-bar-container {
-            width: 100%;
-            background-color: #4b5563;
-            border-radius: 9999px;
-            height: 8px;
-            overflow: hidden;
-            margin-top: 1rem;
-        }
-        
-        #timer-bar {
-            height: 100%;
+        .answer-btn.correct {
             background-color: #34d399;
-            transition: width 1s linear;
+            color: #ffffff;
+            transform: scale(1.02);
+            box-shadow: 0 4px 6px -1px rgba(52, 211, 153, 0.5), 0 2px 4px -1px rgba(52, 211, 153, 0.25);
         }
-
-        .difficulty-button.active {
-            background-color: #22c55e;
-            color: #fff;
-            border: 2px solid #16a34a;
+        .answer-btn.incorrect {
+            background-color: #f87171;
+            color: #ffffff;
+            transform: scale(1.02);
+            box-shadow: 0 4px 6px -1px rgba(248, 113, 113, 0.5), 0 2px 4px -1px rgba(248, 113, 113, 0.25);
+        }
+        .result-message {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-top: 1.5rem;
+        }
+        .start-btn {
+            background-color: #1f2937;
+            color: #ffffff;
+            padding: 1rem 2rem;
+            border-radius: 9999px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background-color 0.2s ease-in-out, transform 0.1s ease-in-out;
+            margin-top: 2rem;
+        }
+        .start-btn:hover {
+            background-color: #374151;
+            transform: scale(1.05);
+        }
+        .score-display {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #4b5563;
+            margin-top: 1rem;
         }
     </style>
 </head>
-<body class="flex items-center justify-center min-h-screen">
-    <button id="theme-toggle" class="text-white">
-        <span id="sun-icon">☀️</span>
-        <span id="moon-icon" class="hidden">🌙</span>
-    </button>
-    
-    <div id="game-container" class="bg-gray-900 p-8 rounded-3xl shadow-2xl max-w-lg w-full text-center space-y-6 transform transition-all duration-300 scale-95 opacity-0">
-        <h1 class="text-4xl font-bold text-cyan-400">Word Whiz! 🧠</h1>
-
-        <p id="score-display" class="text-lg font-bold text-gray-400">Score: 0</p>
-
-        <div id="start-screen" class="space-y-4">
-            <p class="text-lg text-gray-400">Test your English vocabulary skills!</p>
-            
-            <div class="space-y-2">
-                <p class="text-md text-gray-400">Select a difficulty level:</p>
-                <div id="difficulty-buttons" class="flex justify-center space-x-4">
-                    <button class="difficulty-button bg-gray-700 text-white font-bold py-2 px-6 rounded-full hover:bg-gray-600 transition duration-300" data-difficulty="easy">Easy</button>
-                    <button class="difficulty-button bg-gray-700 text-white font-bold py-2 px-6 rounded-full hover:bg-gray-600 transition duration-300" data-difficulty="intermediate">Intermediate</button>
-                    <button class="difficulty-button bg-gray-700 text-white font-bold py-2 px-6 rounded-full hover:bg-gray-600 transition duration-300" data-difficulty="hard">Hard</button>
-                </div>
-            </div>
-            
-            <div id="instructions-section" class="text-left bg-gray-800 p-4 rounded-xl border-2 border-gray-700">
-                <h2 class="text-lg font-bold text-cyan-400 mb-2">How to Play:</h2>
-                <ul class="list-disc list-inside text-gray-400 space-y-1">
-                    <li>Click "Start Game" to begin.</li>
-                    <li>Read the word, its definition, and an example sentence.</li>
-                    <li>Choose the correct word from the four options provided.</li>
-                    <li>The game will move to the next question automatically after a short delay.</li>
-                    <li>The final score and a full summary of your performance will be displayed at the end.</li>
-                </ul>
-            </div>
-            
-            <button id="start-button" class="bg-cyan-500 text-gray-900 font-bold py-3 px-8 rounded-full shadow-lg hover:bg-cyan-600 transition duration-300 transform hover:scale-105" disabled>
-                Loading Questions...
-            </button>
-        </div>
-
-        <div id="quiz-screen" class="hidden space-y-6">
-            <div class="bg-gray-800 p-6 rounded-xl border-2 border-gray-700">
-                <h2 id="word-display" class="text-2xl font-bold text-white mb-2"></h2>
-                <p id="definition-display" class="text-lg text-gray-400 italic mb-2"></p>
-                <p id="example-sentence-display" class="text-md text-gray-500 italic"></p>
-            </div>
-            
-            <div id="options-container" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            </div>
-            
-            <div id="timer-bar-container" class="mt-4">
-                <div id="timer-bar" class="w-full"></div>
-            </div>
-
-            <p id="feedback-message" class="text-xl font-bold mt-4"></p>
-        </div>
-
-        <div id="score-screen" class="hidden space-y-4">
-            <h2 id="final-score" class="text-3xl font-bold text-white"></h2>
-            <div id="review-container" class="space-y-2 text-left bg-gray-800 p-4 rounded-xl max-h-64 overflow-y-auto">
-                <h3 class="text-xl font-bold text-cyan-400">Review your answers:</h3>
-                <ul id="review-list" class="text-gray-400"></ul>
-            </div>
-            <button id="restart-button" class="bg-green-500 text-white font-bold py-3 px-8 rounded-full shadow-lg hover:bg-green-600 transition duration-300 transform hover:scale-105">
-                Play Again
-            </button>
+<body class="bg-gray-100 flex items-center justify-center p-4">
+    <div class="game-card">
+        <h1 class="text-3xl font-bold mb-4 text-gray-800">General Knowledge Quiz</h1>
+        <div id="game-container" class="space-y-4">
+            <p id="question-text" class="question-text hidden"></p>
+            <div id="answer-buttons" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
+            <div id="result-feedback" class="result-message hidden"></div>
+            <p id="score-display" class="score-display hidden"></p>
+            <button id="start-button" class="start-btn">Start Quiz</button>
         </div>
     </div>
 
-    <div id="emoji-container" class="emoji-container"></div>
-
     <script>
-        // Let's get references to our HTML elements so we can manipulate them.
-        const startScreen = document.getElementById('start-screen');
-        const quizScreen = document.getElementById('quiz-screen');
-        const scoreScreen = document.getElementById('score-screen');
-        const startButton = document.getElementById('start-button');
-        const restartButton = document.getElementById('restart-button');
-        const wordDisplay = document.getElementById('word-display');
-        const definitionDisplay = document.getElementById('definition-display');
-        const exampleSentenceDisplay = document.getElementById('example-sentence-display');
-        const optionsContainer = document.getElementById('options-container');
-        const feedbackMessage = document.getElementById('feedback-message');
-        const gameContainer = document.getElementById('game-container');
-        const finalScore = document.getElementById('final-score');
-        const scoreDisplay = document.getElementById('score-display');
-        const emojiContainer = document.getElementById('emoji-container');
-        const reviewList = document.getElementById('review-list');
-        const timerBar = document.getElementById('timer-bar');
-        const difficultyButtons = document.querySelectorAll('.difficulty-button');
+        // Array of general knowledge questions
+        const questions = [
+            {
+                question: "What is the capital of France?",
+                options: ["Berlin", "Madrid", "Paris", "Rome"],
+                answer: "Paris"
+            },
+            {
+                question: "Which planet is known as the 'Red Planet'?",
+                options: ["Earth", "Mars", "Jupiter", "Venus"],
+                answer: "Mars"
+            },
+            {
+                question: "How many continents are there in the world?",
+                options: ["5", "6", "7", "8"],
+                answer: "7"
+            },
+            {
+                question: "What is the largest ocean on Earth?",
+                options: ["Atlantic Ocean", "Indian Ocean", "Arctic Ocean", "Pacific Ocean"],
+                answer: "Pacific Ocean"
+            },
+            {
+                question: "Who wrote the play 'Romeo and Juliet'?",
+                options: ["Charles Dickens", "William Shakespeare", "Mark Twain", "Jane Austen"],
+                answer: "William Shakespeare"
+            }
+        ];
 
-        // References for theme toggle
-        const body = document.body;
-        const themeToggle = document.getElementById('theme-toggle');
-        const sunIcon = document.getElementById('sun-icon');
-        const moonIcon = document.getElementById('moon-icon');
-
-        // Game state variables
         let currentQuestionIndex = 0;
         let score = 0;
-        let loadedQuestions = {}; // This will hold the questions loaded from the JSON file
-        let selectedQuestions = [];
-        let timer;
-        let timeLeft = 15;
-        let userAnswers = [];
 
-        // This function shuffles the questions array so the game is different each time.
-        function shuffleArray(array) {
-            for (let i = array.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [array[i], array[j]] = [array[j], array[i]];
-            }
-        }
+        // Get HTML elements
+        const questionText = document.getElementById('question-text');
+        const answerButtonsContainer = document.getElementById('answer-buttons');
+        const startButton = document.getElementById('start-button');
+        const resultFeedback = document.getElementById('result-feedback');
+        const scoreDisplay = document.getElementById('score-display');
+        const gameContainer = document.getElementById('game-container');
 
-        // This function starts the game by showing the quiz screen and loading the first question.
+        // Function to start the game
         function startGame() {
-            // Get the selected difficulty from the active button
-            const selectedDifficultyButton = document.querySelector('.difficulty-button.active');
-            if (!selectedDifficultyButton) {
-                // In a real application, you might show a user-friendly message instead of an alert
-                return;
-            }
-            const difficulty = selectedDifficultyButton.dataset.difficulty;
-            selectedQuestions = loadedQuestions[difficulty].slice(); // Use a slice to create a new array
-            shuffleArray(selectedQuestions);
-
-            score = 0;
             currentQuestionIndex = 0;
-            userAnswers = [];
-            scoreDisplay.textContent = `Score: ${score}`;
-            startScreen.classList.add('hidden');
-            quizScreen.classList.remove('hidden');
-            scoreScreen.classList.add('hidden');
-            gameContainer.style.transform = 'scale(1)';
-            gameContainer.style.opacity = '1';
-            loadQuestion();
+            score = 0;
+            startButton.style.display = 'none';
+            questionText.classList.remove('hidden');
+            resultFeedback.classList.add('hidden');
+            scoreDisplay.classList.add('hidden');
+            displayQuestion();
         }
 
-        // This function loads a new question from our array and displays it.
-        function loadQuestion() {
-            // If there are no more questions, end the game.
-            if (currentQuestionIndex >= selectedQuestions.length) {
+        // Function to display a question
+        function displayQuestion() {
+            // Check if there are more questions
+            if (currentQuestionIndex >= questions.length) {
                 endGame();
                 return;
             }
 
-            const currentQuestion = selectedQuestions[currentQuestionIndex];
-            wordDisplay.textContent = currentQuestion.word;
-            definitionDisplay.textContent = currentQuestion.definition;
-            exampleSentenceDisplay.innerHTML = currentQuestion.exampleSentence;
-            optionsContainer.innerHTML = ''; // Clear previous options
-            feedbackMessage.textContent = ''; // Clear feedback message
-            
-            // Reset and start timer
-            clearInterval(timer);
-            timeLeft = 15;
-            updateTimerBar();
-            timer = setInterval(() => {
-                timeLeft--;
-                updateTimerBar();
-                if (timeLeft <= 0) {
-                    clearInterval(timer);
-                    checkAnswer(null, currentQuestion.correctAnswer, null, true);
-                }
-            }, 1000);
+            const currentQuestion = questions[currentQuestionIndex];
+            questionText.textContent = currentQuestion.question;
+            answerButtonsContainer.innerHTML = ''; // Clear previous buttons
 
-            // We create a button for each option in the question.
+            // Create buttons for each option
             currentQuestion.options.forEach(option => {
                 const button = document.createElement('button');
                 button.textContent = option;
-                button.classList.add('bg-gray-800', 'text-gray-200', 'font-semibold', 'py-3', 'px-4', 'rounded-full', 'shadow', 'hover:bg-gray-700', 'transition', 'duration-200', 'text-sm', 'sm:text-base');
-                button.addEventListener('click', () => checkAnswer(option, currentQuestion.correctAnswer, button, false));
-                optionsContainer.appendChild(button);
+                button.classList.add('answer-btn');
+                button.onclick = () => checkAnswer(option);
+                answerButtonsContainer.appendChild(button);
             });
         }
-        
-        function updateTimerBar() {
-            const percentage = (timeLeft / 15) * 100;
-            timerBar.style.width = percentage + '%';
-            if (percentage < 30) {
-                timerBar.style.backgroundColor = '#ef4444';
-            } else if (percentage < 60) {
-                timer.style.backgroundColor = '#f59e0b';
-            } else {
-                timerBar.style.backgroundColor = '#34d399';
-            }
-        }
-        
-        // Function to create a confetti-like emoji effect
-        function createEmojiRain() {
-            const emojis = ['🎉', '✨', '🌟', '🥳', '🤩'];
-            const numEmojis = 20;
 
-            for (let i = 0; i < numEmojis; i++) {
-                const emoji = document.createElement('div');
-                emoji.textContent = emojis[Math.floor(Math.random() * emojis.length)];
-                emoji.classList.add('emoji');
+        // Function to check the selected answer
+        function checkAnswer(selectedOption) {
+            const currentQuestion = questions[currentQuestionIndex];
+            const isCorrect = selectedOption === currentQuestion.answer;
 
-                const startX = Math.random() * window.innerWidth;
-                const duration = Math.random() * 2 + 3;
-                const delay = Math.random() * 0.5;
-
-                emoji.style.left = `${startX}px`;
-                emoji.style.animationDuration = `${duration}s`;
-                emoji.style.animationDelay = `${delay}s`;
-
-                emojiContainer.appendChild(emoji);
-
-                // Remove emoji after animation to prevent clutter
-                emoji.addEventListener('animationend', () => {
-                    emoji.remove();
-                });
-            }
-        }
-
-        // This function is called when the user clicks an answer button or the timer runs out.
-        function checkAnswer(selectedOption, correctAnswer, buttonElement, isTimeout) {
-            clearInterval(timer);
-            const currentQuestion = selectedQuestions[currentQuestionIndex];
-            const isCorrect = selectedOption === correctAnswer;
-            
-            // Record the user's answer for the review screen
-            userAnswers.push({
-                question: currentQuestion.word,
-                correct: isCorrect,
-                correctAnswer: correctAnswer,
-                userAnswer: selectedOption || 'Time Out'
+            // Highlight the correct/incorrect answer
+            Array.from(answerButtonsContainer.children).forEach(button => {
+                button.disabled = true; // Disable all buttons
+                if (button.textContent === currentQuestion.answer) {
+                    button.classList.add('correct');
+                } else if (button.textContent === selectedOption) {
+                    button.classList.add('incorrect');
+                }
             });
-
-            optionsContainer.querySelectorAll('button').forEach(btn => btn.disabled = true);
 
             if (isCorrect) {
                 score++;
-                scoreDisplay.textContent = `Score: ${score}`;
-                feedbackMessage.textContent = "Correct! Great job! ✨";
-                feedbackMessage.classList.remove('text-red-400');
-                feedbackMessage.classList.add('text-green-400');
-                if (buttonElement) {
-                    buttonElement.classList.remove('bg-gray-800', 'hover:bg-gray-700');
-                    buttonElement.classList.add('bg-green-500', 'text-white', 'animated-button-hover');
-                }
-                createEmojiRain();
+                resultFeedback.textContent = "Correct!";
+                resultFeedback.style.color = '#34d399';
             } else {
-                if (isTimeout) {
-                    feedbackMessage.textContent = `Time's up! The correct answer is ${correctAnswer}. 😔`;
-                } else {
-                    feedbackMessage.textContent = `Incorrect. The correct answer is ${correctAnswer}. 😔`;
-                }
-                
-                feedbackMessage.classList.remove('text-green-400');
-                feedbackMessage.classList.add('text-red-400');
-
-                if (buttonElement) {
-                    buttonElement.classList.remove('bg-gray-800', 'hover:bg-gray-700');
-                    buttonElement.classList.add('bg-red-500', 'text-white', 'animated-button-hover');
-                }
-                // Highlight the correct answer
-                optionsContainer.querySelectorAll('button').forEach(btn => {
-                    if (btn.textContent === correctAnswer) {
-                        btn.classList.add('bg-green-500', 'text-white', 'border-2', 'border-green-700');
-                    }
-                });
+                resultFeedback.textContent = "Incorrect. The correct answer was: " + currentQuestion.answer;
+                resultFeedback.style.color = '#f87171';
             }
 
-            // Move to the next question after a delay
+            resultFeedback.classList.remove('hidden');
+
+            // Move to the next question after a short delay
             setTimeout(() => {
                 currentQuestionIndex++;
-                loadQuestion();
-            }, 3000);
+                resultFeedback.classList.add('hidden');
+                displayQuestion();
+            }, 1500); // 1.5 second delay
         }
 
-        // This function is called when the game is over.
+        // Function to end the game and show the score
         function endGame() {
-            quizScreen.classList.add('hidden');
-            scoreScreen.classList.remove('hidden');
-            finalScore.textContent = `You got ${score} out of ${selectedQuestions.length} correct! 🥳`;
-            
-            // Populate the review list
-            reviewList.innerHTML = '';
-            userAnswers.forEach(answer => {
-                const li = document.createElement('li');
-                if (answer.correct) {
-                    li.innerHTML = `✅ **${answer.question}**: Correct!`;
-                    li.classList.add('text-green-400');
-                } else {
-                    li.innerHTML = `❌ **${answer.question}**: Your answer: "${answer.userAnswer}", Correct answer: "${answer.correctAnswer}"`;
-                    li.classList.add('text-red-400');
-                }
-                reviewList.appendChild(li);
-            });
+            questionText.classList.add('hidden');
+            answerButtonsContainer.innerHTML = '';
+            resultFeedback.classList.add('hidden');
+            scoreDisplay.textContent = `Quiz Over! You scored ${score} out of ${questions.length}.`;
+            scoreDisplay.classList.remove('hidden');
+            startButton.textContent = "Play Again";
+            startButton.style.display = 'block';
         }
 
-        // Add event listeners to the start and restart buttons.
+        // Event listener for the start button
         startButton.addEventListener('click', startGame);
-        restartButton.addEventListener('click', () => {
-            quizScreen.classList.add('hidden');
-            scoreScreen.classList.add('hidden');
-            startScreen.classList.remove('hidden');
-            startButton.textContent = "Start Game";
-        });
 
-        // Add event listeners for difficulty buttons
-        difficultyButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                difficultyButtons.forEach(btn => btn.classList.remove('active'));
-                button.classList.add('active');
-            });
-        });
-
-        // Function to toggle between light and dark mode
-        function toggleTheme() {
-            body.classList.toggle('light-mode');
-            sunIcon.classList.toggle('hidden');
-            moonIcon.classList.toggle('hidden');
-            if (body.classList.contains('light-mode')) {
-                themeToggle.classList.remove('text-white');
-                themeToggle.classList.add('text-gray-800');
-            } else {
-                themeToggle.classList.remove('text-gray-800');
-                themeToggle.classList.add('text-white');
-            }
-        }
-        
-        // Add event listener to the theme toggle button
-        themeToggle.addEventListener('click', toggleTheme);
-
-        // Fetch the questions from the JSON file on page load
-        window.onload = function() {
-            gameContainer.style.transform = 'scale(1)';
-            gameContainer.style.opacity = '1';
-
-            fetch('questions.json')
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error(`HTTP error! status: ${response.status}`);
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    loadedQuestions = data;
-                    // Enable the start button and change its text after data is loaded
-                    startButton.disabled = false;
-                    startButton.textContent = "Start Game";
-                })
-                .catch(error => {
-                    console.error('Could not load the questions:', error);
-                    // Inform the user that the data failed to load
-                    startButton.textContent = "Error Loading Questions";
-                    startButton.classList.add('bg-red-500', 'hover:bg-red-600', 'text-white');
-                });
-        };
     </script>
 </body>
 </html>
