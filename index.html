@@ -86,6 +86,16 @@
             color: #4b5563;
             margin-top: 1rem;
         }
+        .loading-text {
+            color: #6b7280;
+            font-size: 1rem;
+        }
+        .level-btn:disabled {
+            background-color: #d1d5db;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
     </style>
 </head>
 <body class="bg-gray-100 flex items-center justify-center p-4">
@@ -95,9 +105,10 @@
         <!-- Level Selection Screen -->
         <div id="level-selection" class="flex flex-col items-center space-y-4">
             <h2 class="text-2xl font-semibold text-gray-700">Choose a Difficulty Level</h2>
-            <button id="beginner-btn" class="level-btn">Beginner</button>
-            <button id="intermediate-btn" class="level-btn">Intermediate</button>
-            <button id="advanced-btn" class="level-btn">Advanced</button>
+            <p id="loading-message" class="loading-text">Loading questions...</p>
+            <button id="beginner-btn" class="level-btn" disabled>Beginner</button>
+            <button id="intermediate-btn" class="level-btn" disabled>Intermediate</button>
+            <button id="advanced-btn" class="level-btn" disabled>Advanced</button>
         </div>
 
         <!-- Quiz Game Screen -->
@@ -124,6 +135,8 @@
         const resultFeedback = document.getElementById('result-feedback');
         const scoreDisplay = document.getElementById('score-display');
         const playAgainButton = document.getElementById('play-again-btn');
+        const loadingMessage = document.getElementById('loading-message');
+        const levelButtons = document.querySelectorAll('.level-btn');
 
         // Function to fetch questions from the JSON file
         async function fetchQuestions() {
@@ -134,9 +147,14 @@
                 }
                 const data = await response.json();
                 allQuestions = data;
+                
+                // Hide loading message and enable buttons after questions are loaded
+                loadingMessage.classList.add('hidden');
+                levelButtons.forEach(button => button.disabled = false);
             } catch (error) {
                 console.error('Failed to load questions:', error);
-                // You could display an error message to the user here.
+                loadingMessage.textContent = "Error: Could not load questions. Please check your questions.json file.";
+                loadingMessage.style.color = '#ef4444';
             }
         }
         
@@ -158,10 +176,6 @@
 
         // Function to select a difficulty level and start the game
         function selectLevel(level) {
-            if (!allQuestions) {
-                console.error('Questions are not loaded yet!');
-                return; // Exit if questions haven't been fetched
-            }
             selectedQuestions = allQuestions[level];
             currentQuestionIndex = 0;
             score = 0;
