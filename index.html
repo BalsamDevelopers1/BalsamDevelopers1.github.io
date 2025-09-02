@@ -3,119 +3,202 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>General Knowledge Quiz</title>
+    <title>Gen Z Quiz: The Ultimate Knowledge Challenge</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+
+        :root {
+            --bg-color-1: #0A192F;
+            --bg-color-2: #1E293B;
+            --primary-gradient: linear-gradient(45deg, #FF6B6B, #F9D423);
+            --secondary-color: #64FFDA;
+            --text-light: #E2E8F0;
+        }
+
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: #f3f4f6;
+            font-family: 'Poppins', sans-serif;
+            background: var(--bg-color-1);
+            color: var(--text-light);
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            min-height: 100vh;
             margin: 0;
             padding: 1rem;
+            overflow: hidden;
+            position: relative;
         }
-        .game-card {
-            background-color: #ffffff;
-            border-radius: 1.5rem;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-            padding: 2.5rem;
+
+        body::before {
+            content: '';
+            position: absolute;
+            top: -20%;
+            left: -20%;
+            width: 140%;
+            height: 140%;
+            background: radial-gradient(circle, #4F46E5 10%, transparent 20%),
+                        radial-gradient(circle, #EC4899 15%, transparent 30%);
+            background-size: 200px 200px;
+            animation: moveGradient 60s linear infinite;
+            opacity: 0.15;
+            z-index: 0;
+        }
+
+        @keyframes moveGradient {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            25% { transform: translate(-20px, 30px) rotate(90deg); }
+            50% { transform: translate(40px, -50px) rotate(180deg); }
+            75% { transform: translate(-30px, 20px) rotate(270deg); }
+            100% { transform: translate(0, 0) rotate(360deg); }
+        }
+
+        .quiz-container {
+            position: relative;
+            z-index: 10;
+            background: rgba(30, 41, 59, 0.8);
+            backdrop-filter: blur(10px);
+            border-radius: 2rem;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2), 0 10px 10px -5px rgba(0, 0, 0, 0.1);
+            padding: 3rem;
             width: 100%;
-            max-width: 32rem;
+            max-width: 36rem;
             text-align: center;
-            transition: all 0.3s ease-in-out;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            transform: scale(1);
+            animation: popIn 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55) forwards;
         }
-        .question-text {
-            font-size: 1.5rem;
+
+        @keyframes popIn {
+            0% { transform: scale(0.9); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .title {
+            font-size: 2.5rem;
             font-weight: 700;
-            color: #1f2937;
-            margin-bottom: 2rem;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1.5rem;
         }
-        .answer-btn {
-            background-color: #e5e7eb;
-            color: #1f2937;
+
+        .question-text {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text-light);
+            margin-bottom: 2rem;
+            transition: opacity 0.3s ease;
+        }
+
+        .btn {
+            background: #2D3748;
+            color: var(--text-light);
             padding: 1rem 1.5rem;
-            margin: 0.5rem;
             border-radius: 9999px;
             font-weight: 600;
             width: 100%;
             cursor: pointer;
-            transition: background-color 0.2s ease-in-out, transform 0.1s ease-in-out;
+            transition: all 0.2s ease-in-out;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+            display: block;
         }
-        .answer-btn:hover {
-            background-color: #d1d5db;
+        
+        .btn:hover {
+            background: #4A5568;
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
         }
-        .answer-btn.correct {
-            background-color: #34d399;
-            color: #ffffff;
-            transform: scale(1.02);
-            box-shadow: 0 4px 6px -1px rgba(52, 211, 153, 0.5), 0 2px 4px -1px rgba(52, 211, 153, 0.25);
-        }
-        .answer-btn.incorrect {
-            background-color: #f87171;
-            color: #ffffff;
-            transform: scale(1.02);
-            box-shadow: 0 4px 6px -1px rgba(248, 113, 113, 0.5), 0 2px 4px -1px rgba(248, 113, 113, 0.25);
-        }
-        .result-message {
-            font-size: 1.25rem;
-            font-weight: 700;
-            margin-top: 1.5rem;
-        }
-        .start-btn, .level-btn {
-            background-color: #1f2937;
-            color: #ffffff;
-            padding: 1rem 2rem;
-            border-radius: 9999px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: background-color 0.2s ease-in-out, transform 0.1s ease-in-out;
-            margin-top: 1rem;
-            width: 100%;
-            max-width: 18rem;
-        }
-        .start-btn:hover, .level-btn:hover {
-            background-color: #374151;
+
+        .btn.correct {
+            background: linear-gradient(45deg, #10B981, #14B8A6);
+            color: white;
             transform: scale(1.05);
         }
-        .score-display {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: #4b5563;
-            margin-top: 1rem;
+
+        .btn.incorrect {
+            background: linear-gradient(45deg, #EF4444, #F87171);
+            color: white;
+            transform: scale(1.05);
         }
-        .loading-text {
-            color: #6b7280;
-            font-size: 1rem;
-        }
-        .level-btn:disabled {
-            background-color: #d1d5db;
+
+        .btn:disabled {
+            background: #4A5568;
             cursor: not-allowed;
             transform: none;
             box-shadow: none;
+            opacity: 0.6;
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: #2D3748;
+            border-radius: 4px;
+            margin-bottom: 1.5rem;
+            overflow: hidden;
+        }
+        .progress-bar-fill {
+            height: 100%;
+            background: var(--secondary-color);
+            transition: width 0.5s ease-in-out;
+        }
+
+        .score-display, .result-message {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-top: 1.5rem;
+        }
+
+        .score-display {
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .result-message {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        
+        .start-btn {
+            background: var(--primary-gradient);
+            color: white;
+            padding: 1.25rem 2.5rem;
+            font-size: 1.125rem;
+        }
+
+        .level-selection .btn {
+            background: #2D3748;
+        }
+
+        .level-selection .btn:disabled {
+            background: #1F2937;
         }
     </style>
 </head>
-<body class="bg-gray-100 flex items-center justify-center p-4">
-    <div class="game-card">
-        <h1 class="text-3xl font-bold mb-4 text-gray-800">General Knowledge Quiz</h1>
-
+<body class="bg-gray-900 flex items-center justify-center p-4">
+    <div class="quiz-container">
+        <h1 class="title">Gen Z Quiz</h1>
         <div id="level-selection" class="flex flex-col items-center space-y-4">
-            <h2 class="text-2xl font-semibold text-gray-700">Choose a Difficulty Level</h2>
-            <p id="loading-message" class="loading-text">Loading questions...</p>
-            <button id="beginner-btn" class="level-btn" disabled>Beginner</button>
-            <button id="intermediate-btn" class="level-btn" disabled>Intermediate</button>
-            <button id="advanced-btn" class="level-btn" disabled>Advanced</button>
+            <h2 class="text-xl font-semibold text-gray-400">Choose Your Vibe ✨</h2>
+            <p id="loading-message" class="loading-text text-gray-500">
+                Loading questions... be right back!
+            </p>
+            <button id="beginner-btn" class="btn level-btn" disabled>Easy Peasy</button>
+            <button id="intermediate-btn" class="btn level-btn" disabled>In the Know</button>
+            <button id="advanced-btn" class="btn level-btn" disabled>Certified Genius</button>
         </div>
 
-        <div id="game-container" class="space-y-4 hidden">
+        <div id="game-container" class="space-y-6 hidden">
+            <div class="progress-bar">
+                <div id="progress-fill" class="progress-bar-fill" style="width: 0%;"></div>
+            </div>
             <p id="question-text" class="question-text"></p>
-            <div id="answer-buttons" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
+            <div id="answer-buttons" class="grid grid-cols-1 sm:grid-cols-2 gap-4"></div>
             <div id="result-feedback" class="result-message hidden"></div>
             <p id="score-display" class="score-display hidden"></p>
-            <button id="play-again-btn" class="start-btn hidden">Play Again</button>
+            <button id="play-again-btn" class="btn start-btn hidden">Go Again?</button>
         </div>
     </div>
 
@@ -125,7 +208,6 @@
         let score = 0;
         let selectedQuestions = [];
 
-        // Get HTML elements
         const levelSelectionScreen = document.getElementById('level-selection');
         const gameContainer = document.getElementById('game-container');
         const questionText = document.getElementById('question-text');
@@ -135,8 +217,16 @@
         const playAgainButton = document.getElementById('play-again-btn');
         const loadingMessage = document.getElementById('loading-message');
         const levelButtons = document.querySelectorAll('.level-btn');
+        const progressBarFill = document.getElementById('progress-fill');
 
-        // Function to fetch questions from the JSON file
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
         async function fetchQuestions() {
             try {
                 const response = await fetch('questions.json');
@@ -145,46 +235,42 @@
                 }
                 const data = await response.json();
                 allQuestions = data;
-                
-                // Hide loading message and enable buttons after questions are loaded
                 loadingMessage.classList.add('hidden');
                 levelButtons.forEach(button => button.disabled = false);
             } catch (error) {
                 console.error('Failed to load questions:', error);
-                loadingMessage.textContent = "Error: Could not load questions. Please check your questions.json file.";
+                loadingMessage.textContent = "Error: Couldn't load questions. Check the file.";
                 loadingMessage.style.color = '#ef4444';
             }
         }
         
-        // Fetch questions as soon as the page loads
         document.addEventListener('DOMContentLoaded', fetchQuestions);
 
-        // Event listeners for level selection buttons
         document.getElementById('beginner-btn').addEventListener('click', () => selectLevel('beginner'));
         document.getElementById('intermediate-btn').addEventListener('click', () => selectLevel('intermediate'));
         document.getElementById('advanced-btn').addEventListener('click', () => selectLevel('advanced'));
         playAgainButton.addEventListener('click', showLevelSelection);
 
-        // Function to show the level selection screen
         function showLevelSelection() {
             levelSelectionScreen.classList.remove('hidden');
             gameContainer.classList.add('hidden');
             playAgainButton.classList.add('hidden');
         }
 
-        // Function to select a difficulty level and start the game
         function selectLevel(level) {
-            selectedQuestions = allQuestions[level];
+            // Shuffle and select a subset of questions for a more dynamic experience
+            const shuffled = shuffleArray(allQuestions[level]);
+            selectedQuestions = shuffled.slice(0, 10); // Use 10 questions per quiz
             currentQuestionIndex = 0;
             score = 0;
             levelSelectionScreen.classList.add('hidden');
             gameContainer.classList.remove('hidden');
             resultFeedback.classList.add('hidden');
             scoreDisplay.classList.add('hidden');
+            updateProgressBar();
             displayQuestion();
         }
 
-        // Function to display a question
         function displayQuestion() {
             if (currentQuestionIndex >= selectedQuestions.length) {
                 endGame();
@@ -193,18 +279,26 @@
 
             const currentQuestion = selectedQuestions[currentQuestionIndex];
             questionText.textContent = currentQuestion.question;
-            answerButtonsContainer.innerHTML = ''; // Clear previous buttons
-
-            currentQuestion.options.forEach(option => {
+            answerButtonsContainer.innerHTML = '';
+            
+            // Shuffle options for added challenge
+            const shuffledOptions = shuffleArray([...currentQuestion.options]);
+            
+            shuffledOptions.forEach(option => {
                 const button = document.createElement('button');
                 button.textContent = option;
+                button.classList.add('btn');
                 button.classList.add('answer-btn');
                 button.onclick = () => checkAnswer(option);
                 answerButtonsContainer.appendChild(button);
             });
         }
 
-        // Function to check the selected answer
+        function updateProgressBar() {
+            const progress = (currentQuestionIndex / selectedQuestions.length) * 100;
+            progressBarFill.style.width = `${progress}%`;
+        }
+
         function checkAnswer(selectedOption) {
             const currentQuestion = selectedQuestions[currentQuestionIndex];
             const isCorrect = selectedOption === currentQuestion.answer;
@@ -220,28 +314,28 @@
 
             if (isCorrect) {
                 score++;
-                resultFeedback.textContent = "Correct!";
-                resultFeedback.style.color = '#34d399';
+                resultFeedback.textContent = "✅ Correct!";
+                resultFeedback.style.color = '#10B981';
             } else {
-                resultFeedback.textContent = "Incorrect. The correct answer was: " + currentQuestion.answer;
-                resultFeedback.style.color = '#f87171';
+                resultFeedback.textContent = "❌ Not quite. The correct answer was: " + currentQuestion.answer;
+                resultFeedback.style.color = '#EF4444';
             }
 
             resultFeedback.classList.remove('hidden');
 
             setTimeout(() => {
                 currentQuestionIndex++;
+                updateProgressBar();
                 resultFeedback.classList.add('hidden');
                 displayQuestion();
             }, 1500);
         }
 
-        // Function to end the game and show the score
         function endGame() {
             questionText.classList.add('hidden');
             answerButtonsContainer.innerHTML = '';
             resultFeedback.classList.add('hidden');
-            scoreDisplay.textContent = `Quiz Over! You scored ${score} out of ${selectedQuestions.length}.`;
+            scoreDisplay.textContent = `You slayed! You scored ${score} out of ${selectedQuestions.length}.`;
             scoreDisplay.classList.remove('hidden');
             playAgainButton.classList.remove('hidden');
         }
