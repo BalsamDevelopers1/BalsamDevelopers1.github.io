@@ -1,218 +1,185 @@
 {
-"easy": [
+"beginner": [
 {
-"word": "Meticulous",
-"definition": "Showing great attention to detail; very careful and precise.",
-"exampleSentence": "A meticulous artist, she spent hours on every brushstroke.",
-"options": ["Lazy and careless", "Loud and boisterous", "Extremely neat and careful", "Very tired"],
-"correctAnswer": "Extremely neat and careful"
+"question": "What is the largest animal on Earth?",
+"options": ["Elephant", "Blue Whale", "Giraffe", "Great White Shark"],
+"answer": "Blue Whale"
 },
 {
-"word": "Ebullient",
-"definition": "Cheerful and full of energy.",
-"exampleSentence": "Her ebullient personality made her the life of every party.",
-"options": ["Quiet and shy", "Full of energy", "Quick to anger", "Very sad"],
-"correctAnswer": "Full of energy"
+"question": "How many days are in a leap year?",
+"options": ["365", "366", "360", "364"],
+"answer": "366"
 },
 {
-"word": "Serendipity",
-"definition": "The occurrence and development of events by chance in a happy or beneficial way.",
-"exampleSentence": "It was pure serendipity that she found her lost wallet on the street.",
-"options": ["Bad luck", "Sudden anger", "A happy discovery by chance", "A planned event"],
-"correctAnswer": "A happy discovery by chance"
+"question": "What is the main ingredient of guacamole?",
+"options": ["Tomato", "Onion", "Avocado", "Lime"],
+"answer": "Avocado"
 },
 {
-"word": "Quintessential",
-"definition": "Representing the most perfect or typical example of a quality or class.",
-"exampleSentence": "He was the quintessential rock star, with long hair and a leather jacket.",
-"options": ["Very rare", "Most perfect example", "Hard to find", "Quite old"],
-"correctAnswer": "Most perfect example"
+"question": "What is the largest planet in our solar system?",
+"options": ["Earth", "Mars", "Saturn", "Jupiter"],
+"answer": "Jupiter"
 },
 {
-"word": "Benevolent",
-"definition": "Well meaning and kindly.",
-"exampleSentence": "The benevolent king was loved by all his people for his kindness.",
-"options": ["Cruel and evil", "Well-meaning and kind", "Always angry", "Very strong"],
-"correctAnswer": "Well-meaning and kind"
+"question": "What is the tallest mountain in the world?",
+"options": ["K2", "Mount Everest", "Mount Kilimanjaro", "Mount Denali"],
+"answer": "Mount Everest"
 },
 {
-"word": "Conundrum",
-"definition": "A confusing and difficult problem or question.",
-"exampleSentence": "The scientist faced a complex conundrum he couldn't solve.",
-"options": ["A simple solution", "A type of animal", "A confusing problem", "A musical instrument"],
-"correctAnswer": "A confusing problem"
+"question": "How many colors are in a rainbow?",
+"options": ["Five", "Six", "Seven", "Eight"],
+"answer": "Seven"
 },
 {
-"word": "Elucidate",
-"definition": "To make something clear; explain.",
-"exampleSentence": "The teacher had to elucidate the concept again for the students to understand.",
-"options": ["To confuse", "To make clear", "To hide", "To complicate"],
-"correctAnswer": "To make clear"
+"question": "What is the currency of Japan?",
+"options": ["Yuan", "Yen", "Rupee", "Euro"],
+"answer": "Yen"
 },
 {
-"word": "Impeccable",
-"definition": "In accordance with the highest standards; flawless.",
-"exampleSentence": "His impeccable manners made a great impression on everyone.",
-"options": ["Full of errors", "Very fast", "Faultless", "Extremely slow"],
-"correctAnswer": "Faultless"
+"question": "Which country is famous for the pyramids?",
+"options": ["Mexico", "China", "Egypt", "Italy"],
+"answer": "Egypt"
 },
 {
-"word": "Jurisdiction",
-"definition": "The official power to make legal decisions and judgments.",
-"exampleSentence": "The local court has jurisdiction over this case.",
-"options": ["A type of law", "Legal authority", "A physical location", "A type of punishment"],
-"correctAnswer": "Legal authority"
+"question": "What is the capital of Australia?",
+"options": ["Sydney", "Melbourne", "Canberra", "Auckland"],
+"answer": "Canberra"
 },
 {
-"word": "Nefarious",
-"definition": "Wicked or criminal.",
-"exampleSentence": "The supervillain's nefarious plan was to steal all the gold in the city.",
-"options": ["Helpful", "Wicked and evil", "Joyful", "Very quick"],
-"correctAnswer": "Wicked and evil"
+"question": "What is the fastest land animal?",
+"options": ["Lion", "Cheetah", "Gazelle", "Tiger"],
+"answer": "Cheetah"
 }
 ],
 "intermediate": [
 {
-"word": "Ubiquitous",
-"definition": "Present, appearing, or found everywhere.",
-"exampleSentence": "In the modern world, smartphones have become ubiquitous.",
-"options": ["Very large", "Present everywhere", "Highly intelligent", "Hard to find"],
-"correctAnswer": "Present everywhere"
+"question": "Who painted the Mona Lisa?",
+"options": ["Vincent van Gogh", "Pablo Picasso", "Leonardo da Vinci", "Claude Monet"],
+"answer": "Leonardo da Vinci"
 },
 {
-"word": "Pernicious",
-"definition": "Having a harmful effect, especially in a gradual or subtle way.",
-"exampleSentence": "The pernicious rumor slowly eroded her reputation.",
-"options": ["Very loud", "Extremely beneficial", "Harmful and subtle", "Easy to understand"],
-"correctAnswer": "Harmful and subtle"
+"question": "What is the largest organ in the human body?",
+"options": ["Heart", "Brain", "Liver", "Skin"],
+"answer": "Skin"
 },
 {
-"word": "Ephemeral",
-"definition": "Lasting for a very short time.",
-"exampleSentence": "The beauty of a sunset is ephemeral.",
-"options": ["Very old", "Lasting a short time", "Always present", "Full of energy"],
-"correctAnswer": "Lasting a short time"
+"question": "Which country is known as the Land of the Rising Sun?",
+"options": ["China", "Thailand", "Japan", "South Korea"],
+"answer": "Japan"
 },
 {
-"word": "Salient",
-"definition": "Most noticeable or important.",
-"exampleSentence": "The salient points of the lecture were highlighted in the summary.",
-"options": ["Very quiet", "Not important", "Most noticeable", "Hidden from view"],
-"correctAnswer": "Most noticeable"
+"question": "Who was the first person to walk on the moon?",
+"options": ["Yuri Gagarin", "Buzz Aldrin", "Neil Armstrong", "Alan Shepard"],
+"answer": "Neil Armstrong"
 },
 {
-"word": "Capricious",
-"definition": "Given to sudden and unaccountable changes of mood or behavior.",
-"exampleSentence": "Her capricious decisions made it difficult to plan anything.",
-"options": ["Full of joy", "Steady and predictable", "Changing suddenly", "Very sad"],
-"correctAnswer": "Changing suddenly"
+"question": "What is the chemical symbol for water?",
+"options": ["
+
+H 
+2
+​
+ O
+", "
+
+CO 
+2
+​
+ 
+", "
+
+NaCl
+", "
+
+O 
+2
+​
+ 
+"],
+"answer": "
+
+H 
+2
+​
+ O
+"
 },
 {
-"word": "Amalgamate",
-"definition": "To combine or unite to form one organization or structure.",
-"exampleSentence": "The two companies decided to amalgamate to create a larger corporation.",
-"options": ["To separate", "To compete", "To combine", "To divide"],
-"correctAnswer": "To combine"
+"question": "Which ocean is the Bermuda Triangle located in?",
+"options": ["Pacific Ocean", "Indian Ocean", "Atlantic Ocean", "Arctic Ocean"],
+"answer": "Atlantic Ocean"
 },
 {
-"word": "Disparate",
-"definition": "Essentially different in kind; not able to be compared.",
-"exampleSentence": "The team members came from disparate backgrounds, but they worked well together.",
-"options": ["Very similar", "Easy to compare", "Completely different", "Small in size"],
-"correctAnswer": "Completely different"
+"question": "What is the longest river in the world?",
+"options": ["Amazon River", "Yangtze River", "Mississippi River", "The Nile"],
+"answer": "The Nile"
 },
 {
-"word": "Incontrovertible",
-"definition": "Not able to be denied or disputed.",
-"exampleSentence": "The evidence was incontrovertible; the suspect had no alibi.",
-"options": ["Easy to argue with", "Impossible to deny", "Very loud", "Difficult to see"],
-"correctAnswer": "Impossible to deny"
+"question": "What is the process by which plants make their own food?",
+"options": ["Respiration", "Transpiration", "Photosynthesis", "Pollination"],
+"answer": "Photosynthesis"
 },
 {
-"word": "Vacillate",
-"definition": "To waver between different opinions or actions; be indecisive.",
-"exampleSentence": "She would vacillate between two majors before finally choosing one.",
-"options": ["To decide quickly", "To waver or be indecisive", "To run fast", "To talk loudly"],
-"correctAnswer": "To waver or be indecisive"
+"question": "What is the primary function of a red blood cell?",
+"options": ["Fighting infections", "Carrying oxygen", "Clotting blood", "Producing antibodies"],
+"answer": "To carry oxygen"
 },
 {
-"word": "Mitigate",
-"definition": "To make less severe, serious, or painful.",
-"exampleSentence": "A new law was passed to mitigate the negative effects of the pollution.",
-"options": ["To increase", "To make less severe", "To make bigger", "To forget"],
-"correctAnswer": "To make less severe"
+"question": "Which country is the Statue of Liberty a gift from?",
+"options": ["England", "Germany", "France", "Spain"],
+"answer": "France"
 }
 ],
-"hard": [
+"advanced": [
 {
-"word": "Zephyr",
-"definition": "A soft gentle breeze.",
-"exampleSentence": "A light zephyr rustled the leaves on the trees.",
-"options": ["A cold wind", "A gentle breeze", "A loud noise", "A bright light"],
-"correctAnswer": "A gentle breeze"
+"question": "What is the powerhouse of the cell?",
+"options": ["Nucleus", "Ribosomes", "Mitochondria", "Cytoplasm"],
+"answer": "Mitochondria"
 },
 {
-"word": "Mellifluous",
-"definition": "Sweet or musical; pleasant to hear.",
-"exampleSentence": "The singer's mellifluous voice charmed the audience.",
-"options": ["Having a bad smell", "Full of color", "Pleasant to hear", "Hard to pronounce"],
-"correctAnswer": "Pleasant to hear"
+"question": "Who was the last pharaoh of ancient Egypt?",
+"options": ["Tutankhamun", "Ramses II", "Cleopatra VII", "Akhenaten"],
+"answer": "Cleopatra VII"
 },
 {
-"word": "Cacophony",
-"definition": "A harsh, discordant mixture of sounds.",
-"exampleSentence": "The band's first rehearsal was a cacophony of off-key notes.",
-"options": ["A pleasant melody", "A beautiful painting", "A mixture of sounds", "A harsh, discordant sound"],
-"correctAnswer": "A harsh, discordant sound"
+"question": "What is the hardest natural substance on Earth?",
+"options": ["Iron", "Quartz", "Granite", "Diamond"],
+"answer": "Diamond"
 },
 {
-"word": "Insidious",
-"definition": "Proceeding in a gradual, subtle way, but with harmful effects.",
-"exampleSentence": "The insidious disease spread without any noticeable symptoms at first.",
-"options": ["Very friendly", "Healing quickly", "Spreading openly", "Gradually harmful"],
-"correctAnswer": "Gradually harmful"
+"question": "Which famous physicist proposed the three laws of motion?",
+"options": ["Albert Einstein", "Galileo Galilei", "Isaac Newton", "Stephen Hawking"],
+"answer": "Isaac Newton"
 },
 {
-"word": "Lugubrious",
-"definition": "Looking or sounding sad and dismal.",
-"exampleSentence": "He wore a lugubrious expression after losing the game.",
-"options": ["Joyful and lively", "Sad and dismal", "Very loud", "Extremely tired"],
-"correctAnswer": "Sad and dismal"
+"question": "What is the smallest bone in the human body?",
+"options": ["Femur", "Patella", "Stapes", "Tibia"],
+"answer": "Stapes"
 },
 {
-"word": "Pulchritude",
-"definition": "Beauty.",
-"exampleSentence": "The ancient sculpture was a marvel of pulchritude.",
-"options": ["Extreme ugliness", "Beauty", "Great strength", "Loudness"],
-"correctAnswer": "Beauty"
+"question": "In literature, what is a sonnet?",
+"options": ["A long novel", "A 14-line poem", "A short story", "A dramatic play"],
+"answer": "A 14-line poem"
 },
 {
-"word": "Syzygy",
-"definition": "An alignment of three celestial objects.",
-"exampleSentence": "The rare syzygy of the sun, moon, and Earth caused a unique eclipse.",
-"options": ["A type of star", "A celestial alignment", "A small meteor", "A distant galaxy"],
-"correctAnswer": "A celestial alignment"
+"question": "What year did the Berlin Wall fall?",
+"options": ["1989", "1991", "1987", "1990"],
+"answer": "1989"
 },
 {
-"word": "Obfuscate",
-"definition": "To render obscure, unclear, or unintelligible.",
-"exampleSentence": "He tried to obfuscate the truth by using confusing language.",
-"options": ["To clarify", "To simplify", "To make clear", "To make unclear"],
-"correctAnswer": "To make unclear"
+"question": "What is the chemical name for laughing gas?",
+"options": ["Oxygen", "Carbon dioxide", "Nitrous oxide", "Methane"],
+"answer": "Nitrous oxide"
 },
 {
-"word": "Vicissitude",
-"definition": "A change of circumstances or fortune, typically unwelcome or unpleasant.",
-"exampleSentence": "The vicissitude of life, both good and bad, shape our character.",
-"options": ["A pleasant journey", "An unexpected change", "A long-held belief", "A famous quote"],
-"correctAnswer": "An unexpected change"
+"question": "What is the capital of Brazil?",
+"options": ["Rio de Janeiro", "São Paulo", "Brasília", "Buenos Aires"],
+"answer": "Brasília"
 },
 {
-"word": "Quixotic",
-"definition": "Extremely idealistic; unrealistic and impractical.",
-"exampleSentence": "Her quixotic dreams of saving the world were admirable but impossible.",
-"options": ["Very realistic", "Practical and logical", "Extremely idealistic and unrealistic", "Hard to find"],
-"correctAnswer": "Extremely idealistic and unrealistic"
+"question": "What is the square root of 144?",
+"options": ["10", "11", "12", "13"],
+"answer": "12"
 }
 ]
 }
