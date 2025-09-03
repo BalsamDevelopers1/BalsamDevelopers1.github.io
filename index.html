@@ -7,7 +7,6 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap');
-
         :root {
             --bg-dark: #191929;
             --text-light: #f0f8ff;
@@ -17,7 +16,6 @@
             --level-btn-bg: #2c2f47;
             --progress-bar-track: #3a3f5c;
         }
-
         body {
             font-family: 'Poppins', sans-serif;
             background: linear-gradient(120deg, #ff7e5f, #feb47b, #8a2be2, #da70d6, #ffd700, #32cd32, #4682b4, #ee82ee);
@@ -33,13 +31,11 @@
             overflow: hidden;
             position: relative;
         }
-
         @keyframes rainbowBackground {
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
             100% { background-position: 0% 50%; }
         }
-
         .quiz-container {
             position: relative;
             z-index: 10;
@@ -56,30 +52,25 @@
             animation: popIn 0.8s cubic-bezier(0.68, -0.55, 0.27, 1.55) forwards;
             overflow: hidden;
         }
-
         @keyframes popIn {
             0% { transform: scale(0.8); opacity: 0; }
             100% { transform: scale(1); opacity: 1; }
         }
-
         .quiz-header {
             display: flex;
             flex-direction: column;
             align-items: center;
             margin-bottom: 2rem;
         }
-
         .quiz-icon {
             font-size: 4rem;
             margin-bottom: 0.5rem;
             animation: wiggle 2s ease-in-out infinite;
         }
-
         @keyframes wiggle {
             0%, 100% { transform: rotate(-5deg); }
             50% { transform: rotate(5deg); }
         }
-
         .title {
             font-size: 3.2rem;
             font-weight: 800;
@@ -89,14 +80,12 @@
             text-shadow: 0 0 15px rgba(255, 255, 255, 0.4);
             margin: 0;
         }
-
         .subtitle {
             font-size: 1.25rem;
             font-weight: 600;
             color: #d8c3f5;
             margin-top: -0.5rem;
         }
-
         .question-text {
             font-size: 1.6rem;
             font-weight: 600;
@@ -104,7 +93,6 @@
             margin-bottom: 2.5rem;
             line-height: 1.4;
         }
-
         .btn {
             background: var(--level-btn-bg);
             color: var(--text-light);
@@ -120,27 +108,23 @@
             display: block;
             border: none;
         }
-
         .btn:hover {
             background: linear-gradient(90deg, #6a5acd, #ba55d3);
             transform: translateY(-7px) scale(1.03);
             box-shadow: 0 12px 25px rgba(0, 0, 0, 0.4);
         }
-
         .btn.correct {
             background: var(--correct-gradient);
             color: white;
             transform: scale(1.06);
             box-shadow: 0 0 25px rgba(50, 205, 50, 0.8);
         }
-
         .btn.incorrect {
             background: var(--incorrect-gradient);
             color: white;
             transform: scale(1.06);
             box-shadow: 0 0 25px rgba(255, 69, 0, 0.8);
         }
-
         .btn:disabled {
             background: #3a3f5c;
             cursor: not-allowed;
@@ -148,7 +132,6 @@
             box-shadow: none;
             opacity: 0.7;
         }
-
         .progress-bar {
             height: 12px;
             background: var(--progress-bar-track);
@@ -156,32 +139,27 @@
             margin-bottom: 2rem;
             overflow: hidden;
         }
-
         .progress-bar-fill {
             height: 100%;
             background: linear-gradient(90deg, #FFD700, #FF69B4, #8A2BE2);
             transition: width 0.4s ease-in-out;
             border-radius: 6px;
         }
-
         .score-display, .result-message {
             font-size: 2rem;
             font-weight: 700;
             margin-top: 2rem;
             animation: bounceIn 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
         }
-
         @keyframes bounceIn {
             0% { transform: scale(0.5); opacity: 0; }
             100% { transform: scale(1); opacity: 1; }
         }
-
         .score-display {
             background: linear-gradient(45deg, #FFD700, #FF69B4, #8A2BE2);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
-
         .start-btn {
             background: linear-gradient(90deg, #FF4500, #FFD700, #32CD32, #4682B4, #8A2BE2);
             background-size: 400% 100%;
@@ -191,19 +169,16 @@
             font-size: 1.25rem;
             border: none;
         }
-
         .start-btn:hover {
             animation-play-state: paused;
             transform: translateY(-7px) scale(1.05);
             box-shadow: 0 12px 25px rgba(0, 0, 0, 0.4);
         }
-
         @keyframes rainbowButton {
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
             100% { background-position: 0% 50%; }
         }
-
         .konfetti-container {
             position: absolute;
             top: 0;
@@ -214,7 +189,6 @@
             z-index: 20;
             overflow: hidden;
         }
-
         .konfetti {
             position: absolute;
             font-size: 2rem;
@@ -223,7 +197,6 @@
             animation-timing-function: linear;
             animation-fill-mode: forwards;
         }
-
         @keyframes fall {
             0% { transform: translate(-50%, -100px) rotate(0deg); opacity: 1; }
             100% { transform: translate(-50%, 600px) rotate(360deg); opacity: 0; }
@@ -238,7 +211,7 @@
             <h1 class="title">GK Buddy</h1>
             <h2 class="subtitle">The Ultimate Quiz Challenge!</h2>
         </div>
-        
+
         <div id="level-selection" class="flex flex-col items-center space-y-5">
             <h2 class="text-2xl font-semibold text-gray-300">Choose Your Challenge!</h2>
             <p id="loading-message" class="loading-text text-gray-400">
@@ -250,6 +223,7 @@
         </div>
 
         <div id="game-container" class="space-y-6 hidden">
+            <div id="timer-display" class="text-2xl font-bold text-yellow-300 mb-4"></div>
             <div class="progress-bar">
                 <div id="progress-fill" class="progress-bar-fill" style="width: 0%;"></div>
             </div>
@@ -267,6 +241,11 @@
         let score = 0;
         let selectedQuestions = [];
 
+        // New timer variables
+        let timeLimit = 20;
+        let timeLeft = timeLimit;
+        let timerInterval;
+
         const levelSelectionScreen = document.getElementById('level-selection');
         const gameContainer = document.getElementById('game-container');
         const questionText = document.getElementById('question-text');
@@ -278,11 +257,12 @@
         const levelButtons = document.querySelectorAll('.level-btn');
         const progressBarFill = document.getElementById('progress-fill');
         const konfettiContainer = document.getElementById('konfetti-container');
+        const timerDisplay = document.getElementById('timer-display');
 
         function shuffleArray(array) {
             for (let i = array.length - 1; i > 0; i--) {
                 const j = Math.floor(Math.random() * (i + 1));
-                [array[i], array[j]] = [array[j], array[i]];
+                [array[i], array[j]] = [array[i], array[j]];
             }
             return array;
         }
@@ -357,6 +337,18 @@
                 return;
             }
 
+            // Start the timer
+            timeLeft = timeLimit;
+            timerDisplay.textContent = `Time: ${timeLeft}s`;
+            timerInterval = setInterval(() => {
+                timeLeft--;
+                timerDisplay.textContent = `Time: ${timeLeft}s`;
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    checkAnswer(null); // Pass null to signify a timeout
+                }
+            }, 1000);
+
             const currentQuestion = selectedQuestions[currentQuestionIndex];
             questionText.textContent = currentQuestion.question;
             answerButtonsContainer.innerHTML = '';
@@ -377,7 +369,7 @@
             const progress = (currentQuestionIndex / selectedQuestions.length) * 100;
             progressBarFill.style.width = `${progress}%`;
         }
-        
+
         function createKonfetti(isCorrect) {
             const emojis = isCorrect ? ['🎉', '✨', '✅', '💯', '🥳'] : ['❌', '🤷', '🤦', '😬'];
             const numberOfEmojis = isCorrect ? 25 : 15;
@@ -406,6 +398,9 @@
         }
 
         function checkAnswer(selectedOption) {
+            // Stop the timer immediately
+            clearInterval(timerInterval);
+
             const currentQuestion = selectedQuestions[currentQuestionIndex];
             const isCorrect = selectedOption === currentQuestion.answer;
 
@@ -418,7 +413,12 @@
                 }
             });
 
-            if (isCorrect) {
+            if (selectedOption === null) {
+                // This is the timeout case
+                resultFeedback.textContent = `⏰ Time's up! The answer was: ${currentQuestion.answer}`;
+                resultFeedback.style.color = '#FF4500';
+                createKonfetti(false);
+            } else if (isCorrect) {
                 score++;
                 resultFeedback.textContent = "🎉 Awesome! That's correct!";
                 resultFeedback.style.color = '#32CD32';
@@ -446,7 +446,7 @@
             scoreDisplay.textContent = `Quiz Complete! You scored ${score} out of ${selectedQuestions.length}!`;
             scoreDisplay.classList.remove('hidden');
             playAgainButton.classList.remove('hidden');
-            
+
             // Trigger a final celebration with a larger burst of konfetti
             setTimeout(() => {
                 if (score >= selectedQuestions.length / 2) {
