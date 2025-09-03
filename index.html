@@ -160,7 +160,7 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
-        .start-btn {
+        .start-btn, .next-btn {
             background: linear-gradient(90deg, #FF4500, #FFD700, #32CD32, #4682B4, #8A2BE2);
             background-size: 400% 100%;
             animation: rainbowButton 8s ease infinite;
@@ -169,7 +169,7 @@
             font-size: 1.25rem;
             border: none;
         }
-        .start-btn:hover {
+        .start-btn:hover, .next-btn:hover {
             animation-play-state: paused;
             transform: translateY(-7px) scale(1.05);
             box-shadow: 0 12px 25px rgba(0, 0, 0, 0.4);
@@ -234,6 +234,7 @@
             <p id="question-text" class="question-text"></p>
             <div id="answer-buttons" class="grid grid-cols-1 sm:grid-cols-2 gap-4"></div>
             <div id="result-feedback" class="result-message hidden"></div>
+            <button id="next-btn" class="btn next-btn hidden">Next Question 👉</button>
             <p id="score-display" class="score-display hidden"></p>
             <button id="play-again-btn" class="btn start-btn hidden">Play Another Round! 🚀</button>
         </div>
@@ -262,6 +263,7 @@
         const konfettiContainer = document.getElementById('konfetti-container');
         const timerDisplay = document.getElementById('timer-display');
         const startButton = document.getElementById('start-btn');
+        const nextButton = document.getElementById('next-btn');
 
         function shuffleArray(array) {
             for (let i = array.length - 1; i > 0; i--) {
@@ -309,10 +311,9 @@
         }
 
         document.addEventListener('DOMContentLoaded', () => {
-            // Fetch questions when the page loads, but keep the level buttons disabled until questions are ready
             fetchQuestions();
-            // Add a click event listener to the start button
             startButton.addEventListener('click', showLevelSelection);
+            nextButton.addEventListener('click', nextQuestion);
         });
 
         document.getElementById('beginner-btn').addEventListener('click', () => selectLevel('beginner'));
@@ -337,6 +338,7 @@
             gameContainer.classList.remove('hidden');
             resultFeedback.classList.add('hidden');
             scoreDisplay.classList.add('hidden');
+            nextButton.classList.add('hidden');
             updateProgressBar();
             displayQuestion();
         }
@@ -346,6 +348,9 @@
                 endGame();
                 return;
             }
+            
+            nextButton.classList.add('hidden'); // Hide next button for the new question
+            resultFeedback.classList.add('hidden'); // Hide feedback from previous question
 
             timeLeft = timeLimit;
             timerDisplay.textContent = `Time: ${timeLeft}s`;
@@ -430,19 +435,20 @@
             }
 
             resultFeedback.classList.remove('hidden');
+            nextButton.classList.remove('hidden'); // Show next button after answer
+        }
 
-            setTimeout(() => {
-                currentQuestionIndex++;
-                updateProgressBar();
-                resultFeedback.classList.add('hidden');
-                displayQuestion();
-            }, 1500);
+        function nextQuestion() {
+            currentQuestionIndex++;
+            updateProgressBar();
+            displayQuestion();
         }
 
         function endGame() {
             questionText.classList.add('hidden');
             answerButtonsContainer.innerHTML = '';
             resultFeedback.classList.add('hidden');
+            nextButton.classList.add('hidden');
             scoreDisplay.textContent = `Quiz Complete! You scored ${score} out of ${selectedQuestions.length}!`;
             scoreDisplay.classList.remove('hidden');
             playAgainButton.classList.remove('hidden');
