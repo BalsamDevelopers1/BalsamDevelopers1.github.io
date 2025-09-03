@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Master</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f2f5; color: #333; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        .quiz-container { background: #fff; padding: 25px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); width: 90%; max-width: 600px; text-align: center; }
+        .start-screen { margin-bottom: 20px; }
+        .start-screen h1 { color: #007bff; }
+        .start-screen p { font-size: 1.1em; color: #555; }
+        .start-button { padding: 12px 25px; font-size: 1.2em; border: none; border-radius: 5px; background-color: #28a745; color: #fff; cursor: pointer; transition: background-color 0.3s; }
+        .start-button:hover { background-color: #218838; }
+        #difficulty-select { padding: 8px; border-radius: 5px; border: 1px solid #ccc; margin-top: 10px; }
+        .quiz-body { display: none; }
+        .question-container { margin-bottom: 20px; }
+        #question { font-size: 1.5em; margin-bottom: 15px; color: #333; }
+        #options-container { display: flex; flex-direction: column; gap: 10px; }
+        .option-button { padding: 12px; font-size: 1em; border: 1px solid #ccc; border-radius: 5px; background-color: #f8f9fa; color: #333; cursor: pointer; transition: background-color 0.3s, transform 0.2s; text-align: left; }
+        .option-button:hover { background-color: #e2e6ea; transform: translateY(-2px); }
+        .option-button.correct { background-color: #28a745; color: #fff; border-color: #28a745; }
+        .option-button.incorrect { background-color: #dc3545; color: #fff; border-color: #dc3545; }
+        #next-btn { padding: 10px 20px; font-size: 1em; border: none; border-radius: 5px; background-color: #007bff; color: #fff; cursor: pointer; margin-top: 15px; display: none; }
+        #next-btn:hover { background-color: #0056b3; }
+        #score-container { font-size: 1.2em; margin-top: 20px; color: #555; }
+        .feedback { font-size: 1.2em; margin-top: 10px; font-weight: bold; }
+        .correct-feedback { color: #28a745; }
+        .incorrect-feedback { color: #dc3545; }
+    </style>
+</head>
+<body>
+    <div class="quiz-container">
+        <div class="start-screen">
+            <h1>Welcome to the Quiz Master!</h1>
+            <p>Select your difficulty level and test your knowledge!</p>
+            <label for="difficulty-select">Choose Difficulty:</label>
+            <select id="difficulty-select">
+                <option value="Easy">Easy</option>
+                <option value="Medium">Medium</option>
+                <option value="Hard">Hard</option>
+            </select>
+            <button id="start-btn" class="start-button">Start Quiz</button>
+        </div>
+        <div class="quiz-body">
+            <h2 id="question">Question Text</h2>
+            <div id="options-container"></div>
+            <div id="feedback" class="feedback"></div>
+            <button id="next-btn">Next Question</button>
+            <div id="score-container">Score: <span id="current-score">0</span> / <span id="total-questions">0</span></div>
+        </div>
+    </div>
+    <script>
+        const startBtn = document.getElementById('start-btn');
+        const startScreen = document.querySelector('.start-screen');
+        const quizBody = document.querySelector('.quiz-body');
+        const difficultySelect = document.getElementById('difficulty-select');
+        const questionElement = document.getElementById('question');
+        const optionsContainer = document.getElementById('options-container');
+        const nextBtn = document.getElementById('next-btn');
+        const feedbackElement = document.getElementById('feedback');
+        const currentScoreElement = document.getElementById('current-score');
+        const totalQuestionsElement = document.getElementById('total-questions');
+
+        let questions = [];
+        let currentQuestionIndex = 0;
+        let score = 0;
+
+        // Function to shuffle an array
+        const shuffleArray = (array) => {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        };
+
+        // Function to fetch and parse the CSV data
+        const fetchQuizData = async (difficulty) => {
+            try {
+                const response = await fetch('questions.csv');
+                const text = await response.text();
+                const rows = text.trim().split('\n').slice(1); // Split by newline and remove header
+                const allQuestions = rows.map(row => {
+                    const [difficulty, question, optionsString, answer] = row.split(';');
+                    const options = optionsString.split(',');
+                    return {
+                        difficulty,
+                        question,
+                        options,
+                        answer
+                    };
+                });
+                // Filter questions by the selected difficulty
+                const filteredQuestions = allQuestions.filter(q => q.difficulty === difficulty);
+                questions = shuffleArray(filteredQuestions);
+                totalQuestionsElement.textContent = questions.length;
+                startQuiz();
+            } catch (error) {
+                console.error("Error fetching or parsing CSV file:", error);
+                alert("Failed to load quiz questions. Please try again.");
+            }
+        };
+
+        const startQuiz = () => {
+            startScreen.style.display = 'none';
+            quizBody.style.display = 'block';
+            currentQuestionIndex = 0;
+            score = 0;
+            currentScoreElement.textContent = score;
+            showQuestion();
+        };
+
+        const showQuestion = () => {
+            resetState();
+            const currentQuestion = questions[currentQuestionIndex];
+            if (!currentQuestion) {
+                endQuiz();
+                return;
+            }
+            questionElement.textContent = currentQuestion.question;
+            
+            // Shuffle options for the current question
+            const shuffledOptions = shuffleArray([...currentQuestion.options]);
+
+            shuffledOptions.forEach(option => {
+                const button = document.createElement('button');
+                button.textContent = option;
+                button.classList.add('option-button');
+                optionsContainer.appendChild(button);
+                button.addEventListener('click', () => selectAnswer(option, currentQuestion.answer, button));
+            });
+        };
+
+        const selectAnswer = (selectedOption, correctAnswer, button) => {
+            const isCorrect = selectedOption === correctAnswer;
+            if (isCorrect) {
+                score++;
+                currentScoreElement.textContent = score;
+                feedbackElement.textContent = "Correct! ✅";
+                feedbackElement.classList.add('correct-feedback');
+                button.classList.add('correct');
+            } else {
+                feedbackElement.textContent = `Incorrect. The correct answer was: "${correctAnswer}" ❌`;
+                feedbackElement.classList.add('incorrect-feedback');
+                button.classList.add('incorrect');
+            }
+
+            // Disable all option buttons after an answer is selected
+            Array.from(optionsContainer.children).forEach(btn => {
+                btn.disabled = true;
+            });
+
+            // Show the next button
+            nextBtn.style.display = 'block';
+        };
+
+        const resetState = () => {
+            nextBtn.style.display = 'none';
+            feedbackElement.textContent = '';
+            feedbackElement.className = 'feedback';
+            while (optionsContainer.firstChild) {
+                optionsContainer.removeChild(optionsContainer.firstChild);
+            }
+        };
+
+        const handleNextButton = () => {
+            currentQuestionIndex++;
+            if (currentQuestionIndex < questions.length) {
+                showQuestion();
+            } else {
+                endQuiz();
+            }
+        };
+
+        const endQuiz = () => {
+            questionElement.textContent = "Quiz Finished! 🎉";
+            optionsContainer.innerHTML = '';
+            nextBtn.style.display = 'none';
+            feedbackElement.textContent = `You scored ${score} out of ${questions.length}!`;
+            feedbackElement.classList.remove('correct-feedback', 'incorrect-feedback');
+            
+            // Add an option to restart the quiz
+            const restartButton = document.createElement('button');
+            restartButton.textContent = "Restart Quiz";
+            restartButton.classList.add('start-button');
+            optionsContainer.appendChild(restartButton);
+            restartButton.addEventListener('click', () => {
+                window.location.reload(); // A simple way to restart
+            });
+        };
+        
+        // Event Listeners
+        startBtn.addEventListener('click', () => {
+            const selectedDifficulty = difficultySelect.value;
+            fetchQuizData(selectedDifficulty);
+        });
+        nextBtn.addEventListener('click', handleNextButton);
+    </script>
+</body>
+</html>
