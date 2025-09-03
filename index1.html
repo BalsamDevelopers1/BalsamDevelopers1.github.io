@@ -39,30 +39,13 @@
             font-size: 1.2em;
             color: rgba(255, 255, 255, 0.8);
             margin-top: 0;
+            margin-bottom: 20px;
         }
-        .start-game-button {
-            padding: 15px 40px;
-            font-size: 1.5em;
-            border: none;
-            border-radius: 10px;
-            background-image: linear-gradient(to right, #ffa500, #32cd32);
-            color: #fff;
-            cursor: pointer;
-            transition: transform 0.2s, box-shadow 0.2s;
-            margin-top: 30px;
-            font-weight: bold;
-        }
-        .start-game-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-        }
-        .start-options, .quiz-body {
-            display: none;
-        }
-        .start-options {
+        .start-screen {
             padding-top: 20px;
+            padding-bottom: 20px;
         }
-        .start-options label {
+        .start-screen label {
             font-size: 1.1em;
             color: rgba(255, 255, 255, 0.8);
             display: block;
@@ -77,17 +60,22 @@
             margin-bottom: 20px;
         }
         .start-button {
-            padding: 12px 30px;
-            font-size: 1.2em;
+            padding: 15px 40px;
+            font-size: 1.5em;
             border: none;
-            border-radius: 8px;
-            background-color: #5d5d6d;
+            border-radius: 10px;
+            background-image: linear-gradient(to right, #ffa500, #32cd32);
             color: #fff;
             cursor: pointer;
-            transition: background-color 0.3s;
+            transition: transform 0.2s, box-shadow 0.2s;
+            font-weight: bold;
         }
         .start-button:hover {
-            background-color: #727285;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        }
+        .quiz-body {
+            display: none;
         }
         .question-container {
             margin-bottom: 20px;
@@ -218,17 +206,13 @@
         <div class="start-screen">
             <h1 class="quiz-title">✨ GK Buddy ✨</h1>
             <p class="subtitle">The Ultimate Quiz Challenge!</p>
-            <button id="start-game-btn" class="start-game-button">Start Game 🚀</button>
-        </div>
-
-        <div class="start-options hidden">
             <label for="difficulty-select">Choose Difficulty:</label>
             <select id="difficulty-select">
                 <option value="Beginner">Beginner</option>
                 <option value="Intermediate">Intermediate</option>
                 <option value="Advanced">Advanced</option>
             </select>
-            <button id="start-quiz-btn" class="start-button">Start Quiz</button>
+            <button id="start-btn" class="start-button">Start Quiz 🚀</button>
         </div>
 
         <div class="quiz-body hidden">
@@ -250,10 +234,8 @@
     <div class="emoji-container"></div>
     
     <script>
-        const startBtn = document.getElementById('start-game-btn');
+        const startBtn = document.getElementById('start-btn');
         const startScreen = document.querySelector('.start-screen');
-        const startOptions = document.querySelector('.start-options');
-        const startQuizBtn = document.getElementById('start-quiz-btn');
         const quizBody = document.querySelector('.quiz-body');
         const difficultySelect = document.getElementById('difficulty-select');
         const questionElement = document.getElementById('question');
@@ -307,7 +289,6 @@
 
         const startQuiz = () => {
             startScreen.classList.add('hidden');
-            startOptions.classList.add('hidden');
             quizBody.classList.remove('hidden');
             currentQuestionIndex = 0;
             score = 0;
@@ -467,11 +448,6 @@
         };
         
         startBtn.addEventListener('click', () => {
-            startScreen.classList.add('hidden');
-            startOptions.classList.remove('hidden');
-        });
-
-        startQuizBtn.addEventListener('click', () => {
             const selectedDifficulty = difficultySelect.value;
             fetchQuizData(selectedDifficulty);
         });
