@@ -15,6 +15,7 @@
             height: 100vh;
             margin: 0;
             padding: 20px;
+            overflow: hidden;
         }
         .quiz-container {
             background: #2c2c3e;
@@ -115,24 +116,51 @@
             border-color: #dc3545;
             color: #fff;
         }
-        #next-btn {
-            padding: 12px 30px;
+        .button-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+        }
+        #next-btn, #prev-btn, #pause-btn {
+            padding: 12px 20px;
             font-size: 1.1em;
             border: none;
             border-radius: 8px;
             background-color: #8a2be2;
             color: #fff;
             cursor: pointer;
-            margin-top: 20px;
-            display: none;
+            transition: background-color 0.3s;
         }
-        #next-btn:hover {
+        #next-btn:hover, #prev-btn:hover, #pause-btn:hover {
             background-color: #9932cc;
+        }
+        #prev-btn {
+            background-color: #5d5d6d;
+        }
+        #prev-btn:hover {
+            background-color: #727285;
+        }
+        .hidden {
+            visibility: hidden;
         }
         #score-container {
             font-size: 1.2em;
             margin-top: 20px;
             color: rgba(255, 255, 255, 0.8);
+        }
+        #timer-container {
+            font-size: 1.2em;
+            margin-bottom: 10px;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+        #timer {
+            font-weight: bold;
+            color: #FFD700;
         }
         .feedback {
             font-size: 1.2em;
@@ -144,6 +172,33 @@
         }
         .incorrect-feedback {
             color: #dc3545;
+        }
+        /* Falling Emoji Animation */
+        .emoji-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 100;
+        }
+        .falling-emoji {
+            position: absolute;
+            font-size: 2em;
+            animation: fall linear 3s forwards;
+            opacity: 0;
+        }
+        @keyframes fall {
+            0% {
+                transform: translateY(-100px) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(120vh) rotate(720deg);
+                opacity: 0;
+            }
         }
     </style>
 </head>
@@ -162,13 +217,23 @@
             <button id="start-btn" class="start-button">Start Quiz</button>
         </div>
         <div class="quiz-body">
+            <div id="timer-container">
+                <span id="timer">20</span> seconds left
+                <button id="pause-btn">Pause</button>
+            </div>
             <h2 id="question">Question Text</h2>
             <div id="options-container"></div>
             <div id="feedback" class="feedback"></div>
-            <button id="next-btn">Next Question</button>
-            <div id="score-container">Score: <span id="current-score">0</span> / <span id="total-questions">0</span></div>
+            <div class="button-controls">
+                <button id="prev-btn" class="hidden">Previous</button>
+                <button id="next-btn" class="hidden">Next</button>
+            </div>
+            <div id="score-container">Score: <span id="current-score">0</span></div>
         </div>
     </div>
+
+    <div class="emoji-container"></div>
+    
     <script>
         const startBtn = document.getElementById('start-btn');
         const startScreen = document.querySelector('.start-screen');
@@ -177,15 +242,20 @@
         const questionElement = document.getElementById('question');
         const optionsContainer = document.getElementById('options-container');
         const nextBtn = document.getElementById('next-btn');
+        const prevBtn = document.getElementById('prev-btn');
+        const pauseBtn = document.getElementById('pause-btn');
         const feedbackElement = document.getElementById('feedback');
         const currentScoreElement = document.getElementById('current-score');
-        const totalQuestionsElement = document.getElementById('total-questions');
+        const timerElement = document.getElementById('timer');
+        const emojiContainer = document.querySelector('.emoji-container');
 
         let questions = [];
         let currentQuestionIndex = 0;
         let score = 0;
+        let timerInterval;
+        let timeLeft = 20;
+        let isPaused = false;
 
-        // Function to shuffle an array
         const shuffleArray = (array) => {
             for (let i = array.length - 1; i > 0; i--) {
                 const j = Math.floor(Math.random() * (i + 1));
@@ -194,12 +264,11 @@
             return array;
         };
 
-        // Function to fetch and parse the CSV data
         const fetchQuizData = async (difficulty) => {
             try {
                 const response = await fetch('questions.csv');
                 const text = await response.text();
-                const rows = text.trim().split('\n').slice(1); // Split by newline and remove header
+                const rows = text.trim().split('\n').slice(1);
                 const allQuestions = rows.map(row => {
                     const [difficulty, question, optionsString, answer] = row.split(';');
                     const options = optionsString.split(',');
@@ -210,10 +279,8 @@
                         answer
                     };
                 });
-                // Filter questions by the selected difficulty
                 const filteredQuestions = allQuestions.filter(q => q.difficulty === difficulty);
                 questions = shuffleArray(filteredQuestions);
-                totalQuestionsElement.textContent = questions.length;
                 startQuiz();
             } catch (error) {
                 console.error("Error fetching or parsing CSV file:", error);
@@ -239,9 +306,7 @@
             }
             questionElement.textContent = currentQuestion.question;
 
-            // Shuffle options for the current question
             const shuffledOptions = shuffleArray([...currentQuestion.options]);
-
             shuffledOptions.forEach(option => {
                 const button = document.createElement('button');
                 button.textContent = option;
@@ -249,33 +314,74 @@
                 optionsContainer.appendChild(button);
                 button.addEventListener('click', () => selectAnswer(option, currentQuestion.answer, button));
             });
+
+            startTimer();
+            updateNavigationButtons();
+        };
+
+        const startTimer = () => {
+            stopTimer();
+            timeLeft = 20;
+            timerElement.textContent = timeLeft;
+            pauseBtn.textContent = 'Pause';
+            isPaused = false;
+            timerInterval = setInterval(() => {
+                timeLeft--;
+                timerElement.textContent = timeLeft;
+                if (timeLeft <= 0) {
+                    stopTimer();
+                    const currentQuestion = questions[currentQuestionIndex];
+                    selectAnswer("Time's up!", currentQuestion.answer, null);
+                }
+            }, 1000);
+        };
+
+        const stopTimer = () => {
+            clearInterval(timerInterval);
+        };
+
+        const togglePause = () => {
+            if (isPaused) {
+                startTimer();
+                isPaused = false;
+                pauseBtn.textContent = 'Pause';
+            } else {
+                stopTimer();
+                isPaused = true;
+                pauseBtn.textContent = 'Resume';
+            }
         };
 
         const selectAnswer = (selectedOption, correctAnswer, button) => {
+            stopTimer();
             const isCorrect = selectedOption === correctAnswer;
+
+            // Disable all option buttons
+            Array.from(optionsContainer.children).forEach(btn => {
+                btn.disabled = true;
+                if (btn.textContent === correctAnswer) {
+                    btn.classList.add('correct');
+                }
+            });
+
             if (isCorrect) {
                 score++;
                 currentScoreElement.textContent = score;
                 feedbackElement.textContent = "Correct! ✅";
                 feedbackElement.classList.add('correct-feedback');
-                button.classList.add('correct');
+                if (button) button.classList.add('correct');
+                showFallingEmojis();
             } else {
-                feedbackElement.textContent = `Incorrect. The correct answer was: "${correctAnswer}" ❌`;
+                feedbackElement.textContent = `Aww, not quite. The correct answer was: "${correctAnswer}" ❌`;
                 feedbackElement.classList.add('incorrect-feedback');
-                button.classList.add('incorrect');
+                if (button) button.classList.add('incorrect');
             }
 
-            // Disable all option buttons after an answer is selected
-            Array.from(optionsContainer.children).forEach(btn => {
-                btn.disabled = true;
-            });
-
-            // Show the next button
-            nextBtn.style.display = 'block';
+            nextBtn.classList.remove('hidden');
         };
 
         const resetState = () => {
-            nextBtn.style.display = 'none';
+            nextBtn.classList.add('hidden');
             feedbackElement.textContent = '';
             feedbackElement.className = 'feedback';
             while (optionsContainer.firstChild) {
@@ -292,29 +398,64 @@
             }
         };
 
+        const handlePreviousButton = () => {
+            currentQuestionIndex--;
+            if (currentQuestionIndex >= 0) {
+                showQuestion();
+            }
+        };
+
+        const updateNavigationButtons = () => {
+            if (currentQuestionIndex > 0) {
+                prevBtn.classList.remove('hidden');
+            } else {
+                prevBtn.classList.add('hidden');
+            }
+        };
+
         const endQuiz = () => {
+            stopTimer();
+            timerElement.parentElement.style.display = 'none';
             questionElement.textContent = "Quiz Finished! 🎉";
             optionsContainer.innerHTML = '';
-            nextBtn.style.display = 'none';
+            nextBtn.classList.add('hidden');
+            prevBtn.classList.add('hidden');
             feedbackElement.textContent = `You scored ${score} out of ${questions.length}!`;
             feedbackElement.classList.remove('correct-feedback', 'incorrect-feedback');
 
-            // Add an option to restart the quiz
             const restartButton = document.createElement('button');
             restartButton.textContent = "Restart Quiz";
             restartButton.classList.add('start-button');
             optionsContainer.appendChild(restartButton);
             restartButton.addEventListener('click', () => {
-                window.location.reload(); // A simple way to restart
+                window.location.reload();
             });
         };
 
-        // Event Listeners
+        const showFallingEmojis = () => {
+            const emojis = ['👍', '🎉', '🚀', '💯', '🌟', '🥳'];
+            for (let i = 0; i < 30; i++) {
+                const emoji = document.createElement('span');
+                emoji.classList.add('falling-emoji');
+                emoji.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+                emoji.style.left = `${Math.random() * 100}vw`;
+                emoji.style.animationDuration = `${Math.random() * 2 + 2}s`;
+                emoji.style.animationDelay = `${Math.random() * 0.5}s`;
+                emojiContainer.appendChild(emoji);
+
+                setTimeout(() => {
+                    emoji.remove();
+                }, 3000);
+            }
+        };
+        
         startBtn.addEventListener('click', () => {
             const selectedDifficulty = difficultySelect.value;
             fetchQuizData(selectedDifficulty);
         });
         nextBtn.addEventListener('click', handleNextButton);
+        prevBtn.addEventListener('click', handlePreviousButton);
+        pauseBtn.addEventListener('click', togglePause);
     </script>
 </body>
 </html>
