@@ -6,21 +6,21 @@
     <title>Rainbow Quest: The Ultimate Quiz! 🌈</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap');
 
         :root {
-            --bg-dark: #1a1a2e;
+            --bg-dark: #191929;
             --text-light: #f0f8ff;
-            --primary-button-bg: linear-gradient(90deg, #8A2BE2, #DA70D6);
-            --correct-gradient: linear-gradient(90deg, #32CD32, #6B8E23);
-            --incorrect-gradient: linear-gradient(90deg, #FF4500, #FF6347);
-            --level-btn-bg: #2C2F47;
-            --progress-bar-track: #3A3F5C;
+            --primary-button-bg: linear-gradient(90deg, #6a5acd, #ba55d3);
+            --correct-gradient: linear-gradient(90deg, #32cd32, #6b8e23);
+            --incorrect-gradient: linear-gradient(90deg, #ff4500, #ff6347);
+            --level-btn-bg: #2c2f47;
+            --progress-bar-track: #3a3f5c;
         }
 
         body {
             font-family: 'Poppins', sans-serif;
-            background: linear-gradient(120deg, #ff7e5f, #feb47b, #8A2BE2, #DA70D6, #FFD700, #32CD32, #4682B4, #EE82EE);
+            background: linear-gradient(120deg, #ff7e5f, #feb47b, #8a2be2, #da70d6, #ffd700, #32cd32, #4682b4, #ee82ee);
             background-size: 800% 800%;
             animation: rainbowBackground 30s ease infinite;
             color: var(--text-light);
@@ -31,28 +31,30 @@
             margin: 0;
             padding: 1rem;
             overflow: hidden;
+            position: relative;
         }
 
         @keyframes rainbowBackground {
-            0% {background-position: 0% 50%;}
-            50% {background-position: 100% 50%;}
-            100% {background-position: 0% 50%;}
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
         .quiz-container {
             position: relative;
             z-index: 10;
-            background: rgba(25, 25, 40, 0.9);
-            backdrop-filter: blur(8px);
+            background: rgba(25, 25, 40, 0.95);
+            backdrop-filter: blur(10px);
             border-radius: 2.5rem;
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4), 0 5px 15px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
             padding: 3.5rem;
             width: 100%;
-            max-width: 38rem;
+            max-width: 40rem;
             text-align: center;
-            border: 3px solid rgba(255, 255, 255, 0.2);
+            border: 4px solid rgba(255, 255, 255, 0.3);
             transform: scale(1);
-            animation: popIn 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55) forwards;
+            animation: popIn 0.8s cubic-bezier(0.68, -0.55, 0.27, 1.55) forwards;
+            overflow: hidden;
         }
 
         @keyframes popIn {
@@ -60,23 +62,47 @@
             100% { transform: scale(1); opacity: 1; }
         }
 
+        .quiz-header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .quiz-icon {
+            font-size: 4rem;
+            margin-bottom: 0.5rem;
+            animation: wiggle 2s ease-in-out infinite;
+        }
+
+        @keyframes wiggle {
+            0%, 100% { transform: rotate(-5deg); }
+            50% { transform: rotate(5deg); }
+        }
+
         .title {
-            font-size: 3rem;
+            font-size: 3.2rem;
             font-weight: 800;
             background: linear-gradient(45deg, #FFD700, #FF69B4, #8A2BE2, #32CD32);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            margin-bottom: 2rem;
-            text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+            text-shadow: 0 0 15px rgba(255, 255, 255, 0.4);
+            margin: 0;
+        }
+
+        .subtitle {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #d8c3f5;
+            margin-top: -0.5rem;
         }
 
         .question-text {
-            font-size: 1.5rem;
+            font-size: 1.6rem;
             font-weight: 600;
             color: var(--text-light);
             margin-bottom: 2.5rem;
             line-height: 1.4;
-            transition: opacity 0.4s ease, transform 0.4s ease;
         }
 
         .btn {
@@ -87,7 +113,7 @@
             font-weight: 600;
             width: 100%;
             cursor: pointer;
-            transition: all 0.25s cubic-bezier(0.25, 0.8, 0.25, 1);
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
             position: relative;
             overflow: hidden;
@@ -96,28 +122,27 @@
         }
 
         .btn:hover {
-            background: linear-gradient(90deg, #6A5ACD, #BA55D3);
-            transform: translateY(-5px) scale(1.03);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-            color: white;
+            background: linear-gradient(90deg, #6a5acd, #ba55d3);
+            transform: translateY(-7px) scale(1.03);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.4);
         }
 
         .btn.correct {
             background: var(--correct-gradient);
             color: white;
             transform: scale(1.06);
-            box-shadow: 0 0 20px rgba(50, 205, 50, 0.7);
+            box-shadow: 0 0 25px rgba(50, 205, 50, 0.8);
         }
 
         .btn.incorrect {
             background: var(--incorrect-gradient);
             color: white;
             transform: scale(1.06);
-            box-shadow: 0 0 20px rgba(255, 69, 0, 0.7);
+            box-shadow: 0 0 25px rgba(255, 69, 0, 0.8);
         }
 
         .btn:disabled {
-            background: #3A3F5C;
+            background: #3a3f5c;
             cursor: not-allowed;
             transform: none;
             box-shadow: none;
@@ -125,25 +150,30 @@
         }
 
         .progress-bar {
-            height: 10px;
+            height: 12px;
             background: var(--progress-bar-track);
-            border-radius: 5px;
+            border-radius: 6px;
             margin-bottom: 2rem;
             overflow: hidden;
         }
 
         .progress-bar-fill {
             height: 100%;
-            background: linear-gradient(90deg, #FFD700, #FF69B4);
+            background: linear-gradient(90deg, #FFD700, #FF69B4, #8A2BE2);
             transition: width 0.4s ease-in-out;
-            border-radius: 5px;
+            border-radius: 6px;
         }
 
         .score-display, .result-message {
-            font-size: 1.8rem;
+            font-size: 2rem;
             font-weight: 700;
             margin-top: 2rem;
-            animation: fadeIn 0.6s ease-in-out;
+            animation: bounceIn 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+        }
+
+        @keyframes bounceIn {
+            0% { transform: scale(0.5); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
         }
 
         .score-display {
@@ -169,62 +199,46 @@
         }
 
         @keyframes rainbowButton {
-            0% {background-position: 0% 50%;}
-            50% {background-position: 100% 50%;}
-            100% {background-position: 0% 50%;}
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
-        .level-selection .btn {
-            background: var(--primary-button-bg);
-        }
-
-        .level-selection .btn:hover {
-            transform: translateY(-5px) scale(1.03);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-            background: linear-gradient(90deg, #DA70D6, #8A2BE2);
-        }
-
-        .level-selection .btn:disabled {
-            background: var(--level-btn-bg);
-            opacity: 0.6;
-        }
-
-        /* --- NEW CSS FOR EMOJI ANIMATION --- */
-        .emoji-container {
+        .konfetti-container {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            pointer-events: none; /* Allows clicks to pass through */
+            pointer-events: none;
             z-index: 20;
             overflow: hidden;
         }
 
-        .falling-emoji {
+        .konfetti {
             position: absolute;
             font-size: 2rem;
             opacity: 0;
             animation-name: fall;
-            animation-timing-function: cubic-bezier(0.1, 0.7, 1.0, 0.1); /* Slow start, fast end */
+            animation-timing-function: linear;
             animation-fill-mode: forwards;
         }
 
         @keyframes fall {
-            0% {
-                transform: translate(-50%, -100px) rotate(0deg);
-                opacity: 1;
-            }
-            100% {
-                transform: translate(-50%, 600px) rotate(360deg);
-                opacity: 0;
-            }
+            0% { transform: translate(-50%, -100px) rotate(0deg); opacity: 1; }
+            100% { transform: translate(-50%, 600px) rotate(360deg); opacity: 0; }
         }
     </style>
 </head>
 <body class="bg-gray-900 flex items-center justify-center p-4">
+    <div class="konfetti-container" id="konfetti-container"></div>
     <div class="quiz-container">
-        <div class="emoji-container" id="emoji-container"></div> <h1 class="title">🌈 Rainbow Quest 🌈</h1>
+        <div class="quiz-header">
+            <span class="quiz-icon">✨</span>
+            <h1 class="title">Rainbow Quest</h1>
+            <h2 class="subtitle">The Ultimate Quiz Challenge!</h2>
+        </div>
+        
         <div id="level-selection" class="flex flex-col items-center space-y-5">
             <h2 class="text-2xl font-semibold text-gray-300">Choose Your Challenge!</h2>
             <p id="loading-message" class="loading-text text-gray-400">
@@ -263,7 +277,7 @@
         const loadingMessage = document.getElementById('loading-message');
         const levelButtons = document.querySelectorAll('.level-btn');
         const progressBarFill = document.getElementById('progress-fill');
-        const emojiContainer = document.getElementById('emoji-container'); // Get the new emoji container
+        const konfettiContainer = document.getElementById('konfetti-container');
 
         function shuffleArray(array) {
             for (let i = array.length - 1; i > 0; i--) {
@@ -363,32 +377,30 @@
             const progress = (currentQuestionIndex / selectedQuestions.length) * 100;
             progressBarFill.style.width = `${progress}%`;
         }
-
-        function createEmojis() {
-            const emojis = ['🎉', '✨', '🌟', '🌈', '🥳', '✅', '💯'];
-            const numberOfEmojis = 15;
+        
+        function createKonfetti(isCorrect) {
+            const emojis = isCorrect ? ['🎉', '✨', '✅', '💯', '🥳'] : ['❌', '🤷', '🤦', '😬'];
+            const numberOfEmojis = isCorrect ? 25 : 15;
             for (let i = 0; i < numberOfEmojis; i++) {
-                const emoji = document.createElement('span');
-                emoji.classList.add('falling-emoji');
-                emoji.textContent = emojis[Math.floor(Math.random() * emojis.length)];
-                
-                // Position emojis randomly at the top
-                const startX = Math.random() * emojiContainer.offsetWidth;
-                const startY = -100;
-                emoji.style.left = `${startX}px`;
-                emoji.style.top = `${startY}px`;
-                
-                // Set animation duration and delay for a staggered effect
-                const animationDuration = 2 + Math.random() * 2; // 2 to 4 seconds
-                const animationDelay = Math.random() * 0.5; // 0 to 0.5 seconds
-                emoji.style.animationDuration = `${animationDuration}s`;
-                emoji.style.animationDelay = `${animationDelay}s`;
-                
-                emojiContainer.appendChild(emoji);
-                
-                // Remove the emoji element after its animation is complete
+                const konfetti = document.createElement('span');
+                konfetti.classList.add('konfetti');
+                konfetti.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+
+                const startX = Math.random() * konfettiContainer.offsetWidth;
+                const startY = Math.random() * -200;
+                konfetti.style.left = `${startX}px`;
+                konfetti.style.top = `${startY}px`;
+
+                const animationDuration = 2 + Math.random() * 2;
+                const animationDelay = Math.random() * 0.5;
+                konfetti.style.animationDuration = `${animationDuration}s`;
+                konfetti.style.animationDelay = `${animationDelay}s`;
+                konfetti.style.transform = `rotate(${Math.random() * 360}deg)`;
+
+                konfettiContainer.appendChild(konfetti);
+
                 setTimeout(() => {
-                    emoji.remove();
+                    konfetti.remove();
                 }, (animationDuration + animationDelay) * 1000);
             }
         }
@@ -408,12 +420,13 @@
 
             if (isCorrect) {
                 score++;
-                resultFeedback.textContent = "🎉 Correct! You're brilliant!";
+                resultFeedback.textContent = "🎉 Awesome! That's correct!";
                 resultFeedback.style.color = '#32CD32';
-                createEmojis(); // Call the new function for correct answers
+                createKonfetti(true);
             } else {
-                resultFeedback.textContent = `😬 Oops! It was: ${currentQuestion.answer}`;
+                resultFeedback.textContent = `😬 Bummer! The answer was: ${currentQuestion.answer}`;
                 resultFeedback.style.color = '#FF4500';
+                createKonfetti(false);
             }
 
             resultFeedback.classList.remove('hidden');
@@ -433,6 +446,15 @@
             scoreDisplay.textContent = `Quiz Complete! You scored ${score} out of ${selectedQuestions.length}!`;
             scoreDisplay.classList.remove('hidden');
             playAgainButton.classList.remove('hidden');
+            
+            // Trigger a final celebration with a larger burst of konfetti
+            setTimeout(() => {
+                if (score >= selectedQuestions.length / 2) {
+                    createKonfetti(true);
+                } else {
+                    createKonfetti(false);
+                }
+            }, 500);
         }
     </script>
 </body>
