@@ -240,8 +240,6 @@
         let currentQuestionIndex = 0;
         let score = 0;
         let selectedQuestions = [];
-
-        // New timer variables
         let timeLimit = 20;
         let timeLeft = timeLimit;
         let timerInterval;
@@ -337,7 +335,6 @@
                 return;
             }
 
-            // Start the timer
             timeLeft = timeLimit;
             timerDisplay.textContent = `Time: ${timeLeft}s`;
             timerInterval = setInterval(() => {
@@ -345,7 +342,7 @@
                 timerDisplay.textContent = `Time: ${timeLeft}s`;
                 if (timeLeft <= 0) {
                     clearInterval(timerInterval);
-                    checkAnswer(null); // Pass null to signify a timeout
+                    checkAnswer(null);
                 }
             }, 1000);
 
@@ -377,20 +374,16 @@
                 const konfetti = document.createElement('span');
                 konfetti.classList.add('konfetti');
                 konfetti.textContent = emojis[Math.floor(Math.random() * emojis.length)];
-
                 const startX = Math.random() * konfettiContainer.offsetWidth;
                 const startY = Math.random() * -200;
                 konfetti.style.left = `${startX}px`;
                 konfetti.style.top = `${startY}px`;
-
                 const animationDuration = 2 + Math.random() * 2;
                 const animationDelay = Math.random() * 0.5;
                 konfetti.style.animationDuration = `${animationDuration}s`;
                 konfetti.style.animationDelay = `${animationDelay}s`;
                 konfetti.style.transform = `rotate(${Math.random() * 360}deg)`;
-
                 konfettiContainer.appendChild(konfetti);
-
                 setTimeout(() => {
                     konfetti.remove();
                 }, (animationDuration + animationDelay) * 1000);
@@ -398,9 +391,7 @@
         }
 
         function checkAnswer(selectedOption) {
-            // Stop the timer immediately
             clearInterval(timerInterval);
-
             const currentQuestion = selectedQuestions[currentQuestionIndex];
             const isCorrect = selectedOption === currentQuestion.answer;
 
@@ -414,7 +405,6 @@
             });
 
             if (selectedOption === null) {
-                // This is the timeout case
                 resultFeedback.textContent = `⏰ Time's up! The answer was: ${currentQuestion.answer}`;
                 resultFeedback.style.color = '#FF4500';
                 createKonfetti(false);
@@ -424,7 +414,8 @@
                 resultFeedback.style.color = '#32CD32';
                 createKonfetti(true);
             } else {
-                resultFeedback.textContent = `😬 Bummer! The answer was: ${currentQuestion.answer}`;
+                // Modified line to show "Better luck next time!"
+                resultFeedback.textContent = "Better luck next time! The answer was: " + currentQuestion.answer;
                 resultFeedback.style.color = '#FF4500';
                 createKonfetti(false);
             }
@@ -446,8 +437,6 @@
             scoreDisplay.textContent = `Quiz Complete! You scored ${score} out of ${selectedQuestions.length}!`;
             scoreDisplay.classList.remove('hidden');
             playAgainButton.classList.remove('hidden');
-
-            // Trigger a final celebration with a larger burst of konfetti
             setTimeout(() => {
                 if (score >= selectedQuestions.length / 2) {
                     createKonfetti(true);
