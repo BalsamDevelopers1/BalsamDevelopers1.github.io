@@ -212,7 +212,11 @@
             <h2 class="subtitle">The Ultimate Quiz Challenge!</h2>
         </div>
 
-        <div id="level-selection" class="flex flex-col items-center space-y-5">
+        <div id="start-game-container" class="flex flex-col items-center space-y-6">
+            <button id="start-btn" class="btn start-btn">Start Game! 🚀</button>
+        </div>
+
+        <div id="level-selection" class="flex flex-col items-center space-y-5 hidden">
             <h2 class="text-2xl font-semibold text-gray-300">Choose Your Challenge!</h2>
             <p id="loading-message" class="loading-text text-gray-400">
                 Loading cosmic questions... hold on! ✨
@@ -244,6 +248,7 @@
         let timeLeft = timeLimit;
         let timerInterval;
 
+        const startGameContainer = document.getElementById('start-game-container');
         const levelSelectionScreen = document.getElementById('level-selection');
         const gameContainer = document.getElementById('game-container');
         const questionText = document.getElementById('question-text');
@@ -256,6 +261,7 @@
         const progressBarFill = document.getElementById('progress-fill');
         const konfettiContainer = document.getElementById('konfetti-container');
         const timerDisplay = document.getElementById('timer-display');
+        const startButton = document.getElementById('start-btn');
 
         function shuffleArray(array) {
             for (let i = array.length - 1; i > 0; i--) {
@@ -302,7 +308,12 @@
             }
         }
 
-        document.addEventListener('DOMContentLoaded', fetchQuestions);
+        document.addEventListener('DOMContentLoaded', () => {
+            // Fetch questions when the page loads, but keep the level buttons disabled until questions are ready
+            fetchQuestions();
+            // Add a click event listener to the start button
+            startButton.addEventListener('click', showLevelSelection);
+        });
 
         document.getElementById('beginner-btn').addEventListener('click', () => selectLevel('beginner'));
         document.getElementById('intermediate-btn').addEventListener('click', () => selectLevel('intermediate'));
@@ -310,6 +321,7 @@
         playAgainButton.addEventListener('click', showLevelSelection);
 
         function showLevelSelection() {
+            startGameContainer.classList.add('hidden');
             levelSelectionScreen.classList.remove('hidden');
             gameContainer.classList.add('hidden');
             playAgainButton.classList.add('hidden');
