@@ -9,13 +9,13 @@
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
 
         :root {
-            --bg-dark: #1a1a2e; /* A very dark, subtle background */
-            --text-light: #f0f8ff; /* Light, slightly off-white text */
-            --primary-button-bg: linear-gradient(90deg, #8A2BE2, #DA70D6); /* Violet to Orchid */
-            --correct-gradient: linear-gradient(90deg, #32CD32, #6B8E23); /* Lime Green to Olive Drab */
-            --incorrect-gradient: linear-gradient(90deg, #FF4500, #FF6347); /* Orange Red to Tomato */
-            --level-btn-bg: #2C2F47; /* Darker button background */
-            --progress-bar-track: #3A3F5C; /* Darker track for progress bar */
+            --bg-dark: #1a1a2e;
+            --text-light: #f0f8ff;
+            --primary-button-bg: linear-gradient(90deg, #8A2BE2, #DA70D6);
+            --correct-gradient: linear-gradient(90deg, #32CD32, #6B8E23);
+            --incorrect-gradient: linear-gradient(90deg, #FF4500, #FF6347);
+            --level-btn-bg: #2C2F47;
+            --progress-bar-track: #3A3F5C;
         }
 
         body {
@@ -30,7 +30,7 @@
             min-height: 100vh;
             margin: 0;
             padding: 1rem;
-            overflow: hidden; /* Prevent scrollbars from background animation */
+            overflow: hidden;
         }
 
         @keyframes rainbowBackground {
@@ -42,15 +42,15 @@
         .quiz-container {
             position: relative;
             z-index: 10;
-            background: rgba(25, 25, 40, 0.9); /* Slightly transparent dark background */
-            backdrop-filter: blur(8px); /* Subtle blur effect */
-            border-radius: 2.5rem; /* More rounded corners */
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4), 0 5px 15px rgba(0, 0, 0, 0.3); /* Deeper shadow */
+            background: rgba(25, 25, 40, 0.9);
+            backdrop-filter: blur(8px);
+            border-radius: 2.5rem;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4), 0 5px 15px rgba(0, 0, 0, 0.3);
             padding: 3.5rem;
             width: 100%;
-            max-width: 38rem; /* Slightly wider */
+            max-width: 38rem;
             text-align: center;
-            border: 3px solid rgba(255, 255, 255, 0.2); /* More prominent border */
+            border: 3px solid rgba(255, 255, 255, 0.2);
             transform: scale(1);
             animation: popIn 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55) forwards;
         }
@@ -61,63 +61,63 @@
         }
 
         .title {
-            font-size: 3rem; /* Larger title */
-            font-weight: 800; /* Bolder */
-            background: linear-gradient(45deg, #FFD700, #FF69B4, #8A2BE2, #32CD32); /* Rainbow gradient for title */
+            font-size: 3rem;
+            font-weight: 800;
+            background: linear-gradient(45deg, #FFD700, #FF69B4, #8A2BE2, #32CD32);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             margin-bottom: 2rem;
-            text-shadow: 0 0 10px rgba(255, 255, 255, 0.3); /* Light glow effect */
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
         }
 
         .question-text {
-            font-size: 1.5rem; /* Larger question text */
+            font-size: 1.5rem;
             font-weight: 600;
             color: var(--text-light);
             margin-bottom: 2.5rem;
             line-height: 1.4;
-            transition: opacity 0.4s ease, transform 0.4s ease; /* Smoother question transitions */
+            transition: opacity 0.4s ease, transform 0.4s ease;
         }
 
         .btn {
             background: var(--level-btn-bg);
             color: var(--text-light);
-            padding: 1.2rem 1.8rem; /* Slightly larger padding */
+            padding: 1.2rem 1.8rem;
             border-radius: 9999px;
             font-weight: 600;
             width: 100%;
             cursor: pointer;
-            transition: all 0.25s cubic-bezier(0.25, 0.8, 0.25, 1); /* More elaborate transition */
+            transition: all 0.25s cubic-bezier(0.25, 0.8, 0.25, 1);
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
             position: relative;
             overflow: hidden;
             display: block;
-            border: none; /* Remove default button border */
+            border: none;
         }
-        
+
         .btn:hover {
-            background: linear-gradient(90deg, #6A5ACD, #BA55D3); /* Lavender to Medium Orchid */
-            transform: translateY(-5px) scale(1.03); /* More pronounced lift and scale */
+            background: linear-gradient(90deg, #6A5ACD, #BA55D3);
+            transform: translateY(-5px) scale(1.03);
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-            color: white; /* Ensure text remains white */
+            color: white;
         }
 
         .btn.correct {
             background: var(--correct-gradient);
             color: white;
-            transform: scale(1.06); /* Larger scale for correct */
-            box-shadow: 0 0 20px rgba(50, 205, 50, 0.7); /* Green glow */
+            transform: scale(1.06);
+            box-shadow: 0 0 20px rgba(50, 205, 50, 0.7);
         }
 
         .btn.incorrect {
             background: var(--incorrect-gradient);
             color: white;
-            transform: scale(1.06); /* Larger scale for incorrect */
-            box-shadow: 0 0 20px rgba(255, 69, 0, 0.7); /* Red glow */
+            transform: scale(1.06);
+            box-shadow: 0 0 20px rgba(255, 69, 0, 0.7);
         }
 
         .btn:disabled {
-            background: #3A3F5C; /* Slightly lighter disabled background */
+            background: #3A3F5C;
             cursor: not-allowed;
             transform: none;
             box-shadow: none;
@@ -125,44 +125,45 @@
         }
 
         .progress-bar {
-            height: 10px; /* Thicker progress bar */
+            height: 10px;
             background: var(--progress-bar-track);
             border-radius: 5px;
             margin-bottom: 2rem;
             overflow: hidden;
         }
+
         .progress-bar-fill {
             height: 100%;
-            background: linear-gradient(90deg, #FFD700, #FF69B4); /* Rainbow gradient for progress */
+            background: linear-gradient(90deg, #FFD700, #FF69B4);
             transition: width 0.4s ease-in-out;
-            border-radius: 5px; /* Match parent radius */
+            border-radius: 5px;
         }
 
         .score-display, .result-message {
-            font-size: 1.8rem; /* Larger text */
+            font-size: 1.8rem;
             font-weight: 700;
             margin-top: 2rem;
             animation: fadeIn 0.6s ease-in-out;
         }
 
         .score-display {
-            background: linear-gradient(45deg, #FFD700, #FF69B4, #8A2BE2); /* Rainbow gradient for score */
+            background: linear-gradient(45deg, #FFD700, #FF69B4, #8A2BE2);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
         .start-btn {
-            background: linear-gradient(90deg, #FF4500, #FFD700, #32CD32, #4682B4, #8A2BE2); /* Full rainbow gradient */
+            background: linear-gradient(90deg, #FF4500, #FFD700, #32CD32, #4682B4, #8A2BE2);
             background-size: 400% 100%;
             animation: rainbowButton 8s ease infinite;
             color: white;
-            padding: 1.5rem 3rem; /* Even larger */
+            padding: 1.5rem 3rem;
             font-size: 1.25rem;
             border: none;
         }
 
         .start-btn:hover {
-            animation-play-state: paused; /* Pause animation on hover */
+            animation-play-state: paused;
             transform: translateY(-7px) scale(1.05);
             box-shadow: 0 12px 25px rgba(0, 0, 0, 0.4);
         }
@@ -174,23 +175,56 @@
         }
 
         .level-selection .btn {
-            background: var(--primary-button-bg); /* Use a consistent primary gradient */
+            background: var(--primary-button-bg);
         }
+
         .level-selection .btn:hover {
             transform: translateY(-5px) scale(1.03);
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-            background: linear-gradient(90deg, #DA70D6, #8A2BE2); /* Reverse gradient on hover */
+            background: linear-gradient(90deg, #DA70D6, #8A2BE2);
         }
 
         .level-selection .btn:disabled {
-            background: var(--level-btn-bg); /* Use the specific disabled background */
+            background: var(--level-btn-bg);
             opacity: 0.6;
+        }
+
+        /* --- NEW CSS FOR EMOJI ANIMATION --- */
+        .emoji-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none; /* Allows clicks to pass through */
+            z-index: 20;
+            overflow: hidden;
+        }
+
+        .falling-emoji {
+            position: absolute;
+            font-size: 2rem;
+            opacity: 0;
+            animation-name: fall;
+            animation-timing-function: cubic-bezier(0.1, 0.7, 1.0, 0.1); /* Slow start, fast end */
+            animation-fill-mode: forwards;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translate(-50%, -100px) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(-50%, 600px) rotate(360deg);
+                opacity: 0;
+            }
         }
     </style>
 </head>
 <body class="bg-gray-900 flex items-center justify-center p-4">
     <div class="quiz-container">
-        <h1 class="title">🌈 Rainbow Quest 🌈</h1>
+        <div class="emoji-container" id="emoji-container"></div> <h1 class="title">🌈 Rainbow Quest 🌈</h1>
         <div id="level-selection" class="flex flex-col items-center space-y-5">
             <h2 class="text-2xl font-semibold text-gray-300">Choose Your Challenge!</h2>
             <p id="loading-message" class="loading-text text-gray-400">
@@ -229,6 +263,7 @@
         const loadingMessage = document.getElementById('loading-message');
         const levelButtons = document.querySelectorAll('.level-btn');
         const progressBarFill = document.getElementById('progress-fill');
+        const emojiContainer = document.getElementById('emoji-container'); // Get the new emoji container
 
         function shuffleArray(array) {
             for (let i = array.length - 1; i > 0; i--) {
@@ -240,12 +275,8 @@
 
         async function fetchQuestions() {
             try {
-                // Placeholder for questions.json. In a real scenario, ensure this file exists
-                // and has 'beginner', 'intermediate', 'advanced' arrays of question objects.
-                // Each question object should have 'question', 'options', and 'answer' properties.
                 const response = await fetch('questions.json');
                 if (!response.ok) {
-                    // If questions.json is not found, use a dummy set for demonstration
                     console.warn('questions.json not found. Using dummy questions.');
                     allQuestions = {
                         beginner: [
@@ -265,7 +296,7 @@
                         ]
                     };
                     loadingMessage.textContent = "Using dummy questions for now!";
-                    loadingMessage.style.color = '#FFD700'; // Gold color for warning
+                    loadingMessage.style.color = '#FFD700';
                 } else {
                     const data = await response.json();
                     allQuestions = data;
@@ -275,10 +306,10 @@
             } catch (error) {
                 console.error('Failed to load questions:', error);
                 loadingMessage.textContent = "Error: Couldn't load questions. Using fallback.";
-                loadingMessage.style.color = '#FF4500'; // Red for error
+                loadingMessage.style.color = '#FF4500';
             }
         }
-        
+
         document.addEventListener('DOMContentLoaded', fetchQuestions);
 
         document.getElementById('beginner-btn').addEventListener('click', () => selectLevel('beginner'));
@@ -290,12 +321,12 @@
             levelSelectionScreen.classList.remove('hidden');
             gameContainer.classList.add('hidden');
             playAgainButton.classList.add('hidden');
-            questionText.classList.remove('hidden'); // Ensure question text is visible for next game
+            questionText.classList.remove('hidden');
         }
 
         function selectLevel(level) {
             const shuffled = shuffleArray(allQuestions[level]);
-            selectedQuestions = shuffled.slice(0, 5); // Using 5 questions per quiz for quicker demo
+            selectedQuestions = shuffled.slice(0, 5);
             currentQuestionIndex = 0;
             score = 0;
             levelSelectionScreen.classList.add('hidden');
@@ -315,9 +346,9 @@
             const currentQuestion = selectedQuestions[currentQuestionIndex];
             questionText.textContent = currentQuestion.question;
             answerButtonsContainer.innerHTML = '';
-            
+
             const shuffledOptions = shuffleArray([...currentQuestion.options]);
-            
+
             shuffledOptions.forEach(option => {
                 const button = document.createElement('button');
                 button.textContent = option;
@@ -331,6 +362,35 @@
         function updateProgressBar() {
             const progress = (currentQuestionIndex / selectedQuestions.length) * 100;
             progressBarFill.style.width = `${progress}%`;
+        }
+
+        function createEmojis() {
+            const emojis = ['🎉', '✨', '🌟', '🌈', '🥳', '✅', '💯'];
+            const numberOfEmojis = 15;
+            for (let i = 0; i < numberOfEmojis; i++) {
+                const emoji = document.createElement('span');
+                emoji.classList.add('falling-emoji');
+                emoji.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+                
+                // Position emojis randomly at the top
+                const startX = Math.random() * emojiContainer.offsetWidth;
+                const startY = -100;
+                emoji.style.left = `${startX}px`;
+                emoji.style.top = `${startY}px`;
+                
+                // Set animation duration and delay for a staggered effect
+                const animationDuration = 2 + Math.random() * 2; // 2 to 4 seconds
+                const animationDelay = Math.random() * 0.5; // 0 to 0.5 seconds
+                emoji.style.animationDuration = `${animationDuration}s`;
+                emoji.style.animationDelay = `${animationDelay}s`;
+                
+                emojiContainer.appendChild(emoji);
+                
+                // Remove the emoji element after its animation is complete
+                setTimeout(() => {
+                    emoji.remove();
+                }, (animationDuration + animationDelay) * 1000);
+            }
         }
 
         function checkAnswer(selectedOption) {
@@ -349,10 +409,11 @@
             if (isCorrect) {
                 score++;
                 resultFeedback.textContent = "🎉 Correct! You're brilliant!";
-                resultFeedback.style.color = '#32CD32'; // Lime green
+                resultFeedback.style.color = '#32CD32';
+                createEmojis(); // Call the new function for correct answers
             } else {
                 resultFeedback.textContent = `😬 Oops! It was: ${currentQuestion.answer}`;
-                resultFeedback.style.color = '#FF4500'; // Orange Red
+                resultFeedback.style.color = '#FF4500';
             }
 
             resultFeedback.classList.remove('hidden');
