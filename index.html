@@ -260,7 +260,7 @@
         function shuffleArray(array) {
             for (let i = array.length - 1; i > 0; i--) {
                 const j = Math.floor(Math.random() * (i + 1));
-                [array[i], array[j]] = [array[i], array[j]];
+                [array[i], array[j]] = [array[j], array[i]];
             }
             return array;
         }
@@ -407,17 +407,14 @@
             if (selectedOption === null) {
                 resultFeedback.textContent = `⏰ Time's up! The answer was: ${currentQuestion.answer}`;
                 resultFeedback.style.color = '#FF4500';
-                createKonfetti(false);
             } else if (isCorrect) {
                 score++;
                 resultFeedback.textContent = "🎉 Awesome! That's correct!";
                 resultFeedback.style.color = '#32CD32';
                 createKonfetti(true);
             } else {
-                // Modified line to show "Better luck next time!"
                 resultFeedback.textContent = "Better luck next time! The answer was: " + currentQuestion.answer;
                 resultFeedback.style.color = '#FF4500';
-                createKonfetti(false);
             }
 
             resultFeedback.classList.remove('hidden');
@@ -440,8 +437,6 @@
             setTimeout(() => {
                 if (score >= selectedQuestions.length / 2) {
                     createKonfetti(true);
-                } else {
-                    createKonfetti(false);
                 }
             }, 500);
         }
