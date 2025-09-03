@@ -160,7 +160,7 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
-        .start-btn, .next-btn {
+        .start-btn, .nav-btn {
             background: linear-gradient(90deg, #FF4500, #FFD700, #32CD32, #4682B4, #8A2BE2);
             background-size: 400% 100%;
             animation: rainbowButton 8s ease infinite;
@@ -169,10 +169,19 @@
             font-size: 1.25rem;
             border: none;
         }
-        .start-btn:hover, .next-btn:hover {
+        .start-btn:hover, .nav-btn:hover {
             animation-play-state: paused;
             transform: translateY(-7px) scale(1.05);
             box-shadow: 0 12px 25px rgba(0, 0, 0, 0.4);
+        }
+        .nav-btn.previous {
+            background: #ba55d3;
+            animation: none;
+            transform: translateY(0px) scale(1);
+        }
+        .nav-btn.previous:hover {
+            background: #9370db;
+            transform: translateY(-7px) scale(1.05);
         }
         @keyframes rainbowButton {
             0% { background-position: 0% 50%; }
@@ -234,7 +243,10 @@
             <p id="question-text" class="question-text"></p>
             <div id="answer-buttons" class="grid grid-cols-1 sm:grid-cols-2 gap-4"></div>
             <div id="result-feedback" class="result-message hidden"></div>
-            <button id="next-btn" class="btn next-btn hidden">Next Question 👉</button>
+            <div class="flex space-x-4 mt-8">
+                <button id="previous-btn" class="btn nav-btn previous hidden">👈 Previous</button>
+                <button id="next-btn" class="btn nav-btn hidden">Next Question 👉</button>
+            </div>
             <p id="score-display" class="score-display hidden"></p>
             <button id="play-again-btn" class="btn start-btn hidden">Play Another Round! 🚀</button>
         </div>
@@ -245,6 +257,7 @@
         let currentQuestionIndex = 0;
         let score = 0;
         let selectedQuestions = [];
+        let userAnswers = [];
         let timeLimit = 20;
         let timeLeft = timeLimit;
         let timerInterval;
@@ -264,6 +277,7 @@
         const timerDisplay = document.getElementById('timer-display');
         const startButton = document.getElementById('start-btn');
         const nextButton = document.getElementById('next-btn');
+        const previousButton = document.getElementById('previous-btn');
 
         function shuffleArray(array) {
             for (let i = array.length - 1; i > 0; i--) {
@@ -283,16 +297,22 @@
                             { question: "What planet is known as the Red Planet?", options: ["Earth", "Mars", "Jupiter", "Venus"], answer: "Mars" },
                             { question: "Which animal lays the largest eggs?", options: ["Chicken", "Ostrich", "Eagle", "Penguin"], answer: "Ostrich" },
                             { question: "What is the capital of France?", options: ["Berlin", "Madrid", "Paris", "Rome"], answer: "Paris" },
+                            { question: "What is the largest ocean on Earth?", options: ["Atlantic Ocean", "Indian Ocean", "Arctic Ocean", "Pacific Ocean"], answer: "Pacific Ocean" },
+                            { question: "How many continents are there?", options: ["5", "6", "7", "8"], answer: "7" },
                         ],
                         intermediate: [
                             { question: "Who painted the Mona Lisa?", options: ["Vincent van Gogh", "Pablo Picasso", "Leonardo da Vinci", "Claude Monet"], answer: "Leonardo da Vinci" },
                             { question: "What is the smallest country in the world?", options: ["Monaco", "Nauru", "Vatican City", "San Marino"], answer: "Vatican City" },
                             { question: "What is the chemical symbol for water?", options: ["O2", "H2O", "CO2", "N2"], answer: "H2O" },
+                            { question: "What is the longest river in the world?", options: ["Amazon River", "Nile River", "Yangtze River", "Mississippi River"], answer: "Nile River" },
+                            { question: "Who was the first person to walk on the moon?", options: ["Buzz Aldrin", "Yuri Gagarin", "Neil Armstrong", "Michael Collins"], answer: "Neil Armstrong" },
                         ],
                         advanced: [
                             { question: "Which famous scientist developed the theory of relativity?", options: ["Isaac Newton", "Niels Bohr", "Albert Einstein", "Stephen Hawking"], answer: "Albert Einstein" },
                             { question: "What is the process by which plants make their own food?", options: ["Respiration", "Transpiration", "Photosynthesis", "Germination"], answer: "Photosynthesis" },
                             { question: "In what year did the Titanic sink?", options: ["1912", "1905", "1918", "1923"], answer: "1912" },
+                            { question: "What is the capital of Australia?", options: ["Sydney", "Melbourne", "Canberra", "Perth"], answer: "Canberra" },
+                            { question: "What is the largest organ in the human body?", options: ["Heart", "Liver", "Brain", "Skin"], answer: "Skin" },
                         ]
                     };
                     loadingMessage.textContent = "Using dummy questions for now!";
@@ -314,6 +334,7 @@
             fetchQuestions();
             startButton.addEventListener('click', showLevelSelection);
             nextButton.addEventListener('click', nextQuestion);
+            previousButton.addEventListener('click', previousQuestion);
         });
 
         document.getElementById('beginner-btn').addEventListener('click', () => selectLevel('beginner'));
@@ -327,6 +348,7 @@
             gameContainer.classList.add('hidden');
             playAgainButton.classList.add('hidden');
             questionText.classList.remove('hidden');
+            userAnswers = [];
         }
 
         function selectLevel(level) {
@@ -334,11 +356,13 @@
             selectedQuestions = shuffled.slice(0, 5);
             currentQuestionIndex = 0;
             score = 0;
+            userAnswers = selectedQuestions.map(() => null);
             levelSelectionScreen.classList.add('hidden');
             gameContainer.classList.remove('hidden');
             resultFeedback.classList.add('hidden');
             scoreDisplay.classList.add('hidden');
             nextButton.classList.add('hidden');
+            previousButton.classList.add('hidden');
             updateProgressBar();
             displayQuestion();
         }
@@ -348,20 +372,21 @@
                 endGame();
                 return;
             }
-            
-            nextButton.classList.add('hidden'); // Hide next button for the new question
-            resultFeedback.classList.add('hidden'); // Hide feedback from previous question
 
-            timeLeft = timeLimit;
-            timerDisplay.textContent = `Time: ${timeLeft}s`;
-            timerInterval = setInterval(() => {
-                timeLeft--;
-                timerDisplay.textContent = `Time: ${timeLeft}s`;
-                if (timeLeft <= 0) {
-                    clearInterval(timerInterval);
-                    checkAnswer(null);
-                }
-            }, 1000);
+            nextButton.classList.add('hidden');
+            resultFeedback.classList.add('hidden');
+
+            const hasAnswered = userAnswers[currentQuestionIndex] !== null;
+
+            if (currentQuestionIndex > 0) {
+                previousButton.classList.remove('hidden');
+            } else {
+                previousButton.classList.add('hidden');
+            }
+            
+            if (hasAnswered) {
+                nextButton.classList.remove('hidden');
+            }
 
             const currentQuestion = selectedQuestions[currentQuestionIndex];
             questionText.textContent = currentQuestion.question;
@@ -377,6 +402,41 @@
                 button.onclick = () => checkAnswer(option);
                 answerButtonsContainer.appendChild(button);
             });
+            
+            if (hasAnswered) {
+                // If user has already answered, highlight their choice and the correct answer
+                const userAnswer = userAnswers[currentQuestionIndex];
+                Array.from(answerButtonsContainer.children).forEach(button => {
+                    button.disabled = true;
+                    if (button.textContent === currentQuestion.answer) {
+                        button.classList.add('correct');
+                    } else if (button.textContent === userAnswer) {
+                        button.classList.add('incorrect');
+                    }
+                });
+                if (userAnswer === currentQuestion.answer) {
+                    resultFeedback.textContent = "🎉 Awesome! That's correct!";
+                    resultFeedback.style.color = '#32CD32';
+                } else {
+                    resultFeedback.textContent = "Better luck next time! The answer was: " + currentQuestion.answer;
+                    resultFeedback.style.color = '#FF4500';
+                }
+                resultFeedback.classList.remove('hidden');
+                clearInterval(timerInterval); // Stop timer if navigating back
+                timerDisplay.textContent = "";
+            } else {
+                // Start the timer for a new, unanswered question
+                timeLeft = timeLimit;
+                timerDisplay.textContent = `Time: ${timeLeft}s`;
+                timerInterval = setInterval(() => {
+                    timeLeft--;
+                    timerDisplay.textContent = `Time: ${timeLeft}s`;
+                    if (timeLeft <= 0) {
+                        clearInterval(timerInterval);
+                        checkAnswer(null);
+                    }
+                }, 1000);
+            }
         }
 
         function updateProgressBar() {
@@ -409,8 +469,12 @@
 
         function checkAnswer(selectedOption) {
             clearInterval(timerInterval);
+            timerDisplay.textContent = ""; // Clear timer display
             const currentQuestion = selectedQuestions[currentQuestionIndex];
             const isCorrect = selectedOption === currentQuestion.answer;
+
+            // Store the user's answer
+            userAnswers[currentQuestionIndex] = selectedOption;
 
             Array.from(answerButtonsContainer.children).forEach(button => {
                 button.disabled = true;
@@ -425,7 +489,10 @@
                 resultFeedback.textContent = `⏰ Time's up! The answer was: ${currentQuestion.answer}`;
                 resultFeedback.style.color = '#FF4500';
             } else if (isCorrect) {
-                score++;
+                // Only increment score if the answer is being submitted for the first time
+                if (score < currentQuestionIndex + 1) { 
+                    score++;
+                }
                 resultFeedback.textContent = "🎉 Awesome! That's correct!";
                 resultFeedback.style.color = '#32CD32';
                 createKonfetti(true);
@@ -435,7 +502,7 @@
             }
 
             resultFeedback.classList.remove('hidden');
-            nextButton.classList.remove('hidden'); // Show next button after answer
+            nextButton.classList.remove('hidden');
         }
 
         function nextQuestion() {
@@ -443,12 +510,21 @@
             updateProgressBar();
             displayQuestion();
         }
+        
+        function previousQuestion() {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                updateProgressBar();
+                displayQuestion();
+            }
+        }
 
         function endGame() {
             questionText.classList.add('hidden');
             answerButtonsContainer.innerHTML = '';
             resultFeedback.classList.add('hidden');
             nextButton.classList.add('hidden');
+            previousButton.classList.add('hidden');
             scoreDisplay.textContent = `Quiz Complete! You scored ${score} out of ${selectedQuestions.length}!`;
             scoreDisplay.classList.remove('hidden');
             playAgainButton.classList.remove('hidden');
