@@ -26,8 +26,11 @@
             max-width: 600px;
             text-align: center;
         }
-        .start-screen {
-            margin-bottom: 20px;
+        .screen {
+            display: none; /* All screens are hidden by default */
+        }
+        .screen.active {
+            display: block; /* The active screen is visible */
         }
         .quiz-title {
             font-size: 2.5em;
@@ -66,16 +69,30 @@
         .start-button:hover {
             background-color: #727285;
         }
-        #difficulty-select {
-            padding: 10px;
-            border-radius: 5px;
-            border: 1px solid #5d5d6d;
-            background-color: #444455;
+        .difficulty-options {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .difficulty-button {
+            padding: 20px;
+            font-size: 1.4em;
+            border: 2px solid #a9def9;
+            border-radius: 12px;
+            background-color: #3f3f4e;
             color: #fff;
-            margin-top: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .difficulty-button:hover {
+            background-color: #505060;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
         }
         .quiz-body {
-            display: none;
+            /* display: none; will be controlled by JS */
         }
         .question-container {
             margin-bottom: 20px;
@@ -204,19 +221,26 @@
 </head>
 <body>
     <div class="quiz-container">
-        <div class="start-screen">
+        <!-- Main start screen -->
+        <div id="initial-start-screen" class="screen active">
             <h1 class="quiz-title">✨ Rainbow Quest ✨</h1>
             <p class="subtitle">The Ultimate Quiz Challenge!</p>
-            <p>Select your difficulty level and test your knowledge!</p>
-            <label for="difficulty-select">Choose Difficulty:</label>
-            <select id="difficulty-select">
-                <option value="Beginner">Beginner</option>
-                <option value="Intermediate">Intermediate</option>
-                <option value="Advanced">Advanced</option>
-            </select>
-            <button id="start-btn" class="start-button">Start Quiz</button>
+            <button id="start-game-btn" class="start-button">Start Game</button>
         </div>
-        <div class="quiz-body">
+
+        <!-- Difficulty selection screen -->
+        <div id="difficulty-screen" class="screen">
+            <h1 class="quiz-title">Choose Your Path</h1>
+            <p class="subtitle">Select your difficulty level and test your knowledge!</p>
+            <div class="difficulty-options">
+                <button class="difficulty-button" data-difficulty="Beginner">Beginner</button>
+                <button class="difficulty-button" data-difficulty="Intermediate">Intermediate</button>
+                <button class="difficulty-button" data-difficulty="Advanced">Advanced</button>
+            </div>
+        </div>
+
+        <!-- Quiz body -->
+        <div id="quiz-body" class="screen">
             <div id="timer-container">
                 <span id="timer">20</span> seconds left
                 <button id="pause-btn">Pause</button>
@@ -231,14 +255,16 @@
             <div id="score-container">Score: <span id="current-score">0</span></div>
         </div>
     </div>
-
     <div class="emoji-container"></div>
-    
     <script>
-        const startBtn = document.getElementById('start-btn');
-        const startScreen = document.querySelector('.start-screen');
-        const quizBody = document.querySelector('.quiz-body');
-        const difficultySelect = document.getElementById('difficulty-select');
+        // Get references to the new and old elements
+        const initialStartScreen = document.getElementById('initial-start-screen');
+        const startGameBtn = document.getElementById('start-game-btn');
+        const difficultyScreen = document.getElementById('difficulty-screen');
+        const difficultyButtons = document.querySelectorAll('.difficulty-button');
+        const quizBody = document.getElementById('quiz-body');
+
+        // Original elements
         const questionElement = document.getElementById('question');
         const optionsContainer = document.getElementById('options-container');
         const nextBtn = document.getElementById('next-btn');
@@ -284,13 +310,14 @@
                 startQuiz();
             } catch (error) {
                 console.error("Error fetching or parsing CSV file:", error);
-                alert("Failed to load quiz questions. Please try again.");
+                // Use a custom message box instead of alert()
+                document.getElementById('feedback').textContent = "Failed to load quiz questions. Please try again.";
             }
         };
 
         const startQuiz = () => {
-            startScreen.style.display = 'none';
-            quizBody.style.display = 'block';
+            difficultyScreen.classList.remove('active');
+            quizBody.classList.add('active');
             currentQuestionIndex = 0;
             score = 0;
             currentScoreElement.textContent = score;
@@ -448,11 +475,21 @@
                 }, 3000);
             }
         };
-        
-        startBtn.addEventListener('click', () => {
-            const selectedDifficulty = difficultySelect.value;
-            fetchQuizData(selectedDifficulty);
+
+        // NEW: Event listeners for the new flow
+        startGameBtn.addEventListener('click', () => {
+            initialStartScreen.classList.remove('active');
+            difficultyScreen.classList.add('active');
         });
+
+        difficultyButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const selectedDifficulty = button.dataset.difficulty;
+                fetchQuizData(selectedDifficulty);
+            });
+        });
+
+        // Original event listeners
         nextBtn.addEventListener('click', handleNextButton);
         prevBtn.addEventListener('click', handlePreviousButton);
         pauseBtn.addEventListener('click', togglePause);
