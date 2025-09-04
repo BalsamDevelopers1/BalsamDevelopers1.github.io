@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quiz Master</title>
+    <title>GK Buddy</title>
     <style>
         /* CSS Variables for theming */
         :root {
@@ -37,6 +37,7 @@
             background: var(--bg-color);
             color: var(--text-color);
             display: flex;
+            flex-direction: column; /* Changed to column to stack the title and container */
             justify-content: center;
             align-items: center;
             height: 100vh;
@@ -45,6 +46,23 @@
             overflow: hidden;
             transition: background 0.5s ease;
         }
+
+        .main-title {
+            font-size: 3em;
+            font-weight: bold;
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            background-image: linear-gradient(to right, #ff99c8, #fcf6bd, #d0f4de, #a9def9, #e4c1f9);
+            margin-bottom: 20px; /* Add space below the title */
+            position: absolute; /* Position it absolutely */
+            top: 20px; /* Adjust top positioning */
+            left: 50%; /* Center horizontally */
+            transform: translateX(-50%); /* Fine-tune centering */
+            z-index: 2; /* Ensure it's above other elements */
+            transition: color 0.5s ease;
+        }
+
         .quiz-container {
             background: var(--container-bg);
             padding: 40px 30px;
@@ -273,17 +291,16 @@
     </style>
 </head>
 <body>
+    <div class="main-title">GK Buddy</div>
     <button id="theme-toggle" aria-label="Toggle light and dark mode">🌙</button>
 
     <div class="quiz-container">
-        <!-- Main start screen -->
         <div id="initial-start-screen" class="screen active">
             <h1 class="quiz-title">✨ Rainbow Quest ✨</h1>
             <p class="subtitle">The Ultimate Quiz Challenge!</p>
             <button id="start-game-btn" class="start-button">Start Game</button>
         </div>
 
-        <!-- Difficulty selection screen -->
         <div id="difficulty-screen" class="screen">
             <h1 class="quiz-title">Choose Your Path</h1>
             <p class="subtitle">Select your difficulty level and test your knowledge!</p>
@@ -294,7 +311,6 @@
             </div>
         </div>
 
-        <!-- Quiz body -->
         <div id="quiz-body" class="screen">
             <div id="timer-container">
                 <span id="timer">20</span> seconds left
