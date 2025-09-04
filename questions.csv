@@ -1,5 +1,7 @@
 difficulty;question;options;answer
 Beginner;What is the capital of France?;Paris,London,Berlin,Rome;Paris
+Intermediate;What company is the parent of Instagram?;Meta,Google,Twitter,Snap Inc.;Meta
+Advanced;What is the boiling point of water in Kelvin?;373.15 K,273.15 K,100 K,0 K;373.15 K
 Beginner;Which animal barks?;Dog,Cat,Cow,Duck;Dog
 Beginner;How many days are in a week?;7,8,6,5;7
 Beginner;What color is the sun?;Yellow,Blue,Green,Red;Yellow
@@ -229,3 +231,53 @@ Advanced;What is the rarest blood type in humans?;AB Negative,O Negative,A Posit
 Advanced;What is the highest mountain in North America?;Denali,Mount Logan,Mount Rainier,Pico de Orizaba;Denali
 Advanced;Which element has the atomic number 1?;Hydrogen,Helium,Oxygen,Carbon;Hydrogen
 Advanced;In which sport would you use a chanterelle?;Curling,Skiing,Fencing,Golf;Fencing
+Beginner;What organ pumps blood throughout the body?;Heart,Brain,Lungs,Stomach;Heart
+Beginner;Which body part is used for thinking?;Brain,Stomach,Kidneys,Lungs;Brain
+Beginner;What do we use to see?;Eyes,Ears,Nose,Mouth;Eyes
+Beginner;What part of the body do you use to hear?;Ears,Eyes,Nose,Tongue;Ears
+Beginner;Which organ helps us breathe?;Lungs,Liver,Heart,Stomach;Lungs
+Beginner;What part of the body is used for smelling?;Nose,Mouth,Hand,Foot;Nose
+Beginner;Which body part helps you taste food?;Tongue,Teeth,Nose,Eyes;Tongue
+Beginner;What part of the body connects your hand to your arm?;Wrist,Ankle,Elbow,Knee;Wrist
+Beginner;What part of the body connects your foot to your leg?;Ankle,Wrist,Elbow,Shoulder;Ankle
+Beginner;What is the largest organ of the human body?;Skin,Heart,Brain,Lungs;Skin
+Beginner;What body part helps you stand upright?;Spine,Ribs,Skull,Jaw;Spine
+Beginner;Which part of your body protects your brain?;Skull,Ribs,Spine,Pelvis;Skull
+Beginner;What organ cleans the blood and produces bile?;Liver,Kidneys,Pancreas,Spleen;Liver
+Beginner;What do bones do for the body?;Provide support,Pump blood,Breathe air,Digest food;Provide support
+Beginner;What part of the body allows you to bend your leg?;Knee,Elbow,Wrist,Ankle;Knee
+Beginner;What organ helps to filter waste from your blood?;Kidneys,Lungs,Stomach,Liver;Kidneys
+Beginner;What is the main function of the stomach?;Digest food,Pump blood,Think,Breathe;Digest food
+Beginner;What is the funny bone part of the body?;Elbow,Knee,Shoulder,Wrist;Elbow
+Beginner;What part of your body is used for gripping?;Hand,Foot,Knee,Ear;Hand
+Beginner;What body part protects your lungs and heart?;Ribs,Skull,Spine,Pelvis;Ribs
+Beginner;Which organ is part of the circulatory system?;Heart,Stomach,Liver,Brain;Heart
+Beginner;Which organ helps to make insulin?;Pancreas,Liver,Kidneys,Stomach;Pancreas
+Beginner;What are the small tubes that carry air to the lungs?;Bronchi,Veins,Arteries,Nerves;Bronchi
+Beginner;Which part of the body is responsible for balance?;Inner ear,Eye,Nose,Tongue;Inner ear
+Beginner;What is the longest bone in the human body?;Femur,Tibia,Humerus,Ulna;Femur
+Beginner;What are the small hair-like structures in the nose called?;Cilia,Villi,Nerves,Bones;Cilia
+Beginner;Which part of the body is used for chewing food?;Teeth,Tongue,Nose,Ears;Teeth
+Beginner;What is the main function of the small intestine?;Absorbing nutrients,Pumping blood,Breathing,Protecting the brain;Absorbing nutrients
+Beginner;What is the largest artery in the human body?;Aorta,Vena cava,Pulmonary artery,Carotid artery;Aorta
+Beginner;What is the function of the esophagus?;Carries food to the stomach,Pumps blood,Filters blood,Helps with balance;Carries food to the stomach
+Beginner;Which body part is a ball-and-socket joint?;Shoulder,Elbow,Knee,Ankle;Shoulder
+Beginner;What is the main function of red blood cells?;Carry oxygen,Fight infection,Clot blood,Produce energy;Carry oxygen
+Beginner;Which body part is responsible for filtering blood?;Kidneys,Stomach,Lungs,Liver;Kidneys
+Beginner;Which organ is located behind the stomach?;Pancreas,Liver,Spleen,Kidneys;Pancreas
+Beginner;What is the main function of the large intestine?;Absorbing water,Absorbing nutrients,Pumping blood,Breathing;Absorbing water
+Beginner;Which part of the body is the 'control center'?;Brain,Heart,Lungs,Stomach;Brain
+Beginner;Which organ makes the most cholesterol?;Liver,Heart,Brain,Stomach;Liver
+Beginner;What do muscles do for the body?;Allow movement,Provide support,Filter blood,Produce hormones;Allow movement
+Beginner;What is the main function of the spleen?;Filtering blood,Digesting food,Producing hormones,Providing support;Filtering blood
+Beginner;Which of these is a bone in the arm?;Humerus,Femur,Tibia,Patella;Humerus
+Beginner;Which part of the body is called the windpipe?;Trachea,Esophagus,Bronchi,Larynx;Trachea
+Beginner;What is the main function of the gall bladder?;Stores bile,Produces bile,Pumps blood,Filters blood;Stores bile
+Beginner;Which organ is responsible for sound production?;Larynx,Pharynx,Trachea,Bronchi;Larynx
+Beginner;What is the main function of white blood cells?;Fight infection,Carry oxygen,Clot blood,Produce energy;Fight infection
+Beginner;Which part of the body has the smallest bone?;Ear,Nose,Hand,Foot;Ear
+Beginner;Which organ is the source of many hormones?;Thyroid,Liver,Kidneys,Spleen;Thyroid
+Beginner;What part of the body is known as the voice box?;Larynx,Pharynx,Trachea,Esophagus;Larynx
+Beginner;Which bone is in the upper leg?;Femur,Tibia,Fibula,Humerus;Femur
+Beginner;What is the main function of the appendix?;Unknown,Digests food,Pumps blood,Produces hormones;Unknown
+Beginner;Which body part is used to taste sweet, sour, salty, and bitter flavors?;Tongue,Nose,Eyes,Ears;Tongue
