@@ -808,54 +808,105 @@ Beginner;What is used to boil water?;A frying pan,A teapot,A plate,A bowl;A teap
 Beginner;What do you use to open a door?;A key,A broom,A hat,A glove;A key
 Beginner;What do you use to organize your clothes?;A chair,A dresser,A table,A bed;A dresser
 Beginner;What do you use to keep things from getting dusty?;A towel,A broom,A dustpan,A duster;A duster
-Intermediate;In basketball, what is the shot clock violation time limit in the NBA?;24 seconds,30 seconds,15 seconds,35 seconds;24 seconds
-Intermediate;In soccer, what is the penalty for a professional player who receives two yellow cards in a single game?;A one-game suspension,An automatic red card and removal from the game,A fine,A public warning;An automatic red card and removal from the game
-Intermediate;In American football, how many points is a touchdown worth before the extra point or two-point conversion?;6 points,7 points,3 points,2 points;6 points
-Intermediate;In baseball, what is a "balk"?;A home run,A hit that goes foul,An illegal act by the pitcher,A stolen base;An illegal act by the pitcher
-Intermediate;In tennis, what is the scoring term for 40-40?;Advantage,Deuce,Love,Match Point;Deuce
-Intermediate;What is the maximum number of clubs a golfer is allowed to carry in their bag during a round?;10,12,14,16;14
-Intermediate;In boxing, how long is a typical round in a professional fight?;2 minutes,3 minutes,4 minutes,5 minutes;3 minutes
-Intermediate;In volleyball, what is the maximum number of times a team can hit the ball to return it over the net?;2,3,4,5;3
-Intermediate;In ice hockey, what is the term for a period of time when a team has to play with fewer players due to a penalty?;Power play,Penalty kill,Short-handed,Timeout;Short-handed
-Intermediate;In cricket, what is the term for a batsman scoring 100 runs in a single inning?;Century,Half-century,Double hundred,Hat-trick;Century
-Intermediate;In professional swimming, what stroke is not permitted to be swum in the individual medley?;Freestyle,Butterfly,Backstroke,Breaststroke;Freestyle
-Intermediate;In track and field, what is a "false start"?;Starting before the gun,Starting too slow,Finishing too fast,Running in the wrong lane;Starting before the gun
-Intermediate;In gymnastics, what is the score called that represents the final total including deductions?;Execution score,Difficulty score,Final score,All-around score;Final score
-Intermediate;In rugby, what is the term for when a player passes the ball forward to a teammate?;Knock-on,Offside,Forward pass,Scrum;Forward pass
-Intermediate;In bowling, what is it called when a player knocks down all the pins on their second ball?;A strike,A spare,A turkey,A split;A spare
-Intermediate;In fencing, what is the name of the light, flexible sword with a small guard?;Foil,Épée,Sabre,Rapier;Foil
-Intermediate;In badminton, when a serve hits the net and lands in the correct service court, what is it called?;A fault,A let,A point,A smash;A let
-Intermediate;In table tennis, how many points must a player win by to secure a game?;1,2,3,4;2
-Intermediate;In water polo, how many players does a team have in the water at one time, including the goalie?;6,7,8,9;7
-Intermediate;In horse racing, what is the term for a race without any obstacles?;Steeplechase,Hurdle race,Flat race,Endurance race;Flat race
-Intermediate;In which sport does a player try to score by throwing a ball through a hoop on a moving horse?;Polo,Basketball,Horseball,Lacrosse;Horseball
-Intermediate;In darts, what is the common score to start and end a professional match?;501,301,101,601;501
-Intermediate;In handball, how many players are on the court for one team at a time?;5,6,7,8;7
-Intermediate;In snooker, what is the maximum possible break in a single frame without a foul?;147,155,145,150;147
-Intermediate;In curling, what is the term for a player who sweeps the ice in front of the stone?;Skip,Lead,Sweeper,Vice;Sweeper
-Intermediate;In wrestling, what is it called when a wrestler pins their opponent's shoulders to the mat for a specified time?;A pinfall,A takedown,A submission,A reversal;A pinfall
-Intermediate;In baseball, what is the term for a player who can pitch and also play a position in the field?;Designated hitter,Reliever,Two-way player,Closer;Two-way player
-Intermediate;In which sport can a player be called for a "traveling" violation?;Basketball,Soccer,Volleyball,Hockey;Basketball
-Intermediate;In golf, what is the term for a score of one stroke under par on a single hole?;Birdie,Eagle,Albatross,Par;Birdie
-Intermediate;In polo, what is a "chukka"?;A type of mallet,A period of play,A penalty,A type of ball;A period of play
-Intermediate;In fencing, what is an "off-target" hit?;A hit that doesn't count for a point,A hit to the opponent's arm,A hit that misses entirely,A hit to the mask;A hit that doesn't count for a point
-Intermediate;In alpine skiing, what is the term for a gate that a skier must pass through?;A slalom,A flag,A turn,A marker;A flag
-Intermediate;In which sport is the "T-shaped" stick used to hit a small ball?;Field hockey,Lacrosse,Cricket,Baseball;Field hockey
-Intermediate;In horse racing, what is the weight carried by the horse and jockey called?;Handicap,Weight allowance,Load,Weight-for-age;Handicap
-Intermediate;In American football, how many yards is a first down to gain?;5,10,15,20;10
-Intermediate;In basketball, how many personal fouls can a player get before they are disqualified from the game?;4,5,6,7;6
-Intermediate;In soccer, what is the penalty for a foul committed inside the penalty area?;A free kick,A corner kick,A penalty kick,A throw-in;A penalty kick
-Intermediate;In volleyball, what is the primary purpose of a "libero" player?;To set the ball,To block shots,To serve the ball,To play defense and receive serves;To play defense and receive serves
-Intermediate;In professional hockey, how many players (excluding the goalie) are on the ice for each team during regulation play?;4,5,6,7;5
-Intermediate;In baseball, what is the term for a situation when a batter hits the ball and gets to second base safely?;Single,Double,Triple,Home Run;Double
-Intermediate;In golf, what is the term for a score of two strokes under par on a single hole?;Birdie,Eagle,Albatross,Par;Eagle
-Intermediate;In which sport do players use a "sabre" with a triangular blade?;Fencing,Judo,Karate,Wrestling;Fencing
-Intermediate;In tennis, what is the term for a serve that lands in the opponent's service box without the opponent touching it?;An ace,A let,A fault,A double fault;An ace
-Intermediate;In track and field, what event involves throwing a heavy metal ball?;Shot put,Discus,Javelin,Hammer throw;Shot put
-Intermediate;In rugby, what is a "scrum"?;A way to restart play after a minor infringement,A type of tackle,A try,A kick;A way to restart play after a minor infringement
-Intermediate;In badminton, what is it called when a player hits the shuttlecock high and deep into the opponent's court?;A drop shot,A smash,A clear,A net shot;A clear
-Intermediate;In table tennis, what is the maximum number of serves a player can make in a row before their opponent gets to serve?;1,2,3,4;2
-Intermediate;In handball, what is the "7-meter throw" similar to in soccer?;A penalty kick,A free kick,A corner kick,A throw-in;A penalty kick
-Intermediate;In snooker, what is the term for a player scoring all 15 reds and 15 blacks?;Maximum break,Full house,Perfect game,Century break;Maximum break
-Intermediate;In curling, what is the term for the circular target area?;The house,The button,The hack,The stone;The house
-Intermediate;In gymnastics, what is the highest possible score a gymnast can achieve on a routine?;10.0,12.0,15.0,20.0;10.0
+Advanced;In basketball, what is the shot clock violation time limit in the NBA?;24 seconds,30 seconds,15 seconds,35 seconds;24 seconds
+Advanced;In soccer, what is the penalty for a professional player who receives two yellow cards in a single game?;A one-game suspension,An automatic red card and removal from the game,A fine,A public warning;An automatic red card and removal from the game
+Advanced;In American football, how many points is a touchdown worth before the extra point or two-point conversion?;6 points,7 points,3 points,2 points;6 points
+Advanced;In baseball, what is a "balk"?;A home run,A hit that goes foul,An illegal act by the pitcher,A stolen base;An illegal act by the pitcher
+Advanced;In tennis, what is the scoring term for 40-40?;Advantage,Deuce,Love,Match Point;Deuce
+Advanced;What is the maximum number of clubs a golfer is allowed to carry in their bag during a round?;10,12,14,16;14
+Advanced;In boxing, how long is a typical round in a professional fight?;2 minutes,3 minutes,4 minutes,5 minutes;3 minutes
+Advanced;In volleyball, what is the maximum number of times a team can hit the ball to return it over the net?;2,3,4,5;3
+Advanced;In ice hockey, what is the term for a period of time when a team has to play with fewer players due to a penalty?;Power play,Penalty kill,Short-handed,Timeout;Short-handed
+Advanced;In cricket, what is the term for a batsman scoring 100 runs in a single inning?;Century,Half-century,Double hundred,Hat-trick;Century
+Advanced;In professional swimming, what stroke is not permitted to be swum in the individual medley?;Freestyle,Butterfly,Backstroke,Breaststroke;Freestyle
+Advanced;In track and field, what is a "false start"?;Starting before the gun,Starting too slow,Finishing too fast,Running in the wrong lane;Starting before the gun
+Advanced;In gymnastics, what is the score called that represents the final total including deductions?;Execution score,Difficulty score,Final score,All-around score;Final score
+Advanced;In rugby, what is the term for when a player passes the ball forward to a teammate?;Knock-on,Offside,Forward pass,Scrum;Forward pass
+Advanced;In bowling, what is it called when a player knocks down all the pins on their second ball?;A strike,A spare,A turkey,A split;A spare
+Advanced;In fencing, what is the name of the light, flexible sword with a small guard?;Foil,Épée,Sabre,Rapier;Foil
+Advanced;In badminton, when a serve hits the net and lands in the correct service court, what is it called?;A fault,A let,A point,A smash;A let
+Advanced;In table tennis, how many points must a player win by to secure a game?;1,2,3,4;2
+Advanced;In water polo, how many players does a team have in the water at one time, including the goalie?;6,7,8,9;7
+Advanced;In horse racing, what is the term for a race without any obstacles?;Steeplechase,Hurdle race,Flat race,Endurance race;Flat race
+Advanced;In which sport does a player try to score by throwing a ball through a hoop on a moving horse?;Polo,Basketball,Horseball,Lacrosse;Horseball
+Advanced;In darts, what is the common score to start and end a professional match?;501,301,101,601;501
+Advanced;In handball, how many players are on the court for one team at a time?;5,6,7,8;7
+Advanced;In snooker, what is the maximum possible break in a single frame without a foul?;147,155,145,150;147
+Advanced;In curling, what is the term for a player who sweeps the ice in front of the stone?;Skip,Lead,Sweeper,Vice;Sweeper
+Advanced;In wrestling, what is it called when a wrestler pins their opponent's shoulders to the mat for a specified time?;A pinfall,A takedown,A submission,A reversal;A pinfall
+Advanced;In baseball, what is the term for a player who can pitch and also play a position in the field?;Designated hitter,Reliever,Two-way player,Closer;Two-way player
+Advanced;In which sport can a player be called for a "traveling" violation?;Basketball,Soccer,Volleyball,Hockey;Basketball
+Advanced;In golf, what is the term for a score of one stroke under par on a single hole?;Birdie,Eagle,Albatross,Par;Birdie
+Advanced;In polo, what is a "chukka"?;A type of mallet,A period of play,A penalty,A type of ball;A period of play
+Advanced;In fencing, what is an "off-target" hit?;A hit that doesn't count for a point,A hit to the opponent's arm,A hit that misses entirely,A hit to the mask;A hit that doesn't count for a point
+Advanced;In alpine skiing, what is the term for a gate that a skier must pass through?;A slalom,A flag,A turn,A marker;A flag
+Advanced;In which sport is the "T-shaped" stick used to hit a small ball?;Field hockey,Lacrosse,Cricket,Baseball;Field hockey
+Advanced;In horse racing, what is the weight carried by the horse and jockey called?;Handicap,Weight allowance,Load,Weight-for-age;Handicap
+Advanced;In American football, how many yards is a first down to gain?;5,10,15,20;10
+Advanced;In basketball, how many personal fouls can a player get before they are disqualified from the game?;4,5,6,7;6
+Advanced;In soccer, what is the penalty for a foul committed inside the penalty area?;A free kick,A corner kick,A penalty kick,A throw-in;A penalty kick
+Advanced;In volleyball, what is the primary purpose of a "libero" player?;To set the ball,To block shots,To serve the ball,To play defense and receive serves;To play defense and receive serves
+Advanced;In professional hockey, how many players (excluding the goalie) are on the ice for each team during regulation play?;4,5,6,7;5
+Advanced;In baseball, what is the term for a situation when a batter hits the ball and gets to second base safely?;Single,Double,Triple,Home Run;Double
+Advanced;In golf, what is the term for a score of two strokes under par on a single hole?;Birdie,Eagle,Albatross,Par;Eagle
+Advanced;In which sport do players use a "sabre" with a triangular blade?;Fencing,Judo,Karate,Wrestling;Fencing
+Advanced;In tennis, what is the term for a serve that lands in the opponent's service box without the opponent touching it?;An ace,A let,A fault,A double fault;An ace
+Advanced;In track and field, what event involves throwing a heavy metal ball?;Shot put,Discus,Javelin,Hammer throw;Shot put
+Advanced;In rugby, what is a "scrum"?;A way to restart play after a minor infringement,A type of tackle,A try,A kick;A way to restart play after a minor infringement
+Advanced;In badminton, what is it called when a player hits the shuttlecock high and deep into the opponent's court?;A drop shot,A smash,A clear,A net shot;A clear
+Advanced;In table tennis, what is the maximum number of serves a player can make in a row before their opponent gets to serve?;1,2,3,4;2
+Advanced;In handball, what is the "7-meter throw" similar to in soccer?;A penalty kick,A free kick,A corner kick,A throw-in;A penalty kick
+Advanced;In snooker, what is the term for a player scoring all 15 reds and 15 blacks?;Maximum break,Full house,Perfect game,Century break;Maximum break
+Advanced;In curling, what is the term for the circular target area?;The house,The button,The hack,The stone;The house
+Advanced;In gymnastics, what is the highest possible score a gymnast can achieve on a routine?;10.0,12.0,15.0,20.0;10.0
+Advanced;Who invented the telephone?;Alexander Graham Bell,Thomas Edison,Nikola Tesla,Marie Curie;Alexander Graham Bell
+Advanced;What famous invention is often credited to Thomas Edison?;The light bulb,The printing press,The radio,The automobile;The light bulb
+Advanced;Who invented the first practical flying machine, the airplane?;The Wright brothers,Henry Ford,Leonardo da Vinci,Galileo Galilei;The Wright brothers
+Advanced;The invention of the printing press is attributed to which person?;Johannes Gutenberg,Benjamin Franklin,Isaac Newton,Leonardo da Vinci;Johannes Gutenberg
+Advanced;Who invented the cotton gin?;Eli Whitney,Samuel Morse,James Watt,Alexander Fleming;Eli Whitney
+Advanced;What did Guglielmo Marconi invent?;The radio,The telegraph,The telephone,The television;The radio
+Advanced;What was Karl Benz's major invention?;The first practical automobile,The steam engine,The electric light,The camera;The first practical automobile
+Advanced;Who invented the mechanical television?;John Logie Baird,Philo Farnsworth,Thomas Edison,Alexander Graham Bell;John Logie Baird
+Advanced;Who invented the first commercially successful sewing machine?;Elias Howe,Isaac Singer,James Watt,George Westinghouse;Elias Howe
+Advanced;The discovery of penicillin is attributed to which person?;Alexander Fleming,Louis Pasteur,Joseph Lister,Edward Jenner;Alexander Fleming
+Advanced;Who is the inventor of the modern AC motor?;Nikola Tesla,Thomas Edison,James Watt,George Westinghouse;Nikola Tesla
+Advanced;What did George Westinghouse invent?;The air brake,The telephone,The light bulb,The radio;The air brake
+Advanced;Who invented the lightning rod and bifocal glasses?;Benjamin Franklin,Thomas Jefferson,George Washington,Abraham Lincoln;Benjamin Franklin
+Advanced;What invention is attributed to Samuel Morse?;The telegraph and Morse code,The telephone,The radio,The light bulb;The telegraph and Morse code
+Advanced;Who invented the steam engine?;James Watt,Nikola Tesla,Thomas Edison,Alexander Graham Bell;James Watt
+Advanced;Who is known for inventing the first successful liquid-fueled rocket?;Robert Goddard,Wernher von Braun,Isaac Newton,Johannes Kepler;Robert Goddard
+Advanced;Who invented the vaccine for polio?;Jonas Salk,Louis Pasteur,Alexander Fleming,Edward Jenner;Jonas Salk
+Advanced;What did Leonardo da Vinci design but never build?;A flying machine,A working clock,A telescope,A microscope;A flying machine
+Advanced;Who invented the World Wide Web?;Tim Berners-Lee,Bill Gates,Steve Jobs,Mark Zuckerberg;Tim Berners-Lee
+Advanced;What did Henry Ford pioneer in automobile manufacturing?;The assembly line,The electric car,The hybrid engine,The airbag;The assembly line
+Advanced;Who invented dynamite?;Alfred Nobel,Marie Curie,Albert Einstein,Isaac Newton;Alfred Nobel
+Advanced;What did the inventor of the phonograph, Thomas Edison, also invent?;The light bulb,The telephone,The steam engine,The radio;The light bulb
+Advanced;Who invented the first integrated circuit or microchip?;Jack Kilby,Robert Noyce,Gordon Moore,Steve Wozniak;Jack Kilby
+Advanced;Who is credited with inventing the modern refrigerator?;Carl von Linde,Thomas Edison,James Harrison,Alfred Nobel;Carl von Linde
+Advanced;What did James Harrison invent?;The first commercial ice-making machine,The light bulb,The radio,The telephone;The first commercial ice-making machine
+Advanced;Who invented the elevator with a safety brake?;Elisha Otis,Alexander Graham Bell,Thomas Edison,Nikola Tesla;Elisha Otis
+Advanced;What did the Wright brothers invent?;The airplane,The automobile,The light bulb,The radio;The airplane
+Advanced;What invention is credited to Louis Braille?;Braille for the blind,The telephone,The printing press,The cotton gin;Braille for the blind
+Advanced;Who invented the first successful gas-powered tractor?;John Froelich,Eli Whitney,James Watt,Henry Ford;John Froelich
+Advanced;What did Elias Howe invent?;The sewing machine,The telephone,The telegraph,The light bulb;The sewing machine
+Advanced;Who invented the first electronic television?;Philo Farnsworth,John Logie Baird,Thomas Edison,Nikola Tesla;Philo Farnsworth
+Advanced;What did Charles Babbage design that is considered a forerunner of the modern computer?;The Analytical Engine,The Difference Engine,The Turing Machine,The Enigma;The Analytical Engine
+Advanced;Who is known for inventing the first practical internal combustion engine?;Nikolaus Otto,Karl Benz,Rudolf Diesel,Henry Ford;Nikolaus Otto
+Advanced;What did Rudolf Diesel invent?;The diesel engine,The steam engine,The internal combustion engine,The gasoline engine;The diesel engine
+Advanced;Who invented the safety razor?;King C. Gillette,Elisha Otis,Alfred Nobel,Henry Ford;King C. Gillette
+Advanced;What invention is associated with Marie Curie?;Radium and Polonium,The telephone,The light bulb,The radio;Radium and Polonium
+Advanced;Who invented the first programmable computer?;Konrad Zuse,Charles Babbage,Alan Turing,John von Neumann;Konrad Zuse
+Advanced;What did George Eastman invent?;The Kodak camera,The telephone,The radio,The television;The Kodak camera
+Advanced;Who invented the modern zipper?;Whitcomb L. Judson,Gideon Sundback,Elias Howe,Isaac Singer;Gideon Sundback
+Advanced;What did Garrett Morgan invent?;The three-position traffic light,The light bulb,The telephone,The radio;The three-position traffic light
+Advanced;What did Joseph Nicéphore Niépce invent?;The first photograph,The light bulb,The telephone,The camera;The first photograph
+Advanced;Who invented the ballpoint pen?;László Bíró,Lewis Waterman,John Montagu,Alfred Nobel;László Bíró
+Advanced;What did John Pemberton invent?;Coca-Cola,Pepsi,Dr. Pepper,Fanta;Coca-Cola
+Advanced;Who invented the first working telephone?;Alexander Graham Bell,Thomas Edison,Nikola Tesla,Guglielmo Marconi;Alexander Graham Bell
+Advanced;Who is known for inventing the first working incandescent light bulb?;Thomas Edison,Nikola Tesla,Alexander Graham Bell,Benjamin Franklin;Thomas Edison
+Advanced;What did the Wright brothers invent that allowed for controlled flight?;The aileron,The rudder,The engine,The wings;The aileron
+Advanced;Who invented the first practical typewriter?;Christopher Latham Sholes,Thomas Edison,Alexander Graham Bell,Johannes Gutenberg;Christopher Latham Sholes
+Advanced;What did Louis Pasteur develop?;Pasteurization,Penicillin,The telephone,The light bulb;Pasteurization
+Advanced;Who invented the printing press?;Johannes Gutenberg,Benjamin Franklin,Thomas Edison,Leonardo da Vinci;Johannes Gutenberg
+Advanced;Who invented the first practical internal combustion engine?;Nikolaus Otto,Karl Benz,Rudolf Diesel,Henry Ford;Nikolaus Otto
+Advanced;What did Elias Howe invent?;The sewing machine,The telephone,The telegraph,The light bulb;The sewing machine
