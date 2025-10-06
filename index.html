@@ -4,12 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BalsamDevelopers</title>
+    <!-- Importing Inter font for a modern look -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
+        /* Base styling for the page */
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #f0f9ff;
-            color: #1a202c;
+            background-color: #f0f9ff; /* Very light blue background */
+            color: #1a202c; /* Dark text */
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -18,24 +20,30 @@
             margin: 0;
             padding: 1rem;
         }
+
+        /* Container to center and limit width */
         .container {
             width: 100%;
             max-width: 900px;
             text-align: center;
         }
+
+        /* Grid layout for the game buttons (2 columns) */
         .game-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 1.5rem;
             margin-top: 2.5rem;
         }
+
+        /* Styling for all game buttons */
         .game-button {
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             padding: 2.5rem 1.5rem;
-            border-radius: 1.5rem;
+            border-radius: 1.5rem; /* Rounded corners */
             font-weight: 600;
             font-size: 1.25rem;
             color: white;
@@ -45,10 +53,14 @@
             text-decoration: none;
             cursor: pointer;
         }
+
+        /* Hover effect for interactivity */
         .game-button:hover {
-            transform: translateY(-5px);
+            transform: translateY(-5px); /* Lift effect */
             box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04);
         }
+
+        /* Individual button colors (Original set) */
         .button-1 { background-color: #a78bfa; }
         .button-2 { background-color: #fdba74; }
         .button-3 { background-color: #4ade80; }
@@ -61,7 +73,14 @@
         .button-10 { background-color: #93c5fd; }
         .button-11 { background-color: #fca5a5; }
         .button-12 { background-color: #4ade80; }
-        
+
+        /* New button colors as requested: Green, Blue, Red, Orange */
+        .button-13 { background-color: #10b981; } /* Green */
+        .button-14 { background-color: #3b82f6; } /* Blue */
+        .button-15 { background-color: #ef4444; } /* Red */
+        .button-16 { background-color: #f97316; } /* Orange */
+
+        /* Footer styling */
         .footer {
             margin-top: 3rem;
             padding-top: 1.5rem;
@@ -79,29 +98,36 @@
             <h1>BalsamDevelopers</h1>
             <p>A World of Learning Adventures, Built by Students</p>
         </header>
-        
+
         <main>
             <div class="game-grid">
+                <!-- Row 1 -->
                 <a href="https://balsamdevelopers1.github.io/gkbuddy.html" target="_blank" class="game-button button-1">GK Buddy</a>
                 <a href="https://balsamdevelopers1.github.io/sq/mathrush.html" target="_blank" class="game-button button-2">Math Rush</a>
+                <!-- Row 2 -->
                 <a href="https://balsamdevelopers1.github.io/sq/wordscramble.html" target="_blank" class="game-button button-3">Word Scramble I</a>
                 <a href="https://balsamdevelopers1.github.io/sq/wordscramble2.html" target="_blank" class="game-button button-4">Word Scramble II</a>
+                <!-- Row 3 -->
                 <a href="https://balsamdevelopers1.github.io/sq/kural.html" target="_blank" class="game-button button-5">Kural Oviyam</a>
                 <a href="https://balsamdevelopers1.github.io/sq/flag.html" target="_blank" class="game-button button-6">Flag-tastic</a>
+                <!-- Row 4 -->
                 <a href="https://balsamdevelopers1.github.io/sq/memory.html" target="_blank" class="game-button button-7">Memory Mania</a>
                 <a href="https://balsamdevelopers1.github.io/sq/capitals.html" class="game-button button-8">Capital Quest</a>
+                <!-- Row 5 -->
                 <a href="https://grammarbuddy.github.io/index1.html" target="_blank" class="game-button button-9">Grammar Buddy</a>
                 <a href="https://grammarbuddy.github.io/readright/" target="_blank" class="game-button button-10">Read Right</a>
+                <!-- Row 6 -->
                 <a href="https://balsamdevelopers1.github.io/sq/write.html" target="_blank" class="game-button button-11">Write Right</a>
                 <a href="https://balsamdevelopers1.github.io/sq/tonguetwister.html" target="_blank" class="game-button button-12">Tongue Tangler</a>
+                <!-- Row 7 (NEW COLORS) -->
                 <a href="https://balsamdevelopers1.github.io/sq/riddles.html" target="_blank" class="game-button button-13">Riddle trainer</a>
                 <a href="https://balsamdevelopers1.github.io/sq/skylore.html" target="_blank" class="game-button button-14">SkyLore</a>
-                <a href="https://balsamdevelopers1.github.io/sq/bingov2.html" target="_blank" class="game-button button-15">Bingo Blitz</a>
+                <!-- Row 8 (NEW COLORS) -->
+                <a href="https://balsamdevelopers1.github.io/sq/bingo.html" target="_blank" class="game-button button-15">Bingo Blitz</a>
                 <a href="https://balsamdevelopers1.github.io" target="_blank" class="game-button button-16">Coming Soon...</a>
-
             </div>
         </main>
-        
+
         <footer class="footer">
             <p>© Designed and Developed by Students of G7A</p>
         </footer>
