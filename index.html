@@ -1,13 +1,10 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Balsam Developers</title>
-    <!-- Load Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Configure Tailwind to use a vibrant color palette and a dark theme -->
     <script>
         // Configure Tailwind to enable dark mode based on the 'dark' class on the HTML tag
         tailwind.config = {
@@ -34,7 +31,6 @@
             }
         }
     </script>
-    <!-- Custom style to hide the scrollbar but allow scrolling -->
     <style>
         /* Lucide icons (used for the sun/moon toggle) */
         .icon {
@@ -57,19 +53,11 @@
         }
     </style>
 </head>
-<!-- Default body classes handle both light and dark backgrounds via JS adding 'dark' class to <html> -->
 <body class="bg-gray-100 text-gray-900 dark:bg-gray-900 dark:text-gray-100 min-h-screen font-sans p-4 sm:p-8 no-scrollbar transition-colors duration-500">
-
-    <!-- Main Container -->
     <div class="max-w-7xl mx-auto">
-        <!-- Header -->
         <header class="text-center mb-10 relative">
-            
-            <!-- Theme Toggle Button (Sun/Moon) -->
-            <!-- ADDED: bg-yellow-400, text-gray-900, hover:bg-yellow-500, and shadow-lg for visibility -->
             <button id="themeToggle" class="absolute top-0 right-0 p-2 text-2xl rounded-full bg-yellow-400 text-gray-900 hover:bg-yellow-500 transition duration-300 shadow-lg">
-                <!-- SVG Icon placeholders handled by JS -->
-            </button>
+                </button>
 
             <h1 class="text-4xl sm:text-5xl font-extrabold text-gray-900 dark:text-white mb-2 tracking-tight">
                 Balsam Developers
@@ -79,33 +67,26 @@
             </p>
         </header>
 
-        <!-- Search Input and Counter -->
         <div class="mb-8 flex flex-col sm:flex-row items-center justify-between space-y-4 sm:space-y-0 sm:space-x-4">
             <input type="text" id="linkSearch" placeholder="Filter links (e.g., 'Math' or 'History')"
-                    class="w-full sm:max-w-md p-3 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white border-2 border-primary-blue focus:border-secondary-cyan focus:outline-none placeholder-gray-500 dark:placeholder-gray-400 shadow-xl transition duration-300 ease-in-out">
-            
-            <!-- Link Count updated to show current page range -->
+                   class="w-full sm:max-w-md p-3 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white border-2 border-primary-blue focus:border-secondary-cyan focus:outline-none placeholder-gray-500 dark:placeholder-gray-400 shadow-xl transition duration-300 ease-in-out">
             <div id="linkCount" class="text-primary-blue dark:text-secondary-cyan font-semibold text-sm bg-white dark:bg-gray-800 p-2 rounded-full px-4 shadow-inner transition-colors duration-500">
                 Displaying 1-10 of 40 Links
             </div>
         </div>
 
-        <!-- The Link Grid -->
         <div id="linksContainer" class="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 sm:gap-6">
-            <!-- Link buttons will be injected here by JavaScript -->
-        </div>
+            </div>
 
-        <!-- Pagination Controls -->
         <div id="paginationControls" class="flex flex-wrap justify-center items-center mt-8 space-x-2">
-            <!-- Pagination buttons will be injected here by JavaScript -->
-        </div>
+            </div>
     </div>
 
-    <!-- JavaScript for Data and Interactivity -->
     <script>
-        // Data for 32 new learning/game links extracted from the "BalsamDevelopers" hub.
+        // Data for 40 learning/game links extracted from the "BalsamDevelopers" hub.
         const linkData = [
-            { id: 40, text: "The Typing Titan ", url: "https://balsamdevelopers1.github.io/city.html", category: "Business", icon: "💻" }
+            // FIX: Corrected missing comma and duplicate ID 40
+            { id: 0, text: "The Typing Titan", url: "https://balsamdevelopers1.github.io/city.html", category: "Business", icon: "💻" }, 
             { id: 1, text: "GK Buddy", url: "https://balsamdevelopers1.github.io/gkbuddy.html", category: "GK", icon: "🌏" },
             { id: 2, text: "Math Rush", url: "https://balsamdevelopers1.github.io/sq/mathrush.html", category: "Math", icon: "🔢" },
             { id: 3, text: "Word Scramble I", url: "https://balsamdevelopers1.github.io/sq/wordscramble.html", category: "English", icon: "🔠" },
@@ -138,15 +119,15 @@
             { id: 30, text: "Food Chain Survivor", url: "https://balsamdevelopers1.github.io/sq/food.html", category: "Science", icon: "🍔" },
             { id: 31, text: "Arithmetic Blitz", url: "https://balsamdevelopers1.github.io/sq/solver.html", category: "Math", icon: "✖️" },
             { id: 32, text: "Stickman Obby", url: "https://balsamdevelopers1.github.io/sq/obby.html", category: "Game", icon: "🏃" },
-            // --- 8 New Dummy Links Added Below ---
+            // --- New Dummy Links Added Below (now 33-39) ---
             { id: 33, text: "Classroom Certificate Generator", url: "https://balsamdevelopers.github.io/certificategen.html", category: "Game", icon: "🎓" },
             { id: 34, text: "New App: Coming soon", url: "#", category: "History", icon: "🏛️" },
             { id: 35, text: "New App: Coming soon", url: "#", category: "Language", icon: "🗣️" },
             { id: 36, text: "New App: Coming soon", url: "#", category: "Science", icon: "🔬" },
             { id: 37, text: "New App: Coming soon", url: "#", category: "Math", icon: "✖️" },
             { id: 38, text: "New App: Coming soon", url: "#", category: "Logic", icon: "🧠" },
-            { id: 39, text: "New App: Coming soon", url: "#", category: "Geography", icon: "🗺️" },
-            { id: 40, text: "New App: Coming soon", url: "#", category: "Tech", icon: "💻" }
+            { id: 39, text: "New App: Coming soon", url: "#", category: "Geography", icon: "🗺️" }
+            // The duplicate link with id: 40 has been removed.
         ];
 
         const container = document.getElementById('linksContainer');
@@ -166,7 +147,7 @@
             if (isDarkMode) {
                 htmlElement.classList.add('dark');
                 // Use Moon icon when in Dark Mode
-                themeToggle.innerHTML = moonIcon; 
+                themeToggle.innerHTML = moonIcon;
                 localStorage.setItem('theme', 'dark');
             } else {
                 htmlElement.classList.remove('dark');
@@ -179,15 +160,14 @@
         // Initialize theme (still defaults to dark mode if no preference is stored)
         const initializeTheme = () => {
             const storedTheme = localStorage.getItem('theme');
-            
             // Default to dark mode (true) as requested.
-            let isDarkMode = true; 
-            
+            let isDarkMode = true;
+
             if (storedTheme) {
                 // If a preference is stored, override the default and use it.
                 isDarkMode = storedTheme === 'dark';
-            } 
-            
+            }
+
             applyTheme(isDarkMode);
         };
 
@@ -196,11 +176,11 @@
             const isDarkMode = htmlElement.classList.contains('dark');
             applyTheme(!isDarkMode);
         });
-        
+
         // --- End Theme Logic ---
 
         // Pagination Constants and State
-        const LINKS_PER_PAGE = 10; 
+        const LINKS_PER_PAGE = 10;
         let currentPage = 1;
         let currentFilteredLinks = linkData; // Start with all data
 
@@ -213,18 +193,16 @@
                 <a href="${link.url}" target="_blank"
                     class="link-button block p-5 rounded-xl shadow-2xl transition duration-300 ease-in-out
                             transform hover:scale-[1.03] hover:shadow-primary-blue/50
-                            bg-white dark:bg-gray-800 text-gray-900 dark:text-white 
-                            border border-gray-200 dark:border-gray-700 hover:dark:border-secondary-cyan hover:border-primary-blue
+                            bg-white dark:bg-gray-800 text-gray-900 dark:text-white
+                             border border-gray-200 dark:border-gray-700 hover:dark:border-secondary-cyan hover:border-primary-blue
                             relative overflow-hidden group"
                     data-text="${link.text}"
                     data-category="${link.category}"
                     tabindex="0"
                 >
-                    <!-- Floating Highlight Effect -->
                     <span class="absolute inset-0 bg-primary-blue opacity-0 group-hover:opacity-10 transition duration-300 pointer-events-none"></span>
 
                     <div class="flex flex-col h-full justify-between">
-                        <!-- Icon and Category Tag -->
                         <div class="flex items-center justify-between mb-3">
                             <span class="text-3xl">${link.icon}</span>
                             <span class="text-xs font-medium ${colorClass} text-white px-2 py-0.5 rounded-full shadow-md">
@@ -232,19 +210,17 @@
                             </span>
                         </div>
 
-                        <!-- Link Text -->
                         <p class="text-lg font-semibold leading-tight mt-auto">
                             ${link.text}
                         </p>
 
-                        <!-- Subtle Underline on Hover -->
                         <div class="w-0 h-0.5 bg-secondary-cyan mt-2 transition-all duration-300 group-hover:w-full"></div>
                     </div>
                 </a>
             `;
             return html;
         };
-        
+
         // Function to change the current page
         const changePage = (page) => {
             const totalPages = Math.ceil(currentFilteredLinks.length / LINKS_PER_PAGE);
@@ -267,13 +243,13 @@
             }
 
             let paginationHtml = '';
-            
+
             // 1. Previous Button
             const prevDisabled = currentPage === 1 ? 'opacity-50 cursor-not-allowed' : 'hover:bg-primary-blue';
             // Adjusted classes for theme compatibility
             paginationHtml += `
-                <button onclick="changePage(${currentPage - 1})" 
-                        ${currentPage === 1 ? 'disabled' : ''}
+                <button onclick="changePage(${currentPage - 1})"
+                         ${currentPage === 1 ? 'disabled' : ''}
                         class="px-4 py-2 rounded-lg text-gray-900 dark:text-white bg-white dark:bg-gray-800 transition duration-200 ${prevDisabled} min-w-[75px] border border-gray-200 dark:border-gray-700">
                     Previous
                 </button>
@@ -301,13 +277,13 @@
                     </button>
                 `;
             }
-            
+
             // 3. Next Button
             const nextDisabled = currentPage === totalPages ? 'opacity-50 cursor-not-allowed' : 'hover:bg-primary-blue';
              // Adjusted classes for theme compatibility
             paginationHtml += `
-                <button onclick="changePage(${currentPage + 1})" 
-                        ${currentPage === totalPages ? 'disabled' : ''}
+                <button onclick="changePage(${currentPage + 1})"
+                         ${currentPage === totalPages ? 'disabled' : ''}
                         class="px-4 py-2 rounded-lg text-gray-900 dark:text-white bg-white dark:bg-gray-800 transition duration-200 ${nextDisabled} min-w-[75px] border border-gray-200 dark:border-gray-700">
                     Next
                 </button>
@@ -328,7 +304,7 @@
 
             // Render the links
             container.innerHTML = linksToDisplay.map(createLinkElement).join('');
-            
+
             // Update the counter
             const displayStart = totalLinks === 0 ? 0 : startIndex + 1;
             const displayEnd = Math.min(endIndex, totalLinks);
@@ -349,7 +325,7 @@
             });
 
             // Reset to the first page when a new filter is applied
-            currentPage = 1; 
+            currentPage = 1;
             renderLinks(currentFilteredLinks);
         };
 
@@ -357,7 +333,7 @@
         document.addEventListener('DOMContentLoaded', () => {
             initializeTheme();
             // Initial render
-            renderLinks(currentFilteredLinks); 
+            renderLinks(currentFilteredLinks);
             searchInput.addEventListener('input', handleSearch);
         });
     </script>
